@@ -7,6 +7,7 @@
 1. client--前端为blog展示博
 2. admin--前端为blog管理平台
 3. server--后端，为client和admin提供接口服务
+4. 页面样式使用
 
 ## 1. 使用[vue-cli](https://github.com/vuejs/vue-cli)初始化vue工程
 
@@ -14,10 +15,10 @@
 
 这里主要是修改刚刚生成文件中相关配置具体修改如下：
 
-admin/build/webpack.base.conf.js
+client/build/webpack.base.conf.js
 
-  webpack的entry配置，配置为对应的入口起点
-
-
-
-
+*  webpack基础陪着的entry配置，配置为对应的入口起点为
+*  这里还需要配置开发阶段的entry
+*  修改template文件路径
+*  dev-server下静态文件路径
+*  修改package文件下打包命令和对应的启动命令
