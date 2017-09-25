@@ -7,7 +7,6 @@
 1. client--前端为blog展示博
 2. admin--前端为blog管理平台
 3. server--后端，为client和admin提供接口服务
-4. 页面样式使用element-ui
 
 ## 1. 使用[vue-cli](https://github.com/vuejs/vue-cli)初始化vue工程
 
@@ -22,3 +21,36 @@ client/build/webpack.base.conf.js
 *  修改template文件路径
 *  dev-server下静态文件路径
 *  修改package文件下打包命令和对应的启动命令
+
+## Login
+
+### node
+
+[__dirname](http://nodejs.cn/api/modules.html#modules_dirname)当前模块的文件夹名称。
+
+[path.resolve([...paths])](http://nodejs.cn/api/path.html#path_path_resolve_paths)
+方法会把一个路径或路径片段的序列解析为一个绝对路径。
+
+### windows
+
+解决端口占用情况：
+
+1. netstat -aon|findstr "8181" ；查看占用端口的进程号
+2. tasklist|findstr "8181" ；根据进程号查找进程：node.exe
+3. taskkill /f /t /im node.exe ；ok干掉进程即可
+
+### vue 2.X
+
+> [Vue warn] : You are using the runtime-only build of Vue where the template option is not available. Either pre-compile the templates into render functions, or use the compiler-included build. (found in root instance)
+
+vue使用template后控台异常，[解决方案](https://stackoverflow.com/questions/39488660/vue-js-2-0-not-rendering-anything)
+
+在解决方案中：
+
+    import Vue from 'vue/dist/vue.js'
+
+这样import还是会出现异常，但是在webpack中配置别名就OK了（具体原因后续再分析）。
+
+### vuex
+
+
