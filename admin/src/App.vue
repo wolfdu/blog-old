@@ -5,17 +5,22 @@
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+  import store from './vuex/store'
+  import {deleteToken} from './vuex/actions/token'
+
+  export default {
+    store,
+    vuex: {
+      actions: {
+        deleteToken
+      }
+    }
+  }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<style lang="stylus">
+  .fade-transition
+    transition: opacity .2s ease
+  .fade-enter, .fade-leave
+    opacity: 0;
 </style>

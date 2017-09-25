@@ -28,6 +28,8 @@
 </template>
 
 <script>
+  import {createToken} from '../../vuex/actions/token'
+
   export default {
     data () {
       return {
@@ -40,6 +42,17 @@
     methods: {
       login () {
         console.log('i am login')
+        this.createToken(this.username, this.password)
+          .catch(err => {
+            console.log(err)
+            this.loginErrorMsg = err.error_message.error
+            this.loginError = true
+          })
+      }
+    },
+    vuex: {
+      actions: {
+        createToken
       }
     }
   }
