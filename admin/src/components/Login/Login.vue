@@ -28,7 +28,7 @@
 </template>
 
 <script>
-  import {createToken} from '../../vuex/actions/token'
+  import { mapActions } from 'vuex'
 
   export default {
     data () {
@@ -40,19 +40,18 @@
       }
     },
     methods: {
+      ...mapActions([
+        'createToken'
+      ]),
       login () {
         console.log('i am login')
-        this.createToken(this.username, this.password)
+        let param = {username: this.username, password: this.password}
+        this.createToken(param)
           .catch(err => {
             console.log(err)
-            this.loginErrorMsg = err.error_message.error
+            this.loginErrorMsg = err.message
             this.loginError = true
           })
-      }
-    },
-    vuex: {
-      actions: {
-        createToken
       }
     }
   }

@@ -5,7 +5,9 @@ import Vue from 'vue'
 import {router} from './router'
 import MessageBox from 'vue-msgbox'
 import App from './App'
+import store from './vuex/store'
 
+Vue.config.productionTip = false
 /**
  * router的beforeEach操作之所以放在main里面,而不是把所有与router相关的都放在router.js里面
  * 是因为涉及到循环引用的问题,router引了store,store引了router,
@@ -18,6 +20,7 @@ window.alert = MessageBox
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  store,
   router,
   template: '<App/>',
   components: {App}
