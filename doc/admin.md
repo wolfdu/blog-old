@@ -1,4 +1,4 @@
-# build doc
+# admin
 
 > 用于记录blog搭建过程和遇到的坑。
 
@@ -93,9 +93,7 @@ vue使用template后控台异常，[解决方案](https://stackoverflow.com/ques
 
 [关于模块的export和import](http://es6.ruanyifeng.com/#docs/module)
 
-## server
 
-server主要为admin和client提供服务，基于koa2实现。
 
 
 
