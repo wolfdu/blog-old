@@ -82,12 +82,16 @@ vue使用template后控台异常，[解决方案](https://stackoverflow.com/ques
 [actions](https://vuex.vuejs.org/zh-cn/actions.html)区别于mutation，action提交的是mutation
 而不是直接修改state。可以包含异步操作。
 
+关于组建绑定的辅助函数可以参见[vuex的API文档](https://vuex.vuejs.org/zh-cn/api.html)
+
 [参考文档](http://www.meckodo.com/#!/article/5886157b6d67c807096f6c8c)
 
 
 ### ES6
 
 [对象扩展运算符](http://es6.ruanyifeng.com/#docs/object#对象的扩展运算符)
+
+[关于模块的export和import](http://es6.ruanyifeng.com/#docs/module)
 
 
 
