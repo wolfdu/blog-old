@@ -1,5 +1,5 @@
 import store from '../vuex/store'
-import { deleteToken } from '../vuex/actions/token'
+import { deleteToken } from '../vuex/modules/actions/token'
 
 function parseResponse (response) {
   return Promise.all([response.status, response.statusText, response.json()])

@@ -1,5 +1,5 @@
 import { TOKEN_CREATE, TOKEN_DELETE } from '../mutation_types'
-import actions from '../actions/token'
+import actions from './actions/token'
 
 const state = {
   token: sessionStorage.getItem('token')
