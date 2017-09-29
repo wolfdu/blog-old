@@ -4,4 +4,3 @@
  * koa v2
  * vue v2
  * Mongo DB mongoos
- * Semantic-UI
