@@ -29,6 +29,8 @@
 
 <script>
   import { mapActions } from 'vuex'
+  import md5 from 'md5'
+  import {isLogin} from '../../utils/authUtil'
 
   export default {
     data () {
@@ -45,13 +47,16 @@
       ]),
       login () {
         console.log('i am login')
-        let param = {username: this.username, password: this.password}
-        this.createToken(param)
+        let user = {username: this.username, password: md5(this.password).toUpperCase()}
+        this.createToken(user)
           .catch(err => {
             console.log(err)
             this.loginErrorMsg = err.message
             this.loginError = true
           })
+        if (isLogin) {
+          this.$router.replace({path: '/posts'})
+        }
       }
     }
   }

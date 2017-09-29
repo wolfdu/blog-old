@@ -1,4 +1,4 @@
-import token from './token'
+import token from './token/index'
 
 const moduleMap = {
   token

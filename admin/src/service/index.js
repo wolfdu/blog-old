@@ -1,5 +1,5 @@
 import store from '../vuex/store'
-import { deleteToken } from '../vuex/modules/actions/token'
+import { deleteToken } from '../vuex/modules/token/actions'
 
 function parseResponse (response) {
   return Promise.all([response.status, response.statusText, response.json()])
@@ -32,7 +32,7 @@ export default {
       reqHeaders.append('Authorization', 'Bearer ' + store.state.token.token)
     }
     url = host + url
-    var init = {
+    let init = {
       method: 'POST',
       headers: reqHeaders,
       credentials: 'include',

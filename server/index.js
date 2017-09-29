@@ -1,39 +1,36 @@
 'use strict'
 const Koa = require('koa')
 const loggerAsync = require('./middleware/logger-async')
+const mongoose = require('mongoose')
+const config = require('./config/index')
+const jwt = require('jsonwebtoken')
+const router = require('./router/index')
 const bodyParser = require('koa-bodyparser')
-// const fs = require('fs')
+const cors = require('koa-cors')
+
 const app = new Koa()
-
 app.use(loggerAsync())
-app.use(bodyParser())
 
-app.use(async (ctx) => {
-  if (ctx.url === '/' && ctx.method === 'GET') {
-    // get request form
-    let html = `
-    <h1>koa2 request post demo</h1>
-      <form method="POST" action="/">
-        <p>userName</p>
-        <input name="userName" /><br/>
-        <p>nickName</p>
-        <input name="nickName" /><br/>
-        <p>email</p>
-        <input name="email" /><br/>
-        <button type="submit">submit</button>
-      </form>
-     `
-    ctx.body = html
-  } else if (ctx.url === '/' && ctx.method === 'POST') {
-    // post request get form data by koa-bodyParser
-    let postData = ctx.request.body
-    ctx.body = postData
-  } else {
-    ctx.body = `<h1>404！！！ o(╯□╰)o</h1>`
+jwt.co_verify = function (jwtString, secretOrPublicKey, options) {
+  return function (cb) {
+    jwt.verify(jwtString, secretOrPublicKey, options, cb)
   }
-})
+}
 
-app.listen(3000, () => {
-  console.log('[demo] start-quick is starting at port 3000')
-})
+mongoose.Promise = global.Promise
+mongoose.connect(config.mongoConfig.url, config.mongoConfig.opts)
 
+
+app.use(cors({
+  maxAge: 7 * 24 * 60 * 60,
+  credentials: true,
+  methods: 'GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE',
+  headers: 'Content-Type, Accept, Authorization'
+}))
+
+app.use(bodyParser())
+app.use(router.routes()).use(router.allowedMethods())
+
+app.listen(config.app.port, () => {
+  console.log(`[demo] start-quick is starting at port ${config.app.port}`)
+})
