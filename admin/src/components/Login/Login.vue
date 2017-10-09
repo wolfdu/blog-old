@@ -63,7 +63,7 @@
 
 </script>
 
-<style lang="stylus">
+<style scoped lang="stylus">
   @import '../../stylus/_settings.styl'
   .banner
     padding 10px 0

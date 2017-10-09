@@ -1,3 +1,4 @@
+/* eslint no-multiple-empty-lines:0 */
 'use strict'
 const Koa = require('koa')
 const loggerAsync = require('./middleware/logger-async')
@@ -19,7 +20,6 @@ jwt.co_verify = function (jwtString, secretOrPublicKey, options) {
 
 mongoose.Promise = global.Promise
 mongoose.connect(config.mongoConfig.url, config.mongoConfig.opts)
-
 
 app.use(cors({
   maxAge: 7 * 24 * 60 * 60,

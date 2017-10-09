@@ -3,6 +3,7 @@
 const Utils = require('../utils/index.js')
 const config = require('../config/index.js')
 const jwt = require('jsonwebtoken')
+
 module.exports = async (ctx, next) => {
   const authorization = ctx.get('Authorization')
   if (authorization === '') {
