@@ -39,6 +39,9 @@ client/build/webpack.base.conf.js
 2. tasklist|findstr "8181" ；根据进程号查找进程：node.exe
 3. taskkill /f /t /im node.exe ；ok干掉进程即可
 
+MongoDB启动：
+
+
 ### vue 2.x
 
 > [Vue warn] : You are using the runtime-only build of Vue where the template option is not available. Either pre-compile the templates into render functions, or use the compiler-included build. (found in root instance)

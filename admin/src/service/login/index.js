@@ -1,7 +1,7 @@
 import api from '../index'
 
 export default {
-  createToken (username, password) {
+  createToken ({username, password}) {
     return api.post('token', {username, password})
   }
 }

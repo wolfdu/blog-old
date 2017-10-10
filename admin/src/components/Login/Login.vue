@@ -30,7 +30,7 @@
 <script>
   import { mapActions } from 'vuex'
   import md5 from 'md5'
-  import {isLogin} from '../../utils/authUtil'
+//  import {isLogin} from '../../utils/authUtil'
 
   export default {
     data () {
@@ -48,22 +48,20 @@
       login () {
         console.log('i am login')
         let user = {username: this.username, password: md5(this.password).toUpperCase()}
-        this.createToken(user)
+        let param = {user: user, router: this.$router}
+        this.createToken(param)
           .catch(err => {
             console.log(err)
             this.loginErrorMsg = err.message
             this.loginError = true
           })
-        if (isLogin) {
-          this.$router.replace({path: '/posts'})
-        }
       }
     }
   }
 
 </script>
 
-<style scoped lang="stylus">
+<style lang="stylus">
   @import '../../stylus/_settings.styl'
   .banner
     padding 10px 0

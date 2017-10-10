@@ -15,6 +15,7 @@ function checkStatus ([status, statusText, data]) {
       } else if (data.error === 'invalid token') {
         deleteToken(store)
       }
+      // route to login
     }
     let error = new Error(statusText)
     error.status = status

@@ -10,9 +10,16 @@ server login 验证流程：
 
 以下几个问题：
 
-1. cors
+1. 跨域请求的问题，解决方案:[koa-cors](https://github.com/evert0n/koa-cors)
+
+2. [token](https://github.com/auth0/node-jsonwebtoken)
+
+3. mongoose
 
 ### koa2
+
+async/await 异步函数调用
+
 
 ### node
 
