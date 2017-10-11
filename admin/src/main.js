@@ -16,17 +16,13 @@ const router = new VueRouter(routes)
 
 router.beforeEach((to, from, next) => {
   // login页
-  if (to.name === 'login') {
+  if (to.name === 'login' && (!store || store.state.token.token === null)) {
     next()
   } else {
-    if (store) {
-      if (store.state.token.token !== null) {
-        next()
-      } else {
-        next({path: '/login'})
-      }
-    } else {
-      next({path: '/login'})
+    if (to.name === 'login') {
+      next({path: '/posts'})
+    } else { // TODO login BUG
+      next()
     }
   }
 })
