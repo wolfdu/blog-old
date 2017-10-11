@@ -7,7 +7,7 @@ const config = require('./config/index')
 const jwt = require('jsonwebtoken')
 const router = require('./router/index')
 const bodyParser = require('koa-bodyparser')
-const cors = require('koa-cors')
+const cors = require('koa2-cors')
 
 const app = new Koa()
 app.use(loggerAsync())
@@ -24,8 +24,8 @@ mongoose.connect(config.mongoConfig.url, config.mongoConfig.opts)
 app.use(cors({
   maxAge: 7 * 24 * 60 * 60,
   credentials: true,
-  methods: 'GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE',
-  headers: 'Content-Type, Accept, Authorization'
+  allowMethods: ['GET', 'HEAD', 'OPTIONS', 'PUT', 'POST', 'PATCH', 'DELETE'],
+  allowHeaders: ['Content-Type', 'Accept', 'Authorization']
 }))
 
 app.use(bodyParser())
