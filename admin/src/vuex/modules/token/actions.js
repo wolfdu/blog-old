@@ -10,8 +10,9 @@ function createToken ({commit}, param) {
   })
 }
 
-function deleteToken ({commit}) {
+function deleteToken ({commit}, router) {
   commit(types.TOKEN_DELETE)
+  router.replace({path: '/login'})
 }
 
 export {createToken, deleteToken}

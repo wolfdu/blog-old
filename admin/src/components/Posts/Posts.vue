@@ -1,16 +1,29 @@
 <template>
   <div class="container-with-aside">
-    <nav-aside>
-    </nav-aside>
+    <nav-side>
+    </nav-side>
     <section class="post-list-column">
       <h3 class="page-title"><i class="icon-wenzhang iconfont"></i> 文章列表  <i class="iconfont icon-jiahao post-add" @click=""></i></h3>
-      <post-list></post-list>
     </section>
     <div class="post-edit">
-      <article-editor v-if=""></article-editor>
     </div>
   </div>
 </template>
+
+<script>
+  import NavSide from '../Common/NavSide.vue'
+
+  export default{
+    data () {
+      return {
+      }
+    },
+    components: {
+      NavSide
+    }
+  }
+</script>
+
 <style lang="stylus">
   @import '../../stylus/simplemde.styl'
   @import '../../stylus/_settings.styl'
@@ -37,11 +50,3 @@
     height 100%
 
 </style>
-<script>
-  export default{
-    data () {
-      return {
-      }
-    }
-  }
-</script>

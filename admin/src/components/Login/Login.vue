@@ -1,7 +1,7 @@
 <template>
   <div>
     <header class="banner">
-      <img src="../../assets/img/logo.png" class="banner-logo" alt="logo">
+      <icon id="animation" name="chameleon" class="banner-logo" scale="20"></icon>
     </header>
     <div class="center-box">
       <div class="flash-bar danger" v-if="loginError">登录失败 {{loginErrorMsg}}</div>
@@ -30,7 +30,6 @@
 <script>
   import { mapActions } from 'vuex'
   import md5 from 'md5'
-//  import {isLogin} from '../../utils/authUtil'
 
   export default {
     data () {
@@ -69,7 +68,8 @@
     border-bottom 1px solid #EEE
     margin-bottom 20px
     .banner-logo
-      height 35px
+      height 45px
+      width 55px
 
   .center-box
     max-width 400px
@@ -154,4 +154,22 @@
       border-radius 0 0 5px 5px
       border-top 0
       margin-bottom 20px
+
+  #animation
+    animation changeColor 5s infinite linear
+
+  @keyframes changeColor
+    0%
+      color red
+    20%
+      color yellow
+    40%
+      color blue
+    60%
+      color green
+    80%
+      color purple
+    100%
+      color gold
+
 </style>

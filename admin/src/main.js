@@ -7,6 +7,7 @@ import routes from './router/index'
 import MessageBox from 'vue-msgbox'
 import App from './App.vue'
 import store from './vuex/store'
+import Icon from 'vue-svg-icon/Icon.vue'
 
 Vue.config.productionTip = false
 
@@ -31,6 +32,7 @@ router.beforeEach((to, from, next) => {
 })
 
 window.alert = MessageBox
+Vue.component('icon', Icon)
 
 /* eslint-disable no-new */
 new Vue({
