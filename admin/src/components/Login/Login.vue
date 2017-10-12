@@ -1,24 +1,24 @@
 <template>
   <div>
     <header class="banner">
+      <h3 class="title-class">
+        Welcome Wolfdu Blog Admin
+      </h3>
       <icon id="animation" name="chameleon" class="banner-logo" scale="20"></icon>
     </header>
     <div class="center-box">
       <div class="flash-bar danger" v-if="loginError">登录失败 {{loginErrorMsg}}</div>
       <div class="login-box">
         <div class="login-header">
-          <h3>
-            博客后台登录
-          </h3>
         </div>
         <div class="login-body">
-          <input type="text" class="form-control top" placeholder="用户名" v-model="username">
-          <input type="password" class="form-control bottom" placeholder="密码" v-model="password" @keyup.13="login">
+          <input type="text" class="form-control top" placeholder="Username" v-model="username">
+          <input type="password" class="form-control bottom" placeholder="Password" v-model="password" @keyup.13="login">
         </div>
         <div class="login-footer">
           <div class="login-button-Container">
             <button class="btn btn-save btn-block" @click="login">
-              登录
+              Login
             </button>
           </div>
         </div>
@@ -64,11 +64,13 @@
   .banner
     padding 10px 0
     text-align center
-    border-bottom 1px solid #EEE
     margin-bottom 20px
     .banner-logo
-      height 45px
-      width 55px
+      height 95px
+      width 75px
+
+  .title-class
+    padding-top 20px
 
   .center-box
     max-width 400px
