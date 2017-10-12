@@ -3,7 +3,7 @@
     <nav-side>
     </nav-side>
     <section class="post-list-column">
-      <h3 class="page-title"><i class="icon-wenzhang iconfont"></i> 文章列表  <i class="iconfont icon-jiahao post-add" @click=""></i></h3>
+      <h3 class="page-title"><icon name="posts-gray" class="iconfont" scale="2"></icon> 文章列表  <icon name="plus" class="iconfont post-add" scale="2" @click="createPost"></icon></h3>
     </section>
     <div class="post-edit">
     </div>
@@ -20,6 +20,10 @@
     },
     components: {
       NavSide
+    },
+    methods: {
+      createPost () {
+      }
     }
   }
 </script>
@@ -45,6 +49,9 @@
     color $light
     padding-left 25px
     font-weight 400
+    .iconfont
+      font-size 22px
+      display inline
   .post-edit
     overflow auto
     height 100%
