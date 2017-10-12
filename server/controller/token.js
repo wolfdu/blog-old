@@ -44,28 +44,27 @@ exports.create = async (ctx, next) => {
       throw (new Error('数据seed失败,请debug后重新启动'))
     }
   })
-  if (user !== null) {
-    if (user.password === password) {
-      const token = jwt.sign({
+  if (user !== null && user.password === password) {
+    const token = jwt.sign({
+      uid: user._id,
+      name: user.name,
+      exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60// 1 hours
+    }, config.jwt.cert)
+    Utils.print(token)
+    ctx.status = 200
+    ctx.body = {
+      success: true,
+      data: {
         uid: user._id,
         name: user.name,
-        exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60// 1 hours
-      }, config.jwt.cert)
-      Utils.print(token)
-      ctx.status = 200
-      ctx.body = {
-        success: true,
-        data: {
-          uid: user._id,
-          name: user.name,
-          token
-        }
+        token
       }
-    } else {
-      ctx.throw(401, '密码错误')
     }
   } else {
-    ctx.throw(401, '用户名错误')
+    ctx.response.status = 401
+    ctx.response.body = {
+      message: '用户名或密码错误'
+    }
   }
 }
 

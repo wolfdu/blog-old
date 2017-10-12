@@ -45,13 +45,12 @@
         'createToken'
       ]),
       login () {
-        console.log('i am login')
         let user = {username: this.username, password: md5(this.password).toUpperCase()}
         let param = {user: user, router: this.$router}
         this.createToken(param)
           .catch(err => {
             console.log(err)
-            this.loginErrorMsg = err.message
+            this.loginErrorMsg = err.error_message.message
             this.loginError = true
           })
       }

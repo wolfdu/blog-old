@@ -14,8 +14,8 @@ function checkStatus ([status, statusText, data]) {
         alert('token已过期,请注意内容保存,并重新登录')
       } else if (data.error === 'invalid token') {
         deleteToken(store)
+        // route to login
       }
-      // route to login
     }
     let error = new Error(statusText)
     error.status = status

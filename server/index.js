@@ -17,8 +17,8 @@ jwt.co_verify = function (jwtString, secretOrPublicKey, options) {
     jwt.verify(jwtString, secretOrPublicKey, options, cb)
   }
 }
-
 mongoose.Promise = global.Promise
+
 mongoose.connect(config.mongoConfig.url, config.mongoConfig.opts)
 
 app.use(cors({
