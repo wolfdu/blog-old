@@ -1,7 +1,5 @@
 'use strict'
 
-const Logger = require('mini-logger')
-const config = require('../config/index')
 const print = require('debug')('blog')
 const utils = {}
 
@@ -9,28 +7,6 @@ const utils = {}
  * debug plugin
  */
 utils.print = print
-
-/**
- * log记录 用法: utils.logger.error(new Error(''))
- */
-utils.logger = Logger({
-  dir: config.dir.log,
-  format: 'YYYY-MM-DD-[{category}][.log]'
-})
-
-/**
- * 封装返回 error信息
- * @param ctx
- * @param status 异常状态
- * @param msg 异常信息
- */
-utils.error = function (ctx, {status, msg}) {
-  //  TODO 改成异步？？？
-  ctx.response.status = status
-  ctx.response.body = {
-    message: msg
-  }
-}
 
 // 将时间输出为统一的格式
 // eslint-disable-next-line no-extend-native

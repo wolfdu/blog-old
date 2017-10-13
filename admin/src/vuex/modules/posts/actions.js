@@ -11,4 +11,8 @@ function createDraft ({commit}) {
   })
 }
 
-export {createDraft}
+function getAllPost ({commit}) {
+  return service.getPostList().then(res => {})
+}
+
+export {createDraft, getAllPost}

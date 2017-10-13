@@ -1,7 +1,11 @@
 import api from '../index'
 
-export default {
-  createDraft () {
-    return api.post('drafts')
-  }
+function createDraft () {
+  return api.post('drafts')
 }
+
+function getPostList (tag) {
+  return api.get('drafts', tag)
+}
+
+export default {createDraft, getPostList}

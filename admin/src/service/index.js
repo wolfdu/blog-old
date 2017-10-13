@@ -24,25 +24,54 @@ function checkStatus ([status, statusText, data]) {
   }
 }
 
-export default {
-  post (url, param = {}, headers = {}, host = process.env.api) {
-    let reqHeaders = new Headers(headers)
+function getReqHeaders (method, headers = {}) {
+  let reqHeaders = new Headers(headers)
+  if (method !== 'GET') {
     reqHeaders.append('Content-Type', 'application/json')
-    reqHeaders.append('Accept', 'application/json')
-    if (store.state.token.token !== null) {
-      reqHeaders.append('Authorization', 'Bearer ' + store.state.token.token)
-    }
-    url = host + url
-    let init = {
-      method: 'POST',
-      headers: reqHeaders,
-      credentials: 'include',
-      mode: 'cors',
-      body: JSON.stringify(param)
-    }
+  }
+  reqHeaders.append('Accept', 'application/json')
+  if (store.state.token.token !== null) {
+    reqHeaders.append('Authorization', 'Bearer ' + store.state.token.token)
+  }
+  return reqHeaders
+}
 
-    return fetch(url, init)
+function post (url, param = {}, host = process.env.api) {
+  url = host + url
+  let init = {
+    method: 'POST',
+    headers: getReqHeaders(this.method),
+    credentials: 'include',
+    mode: 'cors',
+    body: JSON.stringify(param)
+  }
+  return fetch(url, init)
       .then(parseResponse)
       .then(checkStatus)
-  }
 }
+
+function getParamStr (param) {
+  let query = []
+  Object.keys(param).forEach((item) => {
+    query.push(`${item}=${encodeURIComponent(param[item])}`)
+  })
+  return query.length ? '?' + query.join('&') : ''
+}
+
+function get (url, param = {}, host = process.env.api) {
+  let params = getParamStr(param)
+  url = host + url + params
+  console.log(url, params)
+  let init = {
+    method: 'GET',
+    headers: getReqHeaders(this.method),
+    credentials: 'include',
+    cache: 'default',
+    mode: 'cors'
+  }
+  return fetch(url, init)
+    .then(parseResponse)
+    .then(checkStatus)
+}
+
+export default {post, get}
