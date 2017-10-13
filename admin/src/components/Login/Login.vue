@@ -50,7 +50,7 @@
         this.createToken(param)
           .catch(err => {
             console.log(err)
-            this.loginErrorMsg = err.error_message.message
+            this.loginErrorMsg = err.message
             this.loginError = true
           })
       }

@@ -34,6 +34,12 @@ exports.seed = async (ctx, next) => {
   await next()
 }
 
+/**
+ * create token
+ * @param ctx
+ * @param next
+ * @returns {Promise.<void>}
+ */
 exports.create = async (ctx, next) => {
   const username = ctx.request.body.username
   const password = ctx.request.body.password

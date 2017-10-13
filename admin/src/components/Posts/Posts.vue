@@ -3,7 +3,7 @@
     <nav-side>
     </nav-side>
     <section class="post-list-column">
-      <h3 class="page-title"><icon name="posts-gray" class="iconfont" scale="2"></icon> 文章列表  <icon name="plus" class="iconfont post-add" scale="2" @click="createPost"></icon></h3>
+      <h3 class="page-title"><icon name="posts-gray" class="iconfont" scale="2"></icon> 文章列表  <i @click="createDraft"><icon name="plus" class="iconfont post-add" scale="2"></icon></i></h3>
     </section>
     <div class="post-edit">
     </div>
@@ -12,6 +12,7 @@
 
 <script>
   import NavSide from '../Common/NavSide.vue'
+  import { mapActions } from 'vuex'
 
   export default{
     data () {
@@ -22,8 +23,9 @@
       NavSide
     },
     methods: {
-      createPost () {
-      }
+      ...mapActions([
+        'createDraft'
+      ])
     }
   }
 </script>

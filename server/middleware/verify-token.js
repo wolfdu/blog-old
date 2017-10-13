@@ -21,5 +21,5 @@ module.exports = async (ctx, next) => {
   }
   Utils.print('鉴权通过')
   ctx.token = tokenContent
-  await next
+  await next()
 }

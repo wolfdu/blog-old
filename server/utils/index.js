@@ -18,6 +18,20 @@ utils.logger = Logger({
   format: 'YYYY-MM-DD-[{category}][.log]'
 })
 
+/**
+ * 封装返回 error信息
+ * @param ctx
+ * @param status 异常状态
+ * @param msg 异常信息
+ */
+utils.error = function (ctx, {status, msg}) {
+  //  TODO 改成异步？？？
+  ctx.response.status = status
+  ctx.response.body = {
+    message: msg
+  }
+}
+
 // 将时间输出为统一的格式
 // eslint-disable-next-line no-extend-native
 Date.prototype.format = function (fmt) {
