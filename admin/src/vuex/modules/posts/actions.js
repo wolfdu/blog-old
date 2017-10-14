@@ -11,8 +11,19 @@ function createDraft ({commit}) {
   })
 }
 
-function getAllPost ({commit}) {
-  return service.getPostList().then(res => {})
+function getAllDraft ({commit}) {
+  return service.getDraftList().then(res => {
+    if (res.success) {
+      commit(types.RECEIVE_ALL_DRAFTS, res.data)
+      if (res.data.length) {
+        commit(types.DRAFT_FOCUS, 0)
+      }
+    }
+  })
 }
 
-export {createDraft, getAllPost}
+function focusOnDraft ({commit}, index) {
+  commit(types.DRAFT_FOCUS, index)
+}
+
+export {createDraft, getAllDraft, focusOnDraft}

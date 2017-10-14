@@ -4,8 +4,8 @@ function createDraft () {
   return api.post('drafts')
 }
 
-function getPostList (tag) {
+function getDraftList (tag) {
   return api.get('drafts', tag)
 }
 
-export default {createDraft, getPostList}
+export default {createDraft, getDraftList}

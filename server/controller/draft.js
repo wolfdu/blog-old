@@ -41,6 +41,7 @@ let draftList = async (ctx, next) => {
     .populate('tags')
     .sort({ lastEditTime: -1})
     .exec().catch(err => {
+      // fixme
       LOG.error(err)
       this.throw(500, '内部错误')
     })
@@ -48,8 +49,6 @@ let draftList = async (ctx, next) => {
   if (draftArr.length) {
     draftArr.forEach((draft, index, arr) => {
       draft = draft.toObject()
-      /* draft.createTime = new Date(draft.createTime).format('yyyy-MM-dd hh:mm');
-      draft.lastEditTime = new Date(draft.lastEditTime).format('yyyy-MM-dd hh:mm'); */
       resultArr.push(draft)
       Utils.print(draft)
     })
