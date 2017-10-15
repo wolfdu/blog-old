@@ -5,7 +5,7 @@
       {'active':draft['id'] === currentDraftId}]">
         <h3 class="post-title"><a href="javascript:;">{{draft['title']}}</a></h3>
         <h6 class="post-time">{{draft['lastEditTime']}}</h6>
-        <p class="post-content" v-text="draft['excerpt'] | md2Text">
+        <p class="post-content" v-cloak="draft['excerpt'] | md2Text">
         </p>
       </article>
     </li>

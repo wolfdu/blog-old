@@ -19,6 +19,7 @@ server login 验证流程：
 ### koa2
 
 async/await 异步函数调用
+promise
 
 
 ### node

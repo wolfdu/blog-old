@@ -19,6 +19,9 @@ const getters = {
   articleId: state => {
     return state.articleId
   },
+  draftTitle: state => {
+    return state.title
+  },
   currentDraftId: state => {
     return state.currentDraftId
   },

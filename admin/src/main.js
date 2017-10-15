@@ -8,8 +8,11 @@ import MessageBox from 'vue-msgbox'
 import App from './App.vue'
 import store from './vuex/store'
 import Icon from 'vue-svg-icon/Icon.vue'
+import {md2Text} from './filters/md2Text'
 
 Vue.config.productionTip = false
+
+Vue.filter('md2Text', md2Text)
 
 Vue.use(VueRouter)
 const router = new VueRouter(routes)

@@ -1,5 +1,5 @@
 import * as types from '../../mutation_types'
-import service from '../../../service/posts/index'
+import service from '../../../service/posts/postsService'
 
 function createDraft ({commit}) {
   return service.createDraft().then(res => {

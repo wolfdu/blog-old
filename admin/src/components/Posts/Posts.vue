@@ -14,7 +14,7 @@
 <script>
   import NavSide from '../Common/NavSide.vue'
   import PostList from '../Common/PostList.vue'
-  import { mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
 
   export default{
     data () {
@@ -24,6 +24,13 @@
     components: {
       NavSide,
       PostList
+    },
+    computed: {
+      ...mapGetters([
+        'draftSaved',
+        'currentDraftId',
+        'draftTitleSaved'
+      ])
     },
     methods: {
       ...mapActions([

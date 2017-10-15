@@ -1,5 +1,5 @@
 import * as types from '../../mutation_types'
-import service from '../../../service/login/index'
+import service from '../../../service/login/loginService'
 
 function createToken ({commit}, param) {
   return service.createToken(param.user).then(res => {
