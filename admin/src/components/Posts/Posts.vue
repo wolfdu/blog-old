@@ -35,6 +35,13 @@
         'draftTitleSaved'
       ])
     },
+    beforeRouteEnter (to, from, next) {
+      next(vm => {
+        vm.getAllDraft().catch(err => {
+          vm.error = err.toString()
+        })
+      })
+    },
     methods: {
       ...mapActions([
         'createDraft',
