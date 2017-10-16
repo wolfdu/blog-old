@@ -61,7 +61,6 @@ function getParamStr (param) {
 function get (url, param = {}, host = process.env.api) {
   let params = getParamStr(param)
   url = host + url + params
-  console.log(url, params)
   let init = {
     method: 'GET',
     headers: getReqHeaders(this.method),
@@ -74,4 +73,18 @@ function get (url, param = {}, host = process.env.api) {
     .then(checkStatus)
 }
 
-export default {post, get}
+function patch (url, param = {}, host = process.env.api) {
+  url = host + url
+  var init = {
+    method: 'PATCH',
+    headers: getReqHeaders(this.method),
+    credentials: 'include',
+    mode: 'cors',
+    body: JSON.stringify(param)
+  }
+  return fetch(url, init)
+    .then(parseResponse)
+    .then(checkStatus)
+}
+
+export default {post, get, patch}

@@ -1,10 +1,10 @@
-import * as types from '../../mutation_types'
+import { draftTypes } from '../../mutation_types'
 import service from '../../../service/posts/postsService'
 
 function createDraft ({commit}) {
   return service.createDraft().then(res => {
     if (res.success) {
-      commit(types.DRAFT_CREATE, res.data)
+      commit(draftTypes.DRAFT_CREATE, res.data)
     } else {
       return Promise.reject()
     }
@@ -14,16 +14,40 @@ function createDraft ({commit}) {
 function getAllDraft ({commit}) {
   return service.getDraftList().then(res => {
     if (res.success) {
-      commit(types.RECEIVE_ALL_DRAFTS, res.data)
+      commit(draftTypes.RECEIVE_ALL_DRAFTS, res.data)
       if (res.data.length) {
-        commit(types.DRAFT_FOCUS, 0)
+        commit(draftTypes.DRAFT_FOCUS, 0)
       }
     }
   })
 }
 
 function focusOnDraft ({commit}, index) {
-  commit(types.DRAFT_FOCUS, index)
+  commit(draftTypes.DRAFT_FOCUS, index)
 }
 
-export {createDraft, getAllDraft, focusOnDraft}
+function editDraftTitle ({commit}) {
+  commit(draftTypes.DRAFT_TITLE_EDIT)
+}
+
+function submitDraftTitle ({commit, state}, title) {
+  return service.modifyDraftTitle(state.currentDraftId, title).then(res => {
+    if (res.success) {
+      commit(draftTypes.DRAFT_TITLE_MODIFY, title)
+      commit(draftTypes.DRAFT_LAST_EDIT_TIME, res.data.lastEditTime)
+    }
+  })
+}
+
+function saveDraftTitle ({commit}) {
+  commit(draftTypes.DRAFT_TITLE_SAVE)
+}
+
+export {
+  createDraft,
+  getAllDraft,
+  focusOnDraft,
+  editDraftTitle,
+  submitDraftTitle,
+  saveDraftTitle
+}

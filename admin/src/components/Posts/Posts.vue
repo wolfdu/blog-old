@@ -7,6 +7,7 @@
       <post-list></post-list>
     </section>
     <div class="post-edit">
+      <article-editor v-if="null !== currentDraftId"></article-editor>
     </div>
   </div>
 </template>
@@ -14,6 +15,7 @@
 <script>
   import NavSide from '../Common/NavSide.vue'
   import PostList from '../Common/PostList.vue'
+  import ArticleEditor from '../Common/ArticleEditor.vue'
   import { mapGetters, mapActions } from 'vuex'
 
   export default{
@@ -23,7 +25,8 @@
     },
     components: {
       NavSide,
-      PostList
+      PostList,
+      ArticleEditor
     },
     computed: {
       ...mapGetters([

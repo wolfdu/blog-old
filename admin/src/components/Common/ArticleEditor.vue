@@ -5,7 +5,7 @@
     </div>
     <div class="clearfix">
       <div class="half-container">
-        <i class="icon-biaoqian iconfont" style="margin-right:5px"></i>
+        <icon name="tag" class="iconfont" scale="2" style="margin-right:5px"></icon>
         <span class="tag" v-for="tag in tags">{{tag['name']}}
           <i class="icon-chacha iconfont delete-tag" @click="deleteTag(tag.id)"></i></span>
         <div class="tag active">
@@ -29,10 +29,18 @@
   import SimpleMDE from 'simplemde'
   import {marked} from '../../filters/md2Text'
   import { mapGetters, mapActions } from 'vuex'
-//  import debounce from 'lodash/debounce'
+  import debounce from 'lodash/debounce'
+
+  const updateTitle = debounce(function (draftTitle) {
+    this.submitDraftTitle(draftTitle).then(() => {
+      this.saveDraftTitle()
+    }).catch(err => {
+      console.log(err)
+      alert('网络错误,标题保存失败')
+    })
+  }, 500)
 
   let smde
-
   export default{
     data () {
       return {
@@ -63,12 +71,9 @@
           },
           spellChecker: false
         })
-        // TODO
-        /* let postDraft = debounce(() => {
-        }, 1000, false) */
       })
     },
-    beforeDestroy(){
+    beforeDestroy () {
       smde.toTextArea()
       let editor = document.getElementById('editor')
       editor.outerHTML = editor.outerHTML
@@ -77,8 +82,14 @@
     },
     methods: {
       ...mapActions([
-        ''
-      ])
+        'editDraftTitle',
+        'submitDraftTitle',
+        'saveDraftTitle'
+      ]),
+      updateTitle (e) {
+        this.editDraftTitle()
+        updateTitle.call(this, e.target.value)
+      }
     }
   }
 </script>

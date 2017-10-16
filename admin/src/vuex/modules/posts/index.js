@@ -1,4 +1,4 @@
-import { DRAFT_CREATE, RECEIVE_ALL_DRAFTS, DRAFT_FOCUS } from '../../mutation_types'
+import { draftTypes } from '../../mutation_types'
 import * as actions from './actions'
 
 const state = {
@@ -37,14 +37,14 @@ const getters = {
 }
 
 const mutations = {
-  [DRAFT_CREATE]: function (state, draft) {
+  [draftTypes.DRAFT_CREATE]: function (state, draft) {
     state.all.unshift(draft)
     state.currentDraftIndex = 0
     state.currentDraftId = state.all[0].id
     state.title = state.all[0].title
     state.articleId = state.all[0].article
   },
-  [RECEIVE_ALL_DRAFTS]: function (state, draftList) {
+  [draftTypes.RECEIVE_ALL_DRAFTS]: function (state, draftList) {
     if (state.draftSaved && state.draftTitleSaved) {
       state.all = draftList
       if (draftList.length === 0) {
@@ -53,7 +53,7 @@ const mutations = {
       }
     }
   },
-  [DRAFT_FOCUS] (state, index) {
+  [draftTypes.DRAFT_FOCUS] (state, index) {
     // 当前草稿还没保存的话不允许切换
     if (state.draftSaved && state.draftTitleSaved) {
       state.currentDraftIndex = index
@@ -61,6 +61,24 @@ const mutations = {
       state.excerpt = state.all[index].excerpt
       state.articleId = state.all[index].article
       state.title = state.all[index].title
+    }
+  },
+  [draftTypes.DRAFT_TITLE_EDIT] (state) {
+    if (state.draftTitleSaved) {
+      state.all[state.currentDraftIndex].draftPublished = false
+      state.draftTitleSaved = false
+    }
+  },
+  [draftTypes.DRAFT_TITLE_MODIFY] (state, title) {
+    state.title = title
+    state.all[state.currentDraftIndex].title = title
+  },
+  [draftTypes.DRAFT_LAST_EDIT_TIME] (state, lastEditTime) {
+    state.all[state.currentDraftIndex].lastEditTime = lastEditTime
+  },
+  [draftTypes.DRAFT_TITLE_SAVE] (state) {
+    if (!state.draftTitleSaved) {
+      state.draftTitleSaved = true
     }
   }
 }

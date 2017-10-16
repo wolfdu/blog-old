@@ -9,6 +9,7 @@ import App from './App.vue'
 import store from './vuex/store'
 import Icon from 'vue-svg-icon/Icon.vue'
 import {md2Text} from './filters/md2Text'
+import 'font-awesome/css/font-awesome.min.css'
 
 Vue.config.productionTip = false
 

@@ -8,4 +8,8 @@ function getDraftList (tag) {
   return api.get('drafts', tag)
 }
 
-export default {createDraft, getDraftList}
+function modifyDraftTitle (draftId, title) {
+  return api.patch(`drafts/${draftId}`, title)
+}
+
+export default {createDraft, getDraftList, modifyDraftTitle}
