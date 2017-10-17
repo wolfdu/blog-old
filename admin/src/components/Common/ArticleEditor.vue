@@ -5,12 +5,12 @@
     </div>
     <div class="clearfix">
       <div class="half-container">
-        <icon name="tag" class="iconfont" scale="2" style="margin-right:5px"></icon>
+        <i class="fa fa-tags fa-2" aria-hidden="true" style="margin-right:5px"></i>
         <span class="tag" v-for="tag in tags">{{tag['name']}}
-          <i class="icon-chacha iconfont delete-tag" @click="deleteTag(tag.id)"></i></span>
+          <i class="fa fa-times fa-1 iconfont delete-tag" @click="deleteTag(tag.id)"></i></span>
         <div class="tag active">
           <span v-show="!tagInput" @click="addTag()" >+</span>
-          <input type="text" class="tag-input" v-show="tagInput" v-model="tagNew" placeholder="使用回车键提交" @keyup.13="submitTag">
+          <input type="text" class="tag-input" v-show="tagInput" v-model="tagNew" placeholder="回车键提交" @keyup.13="submitTag">
           <ul class="search-list reset-list" v-if="tagInput" v-show="tagsToAdd.length">
             <li class="search-item" @click="submitTag(tag['name'])" v-for="tag in tagsToAdd">{{tag['name']}}</li>
           </ul>
@@ -30,6 +30,9 @@
   import {marked} from '../../filters/md2Text'
   import { mapGetters, mapActions } from 'vuex'
   import debounce from 'lodash/debounce'
+  import trim from 'lodash/trim'
+  import tagService from '../../service/tag/tagService'
+  import postsService from '../../service/posts/postsService'
 
   const updateTitle = debounce(function (draftTitle) {
     this.submitDraftTitle(draftTitle).then(() => {
@@ -58,11 +61,14 @@
       ...mapGetters([
         'draftSaved',
         'draftTitleSaved',
-        'draftTitle'
+        'draftTitle',
+        'currentDraftId',
+        'currentTags'
       ])
     },
     mounted () {
       this.$nextTick(function () {
+        this.tags = this.currentTags
         smde = new SimpleMDE({
           autoDownloadFontAwesome: false,
           element: document.getElementById('editor'),
@@ -84,11 +90,65 @@
       ...mapActions([
         'editDraftTitle',
         'submitDraftTitle',
-        'saveDraftTitle'
+        'saveDraftTitle',
+        'draftTagsModify'
       ]),
       updateTitle (e) {
         this.editDraftTitle()
         updateTitle.call(this, e.target.value)
+      },
+      addTag () {
+        this.tagInput = true
+        this.tagNew = ''
+        this.searchTags('')
+      },
+      searchTags (val) {
+//        tagService.searchTagsByWord(val).then(res => {
+//        })
+      },
+      submitTag (e) {
+        const val = e.target.value
+        this.tagInput = false
+        let tag = trim(val)
+        if (tag) {
+          this.tagNew = ''
+          tagService.createTags(tag).then(res => {
+            let id = res.data.id
+            if (!this.tags.some(item => item.id === id)) {
+              let tags = this.tags.map(item => item.id)
+              tags.push(id)
+              postsService.modifyDraftTags(this.currentDraftId, tags).then(res => {
+                if (res.success) {
+                  this.tags = res.data.tags
+                  this.draftTagsModify(res.data.lastEditTime)
+                }
+              }).catch(err => {
+                console.log(err)
+                alert('网络错误,修改标签失败')
+              })
+            }
+          }).catch(err => {
+            console.log(err)
+            alert('网络错误,增加标签失败')
+          })
+        }
+      },
+      deleteTag (id) {
+        let tags = []
+        for (let i of this.tags) {
+          if (i.id !== id) {
+            tags.push(i.id)
+          }
+        }
+        postsService.modifyDraftTags(this.currentDraftId, tags).then(res => {
+          if (res.success) {
+            this.tags = res.data.tags
+            this.draftTagsModify(res.data.lastEditTime)
+          }
+        }).catch(err => {
+          console.log(err)
+          alert('网络错误,修改标签失败')
+        })
       }
     }
   }

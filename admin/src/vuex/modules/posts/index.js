@@ -33,6 +33,9 @@ const getters = {
   },
   draftTitleSaved: state => {
     return state.draftTitleSaved
+  },
+  currentTags: state => {
+    return state.all[state.currentDraftIndex].tags
   }
 }
 
@@ -80,6 +83,9 @@ const mutations = {
     if (!state.draftTitleSaved) {
       state.draftTitleSaved = true
     }
+  },
+  [draftTypes.DRAFT_TAG_MODIFY] (state) {
+    state.all[state.currentDraftIndex].draftPublished = false
   }
 }
 

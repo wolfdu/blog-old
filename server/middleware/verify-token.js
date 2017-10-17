@@ -19,7 +19,7 @@ module.exports = async (ctx, next) => {
     }
     ctx.throw(401, 'invalid token')
   }
-  Utils.print('鉴权通过')
+  console.log('鉴权通过')
   ctx.token = tokenContent
   await next()
 }

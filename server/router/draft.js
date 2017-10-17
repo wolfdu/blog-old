@@ -11,5 +11,6 @@ let draftRouter = new Router()
  */
 draftRouter.post('/drafts', verifyToken, draftController.create)
 draftRouter.get('/drafts', verifyToken, draftController.draftList)
+draftRouter.patch('/drafts/:id', verifyToken, draftController.modify)
 
 module.exports = draftRouter

@@ -40,11 +40,12 @@ let draftList = async (ctx, next) => {
   // validate populate result
   const draftArr = await Draft.find(queryOpt)
     .select('title tags createTime lastEditTime excerpt article draftPublished')
-    .populate('Tag')
+    .populate('tags')
     .sort({lastEditTime: -1})
     .exec((err, drafts) => {
       if (err) {
         LOG.error(err)
+        console.log(err)
       }
     })
   const resultArr = []
@@ -62,4 +63,35 @@ let draftList = async (ctx, next) => {
   }
 }
 
-module.exports = {create, draftList}
+let modify = async (ctx, next) => {
+  const id = ctx.params.id
+  const modifyOptions = ctx.request.body
+  if (modifyOptions.content) {
+  } else {
+    modifyOptions.excerpt = ''
+  }
+  modifyOptions.lastEditTime = new Date()
+  modifyOptions.draftPulished = false
+  let result = await Draft.findByIdAndUpdate(id, {$set: modifyOptions}, {new: true})
+    .populate('tags')
+    .exec((err, draft) => {
+      if (err) {
+        LOG.error(err)
+        if (err.name === 'CastError') {
+          console.log('id不存在')
+        } else {
+          console.log('内部错误')
+        }
+      }
+      console.log(draft)
+    })
+  result = result.toObject()
+  console.log(result)
+  ctx.status = 200
+  ctx.body = {
+    success: true,
+    data: result
+  }
+}
+
+module.exports = {create, draftList, modify}

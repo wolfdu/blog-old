@@ -9,7 +9,11 @@ function getDraftList (tag) {
 }
 
 function modifyDraftTitle (draftId, title) {
-  return api.patch(`drafts/${draftId}`, title)
+  return api.patch(`drafts/${draftId}`, {title})
 }
 
-export default {createDraft, getDraftList, modifyDraftTitle}
+function modifyDraftTags (draftId, tags) {
+  return api.patch(`drafts/${draftId}`, {tags})
+}
+
+export default {createDraft, getDraftList, modifyDraftTitle, modifyDraftTags}

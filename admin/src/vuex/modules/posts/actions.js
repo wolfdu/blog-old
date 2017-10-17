@@ -43,11 +43,17 @@ function saveDraftTitle ({commit}) {
   commit(draftTypes.DRAFT_TITLE_SAVE)
 }
 
+function draftTagsModify ({commit}, lastEditTime) {
+  commit(draftTypes.DRAFT_TAG_MODIFY)
+  commit(draftTypes.DRAFT_LAST_EDIT_TIME, lastEditTime)
+}
+
 export {
   createDraft,
   getAllDraft,
   focusOnDraft,
   editDraftTitle,
   submitDraftTitle,
-  saveDraftTitle
+  saveDraftTitle,
+  draftTagsModify
 }
