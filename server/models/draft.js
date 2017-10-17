@@ -5,12 +5,18 @@ const Schema = mongoose.Schema
 
 const draftSchema = new Schema({
   title: String,
-  tags: [{type: Schema.Types.ObjectId, ref: 'tag'}],
+  tags: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Tag'
+  }],
   createTime: {type: Date},
   lastEditTime: {type: Date, default: Date.now},
   excerpt: String,
   content: String,
-  article: {type: Schema.Types.ObjectId, ref: 'tag'},
+  article: {
+    type: Schema.Types.ObjectId,
+    ref: 'Tag'
+  },
   draftPublished: Boolean
 }, {versionKey: false, skipVersioning: {tags: true}})
 
@@ -25,4 +31,4 @@ draftSchema.path('lastEditTime').get(function (v) {
   return new Date(v).format('yyyy-MM-dd hh:mm:ss')
 })
 
-module.exports = mongoose.model('draft', draftSchema)
+module.exports = mongoose.model('Draft', draftSchema)

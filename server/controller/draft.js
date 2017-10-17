@@ -22,6 +22,7 @@ let create = async (ctx, next) => {
     LOG.error(err)
     // error
   })
+  console.log(draft.toJSON())
   ctx.status = 200
   ctx.body = {
     success: true,
@@ -36,25 +37,26 @@ let draftList = async (ctx, next) => {
     queryOpt.tags = {'$all': [tag]}
   }
   Utils.print(queryOpt)
+  // validate populate result
   const draftArr = await Draft.find(queryOpt)
     .select('title tags createTime lastEditTime excerpt article draftPublished')
-    .populate('tags')
-    .sort({ lastEditTime: -1})
-    .exec().catch(err => {
-      // fixme
-      LOG.error(err)
-      this.throw(500, '内部错误')
+    .populate('Tag')
+    .sort({lastEditTime: -1})
+    .exec((err, drafts) => {
+      if (err) {
+        LOG.error(err)
+      }
     })
   const resultArr = []
   if (draftArr.length) {
     draftArr.forEach((draft, index, arr) => {
       draft = draft.toObject()
       resultArr.push(draft)
-      Utils.print(draft)
+      console.log(draft)
     })
   }
-  this.status = 200
-  this.body = {
+  ctx.status = 200
+  ctx.body = {
     success: true,
     data: resultArr
   }

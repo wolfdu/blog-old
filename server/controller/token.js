@@ -45,7 +45,7 @@ let create = async (ctx, next) => {
   const username = ctx.request.body.username
   const password = ctx.request.body.password
   let user = await User.findOne({username}).exec((err, user) => {
-    Utils.print(user)
+    console.log(user.toJSON())
     if (err) {
       LOG.error(err)
       throw (new Error('数据seed失败,请debug后重新启动'))
