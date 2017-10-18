@@ -67,8 +67,12 @@ let modify = async (ctx, next) => {
   const id = ctx.params.id
   const modifyOptions = ctx.request.body
   if (modifyOptions.content) {
-  } else {
-    modifyOptions.excerpt = ''
+    const contentArr = modifyOptions.content.split('<!-- more -->')
+    if (contentArr.length) {
+      modifyOptions.excerpt = contentArr[0]
+    } else {
+      modifyOptions.excerpt = ''
+    }
   }
   modifyOptions.lastEditTime = new Date()
   modifyOptions.draftPulished = false
@@ -94,4 +98,51 @@ let modify = async (ctx, next) => {
   }
 }
 
-module.exports = {create, draftList, modify}
+let draftDetail = async (ctx, next) => {
+  const id = ctx.params.id
+  const draft = await Draft.findOne({_id: id}).populate('tags').exec((err, draft) => {
+    if (err) {
+      LOG.error(err)
+      console.log(err)
+    } else {
+      console.log(draft.toJSON())
+    }
+  })
+  ctx.status = 200
+  ctx.body = {
+    success: true,
+    data: draft
+  }
+}
+
+let deleteDraft = async (ctx, next) => {
+  const id = ctx.params.id
+  const draft = await Draft.findOne({_id: id}).select('article').exec((err, draft) => {
+    if (err) {
+      LOG.error(err)
+      console.log(err)
+    } else {
+      console.log(draft.toJSON())
+    }
+  })
+  if (draft) {
+    if (!draft.article) {
+      await Draft.remove({_id: id}).exec(err => {
+        if (err) {
+          LOG.error(err)
+          console.log(err)
+        }
+      })
+    } else {
+      console.log('已发布文章的草稿不能删除')
+    }
+  } else {
+    console.log('该草稿id不存在')
+  }
+  ctx.status = 200
+  ctx.body = {
+    success: true
+  }
+}
+
+module.exports = {create, draftList, modify, draftDetail, deleteDraft}

@@ -11,6 +11,8 @@ let draftRouter = new Router()
  */
 draftRouter.post('/drafts', verifyToken, draftController.create)
 draftRouter.get('/drafts', verifyToken, draftController.draftList)
+draftRouter.get('/drafts/:id', verifyToken, draftController.draftDetail)
 draftRouter.patch('/drafts/:id', verifyToken, draftController.modify)
+draftRouter.delete('/drafts/:id', verifyToken, draftController.deleteDraft)
 
 module.exports = draftRouter

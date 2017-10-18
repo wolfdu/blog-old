@@ -33,9 +33,6 @@ const getters = {
   },
   draftTitleSaved: state => {
     return state.draftTitleSaved
-  },
-  currentTags: state => {
-    return state.all[state.currentDraftIndex].tags
   }
 }
 
@@ -86,6 +83,41 @@ const mutations = {
   },
   [draftTypes.DRAFT_TAG_MODIFY] (state) {
     state.all[state.currentDraftIndex].draftPublished = false
+  },
+  [draftTypes.DRAFT_PUBLISH] (state, articleId) {
+    state.articleId = articleId
+    state.all[state.currentDraftIndex].article = articleId
+    state.all[state.currentDraftIndex].draftPublished = true
+  },
+  [draftTypes.DRAFT_EXCERPT_MODIFY] (state, excerpt) {
+    state.all[state.currentDraftIndex].excerpt = excerpt
+  },
+  [draftTypes.DRAFT_EDIT] (state) {
+    if (state.draftSaved) {
+      state.all[state.currentDraftIndex].draftPublished = false
+      state.draftSaved = false
+    }
+  },
+  [draftTypes.DRAFT_SAVE] (state) {
+    if (!state.draftSaved) {
+      state.draftSaved = true
+    }
+  },
+  [draftTypes.DRAFT_DELETE] (state) {
+    if (state.draftSaved && state.draftTitleSaved) {
+      state.all.splice(state.currentDraftIndex, 1)
+      if (state.all.length) {
+        state.currentDraftIndex = 0
+        state.currentDraftId = state.all[0].id
+        state.title = state.all[0].title
+        state.articleId = state.all[0].article
+      } else {
+        state.currentDraftIndex = -1
+        state.currentDraftId = null
+        state.title = ''
+        state.articleId = null
+      }
+    }
   }
 }
 

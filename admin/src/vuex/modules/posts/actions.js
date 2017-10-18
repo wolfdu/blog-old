@@ -48,6 +48,41 @@ function draftTagsModify ({commit}, lastEditTime) {
   commit(draftTypes.DRAFT_LAST_EDIT_TIME, lastEditTime)
 }
 
+function publishDraft ({commit, state}) {
+  return service.publish(state.currentDraftId).then(res => {
+    if (res.success) {
+      commit(draftTypes.DRAFT_PUBLISH, res.data.article.id)
+    }
+  })
+}
+
+function submitDraftExcerpt ({commit}, {excerpt, lastEditTime}) {
+  commit(draftTypes.DRAFT_EXCERPT_MODIFY, excerpt)
+  commit(draftTypes.DRAFT_LAST_EDIT_TIME, lastEditTime)
+}
+
+function saveDraft ({commit}) {
+  commit(draftTypes.DRAFT_SAVE)
+}
+
+function editDraft ({commit}) {
+  commit(draftTypes.DRAFT_EDIT)
+}
+
+function deletePost ({commit, state}) {
+  if (state.draftSaved) {
+    return service.deleteDraft(state.currentDraftId).then(res => {
+      if (res.success) {
+        commit(draftTypes.DRAFT_DELETE)
+      }
+    })
+  } else {
+    let err = new Error()
+    err.error_message = '文章还未保存，稍后再试'
+    return Promise.reject(err)
+  }
+}
+
 export {
   createDraft,
   getAllDraft,
@@ -55,5 +90,10 @@ export {
   editDraftTitle,
   submitDraftTitle,
   saveDraftTitle,
-  draftTagsModify
+  draftTagsModify,
+  publishDraft,
+  submitDraftExcerpt,
+  editDraft,
+  saveDraft,
+  deletePost
 }

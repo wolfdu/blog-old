@@ -1,6 +1,6 @@
 <template>
   <ul class="post-list reset-list">
-    <li class="post-list-item" v-for="draft in draftList" @click="focus(currentDraftIndex)">
+    <li class="post-list-item" v-for="(draft, index) in draftList" @click="focus(index)">
       <article class="post-thumb" :class="[draft['draftPublished']?'published':draft['article']?'updated':'',
       {'active':draft['id'] === currentDraftId}]">
         <h3 class="post-title"><a href="javascript:;">{{draft['title']}}</a></h3>
@@ -28,12 +28,12 @@
     methods: {
       ...mapActions(['focusOnDraft']),
       focus (index) {
-        if (!this.draftSaved || !this.draftTitleSaved) {
+        if (this.draftSaved && this.draftTitleSaved) {
+          if (index !== this.currentDraftIndex) {
+            this.focusOnDraft(index)
+          }
+        } else {
           alert('当前文章正在保存中,请稍后重试')
-          return
-        }
-        if (index !== this.currentDraftIndex) {
-          this.focusOnDraft(index)
         }
       }
     }

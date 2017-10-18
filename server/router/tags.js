@@ -10,5 +10,6 @@ let draftRouter = new Router()
  * 创建token，middleware会init admin账号
  */
 draftRouter.post('/tags', verifyToken, tagController.create)
+draftRouter.get('/tags', tagController.keywordList)
 
 module.exports = draftRouter

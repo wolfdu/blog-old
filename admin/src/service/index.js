@@ -87,4 +87,17 @@ function patch (url, param = {}, host = process.env.api) {
     .then(checkStatus)
 }
 
-export default {post, get, patch}
+function deleteApi (url, param = {}, host = process.env.api) {
+  url = host + url
+  var init = {
+    method: 'DELETE',
+    headers: getReqHeaders(this.method),
+    credentials: 'include',
+    mode: 'cors'
+  }
+  return fetch(url, init)
+    .then(parseResponse)
+    .then(checkStatus)
+}
+
+export default {post, get, patch, deleteApi}

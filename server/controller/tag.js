@@ -32,4 +32,24 @@ let create = async (ctx, next) => {
   }
 }
 
-module.exports = {create}
+let keywordList = async (ctx, next) => {
+  const keyword = ctx.query['keyword']
+  const queryOption = {}
+  if (keyword) {
+    queryOption.name = {$regex: `^${keyword}`}
+  }
+  const tags = await Tag.find(queryOption).exec((err, tags) => {
+    if (err) {
+      LOG.error(err)
+    } else {
+      console.log(tags)
+    }
+  })
+  ctx.status = 200
+  ctx.body = {
+    success: true,
+    data: tags
+  }
+}
+
+module.exports = {create, keywordList}

@@ -9,16 +9,16 @@
         <span class="tag" v-for="tag in tags">{{tag['name']}}
           <i class="fa fa-times fa-1 iconfont delete-tag" @click="deleteTag(tag.id)"></i></span>
         <div class="tag active">
-          <span v-show="!tagInput" @click="addTag()" >+</span>
+          <span v-show="!tagInput" @click="addTag" ><i class="fa fa-plus fa-1" aria-hidden="true"></i></span>
           <input type="text" class="tag-input" v-show="tagInput" v-model="tagNew" placeholder="回车键提交" @keyup.13="submitTag">
           <ul class="search-list reset-list" v-if="tagInput" v-show="tagsToAdd.length">
-            <li class="search-item" @click="submitTag(tag['name'])" v-for="tag in tagsToAdd">{{tag['name']}}</li>
+            <li class="search-item" v-for="tag in tagsToAdd" v-bind="tag['name']" @click="submitTag">{{tag['name']}}</li>
           </ul>
         </div>
       </div>
       <div class="half-container">
         <button type="button" class="btn btn-save r" @click="publish">发布文章</button>
-        <button type="button" class="btn btn-border r" v-show="articleIdOfPost === null" @click="deletePost">删除草稿</button>
+        <button type="button" class="btn btn-border r" v-show="articleId === null" @click="deletePost">删除草稿</button>
       </div>
     </div>
     <textarea id="editor" style="opacity: 0"></textarea>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+  import MessageBox from 'vue-msgbox'
   import SimpleMDE from 'simplemde'
   import {marked} from '../../filters/md2Text'
   import { mapGetters, mapActions } from 'vuex'
@@ -42,6 +43,18 @@
       alert('网络错误,标题保存失败')
     })
   }, 500)
+
+  const updateContent = debounce(function () {
+    postsService.modifyDraftContent(this.currentDraftId, smde.value()).then(res => {
+      if (res.success) {
+        this.submitDraftExcerpt({excerpt: res.data.excerpt, lastEditTime: res.data.lastEditTime})
+        this.saveDraft()
+      }
+    }).catch(err => {
+      console.log(err)
+      alert('保存文章内容失败')
+    })
+  }, 1000)
 
   let smde
   export default{
@@ -63,12 +76,11 @@
         'draftTitleSaved',
         'draftTitle',
         'currentDraftId',
-        'currentTags'
+        'articleId'
       ])
     },
     mounted () {
       this.$nextTick(function () {
-        this.tags = this.currentTags
         smde = new SimpleMDE({
           autoDownloadFontAwesome: false,
           element: document.getElementById('editor'),
@@ -77,6 +89,31 @@
           },
           spellChecker: false
         })
+        smde.codemirror.on('change', () => {
+          if (this.change) {
+            this.change = false
+          } else {
+            if (this.draftSaved) {
+              this.editDraft()
+            }
+            updateContent.call(this)
+          }
+        })
+        if (this.currentDraftId) {
+          postsService.getDraft(this.currentDraftId).then(res => {
+            if (res.success) {
+              this.tagNew = ''
+              this.tagInput = false
+              this.tags = res.data.tags
+              this.$nextTick(() => {
+                smde.value(res.data.content)
+              })
+            }
+          }).catch(err => {
+            console.log(err)
+            MessageBox('网络错误,获取文章失败')
+          })
+        }
       })
     },
     beforeDestroy () {
@@ -85,13 +122,39 @@
       editor.outerHTML = editor.outerHTML
     },
     watch: {
+      tagNew (val) {
+        this.searchTags(val)
+      },
+      currentDraftId (val) {
+        this.change = true
+        if (val) {
+          postsService.getDraft(val).then(res => {
+            if (res.success) {
+              this.tagNew = ''
+              this.tagInput = false
+              this.tags = res.data.tags
+              this.$nextTick(() => {
+                smde.value(res.data.content)
+              })
+            }
+          }).catch(err => {
+            console.log(err)
+            alert('网络错误,获取文章失败')
+          })
+        }
+      }
     },
     methods: {
       ...mapActions([
         'editDraftTitle',
         'submitDraftTitle',
         'saveDraftTitle',
-        'draftTagsModify'
+        'draftTagsModify',
+        'publishDraft',
+        'editDraft',
+        'submitDraftExcerpt',
+        'saveDraft',
+        'deletePost'
       ]),
       updateTitle (e) {
         this.editDraftTitle()
@@ -103,13 +166,16 @@
         this.searchTags('')
       },
       searchTags (val) {
-//        tagService.searchTagsByWord(val).then(res => {
-//        })
+        tagService.searchTagsByWord(val).then(res => {
+          if (res.success) {
+            this.tagsToAdd = res.data
+          }
+        })
       },
       submitTag (e) {
-        const val = e.target.value
-        this.tagInput = false
+        const val = e.type === 'click' ? e.target.innerText : e.target.value
         let tag = trim(val)
+        this.tagInput = false
         if (tag) {
           this.tagNew = ''
           tagService.createTags(tag).then(res => {
@@ -149,6 +215,18 @@
           console.log(err)
           alert('网络错误,修改标签失败')
         })
+      },
+      publish () {
+        if (this.draftSaved && this.draftTitleSaved) {
+          this.publishDraft().then(() => {
+            alert('发布成功')
+          }).catch(err => {
+            console.log(err)
+            alert('发布失败')
+          })
+        } else {
+          alert('当前文章正在保存中，稍后再试')
+        }
       }
     }
   }

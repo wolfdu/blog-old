@@ -4,4 +4,8 @@ function createTags (name) {
   return api.post('tags', {name})
 }
 
-export default {createTags}
+function searchTagsByWord (keyword) {
+  return api.get('tags', {keyword})
+}
+
+export default {createTags, searchTagsByWord}
