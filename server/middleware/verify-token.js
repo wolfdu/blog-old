@@ -1,6 +1,5 @@
 'use strict'
 
-const Utils = require('../utils/index.js')
 const config = require('../config/index.js')
 const jwt = require('jsonwebtoken')
 

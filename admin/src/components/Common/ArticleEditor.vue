@@ -12,7 +12,7 @@
           <span v-show="!tagInput" @click="addTag" ><i class="fa fa-plus fa-1" aria-hidden="true"></i></span>
           <input type="text" class="tag-input" v-show="tagInput" v-model="tagNew" placeholder="回车键提交" @keyup.13="submitTag">
           <ul class="search-list reset-list" v-if="tagInput" v-show="tagsToAdd.length">
-            <li class="search-item" v-for="tag in tagsToAdd" v-bind="tag['name']" @click="submitTag">{{tag['name']}}</li>
+            <li class="search-item" v-for="tag in tagsToAdd" v-bind="tag" @click="submitTag">{{tag['name']}}</li>
           </ul>
         </div>
       </div>
@@ -174,7 +174,7 @@
         })
       },
       submitTag (e) {
-        const val = e.type === 'click' ? e.target.innerText : e.target.value
+        const val = e.type === 'click' ? e.target.innerText : e.target.value.name
         let tag = trim(val)
         this.tagInput = false
         if (tag) {

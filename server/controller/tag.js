@@ -10,18 +10,19 @@ let create = async (ctx, next) => {
       if (err) {
         LOG.error(err)
       } else {
-        if (!tag) {
-          const newTag = new Tag({name: tagName})
-          tag = newTag.save((err, tag) => {
-            if (err) {
-              LOG.error(err)
-            } else {
-              console.log(tag.toJSON())
-            }
-          })
-        }
+        console.log(tag ? tag.toJSON() : tag)
       }
     })
+    if (!tag) {
+      const newTag = new Tag({name: tagName})
+      tag = await newTag.save((err, tag) => {
+        if (err) {
+          LOG.error(err)
+        } else {
+          console.log(tag ? tag.toJSON() : tag)
+        }
+      })
+    }
     ctx.status = 200
     ctx.body = {
       success: true,
