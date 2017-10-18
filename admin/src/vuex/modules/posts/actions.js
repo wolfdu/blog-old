@@ -26,8 +26,8 @@ function focusOnDraft ({commit}, index) {
   commit(draftTypes.DRAFT_FOCUS, index)
 }
 
-function editDraftTitle ({commit}) {
-  commit(draftTypes.DRAFT_TITLE_EDIT)
+function editDraftTitle ({commit}, title) {
+  commit(draftTypes.DRAFT_TITLE_EDIT, title)
 }
 
 function submitDraftTitle ({commit, state}, title) {

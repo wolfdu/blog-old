@@ -42,7 +42,7 @@
       console.log(err)
       alert('网络错误,标题保存失败')
     })
-  }, 500)
+  }, 1000)
 
   const updateContent = debounce(function () {
     postsService.modifyDraftContent(this.currentDraftId, smde.value()).then(res => {
@@ -157,8 +157,9 @@
         'deletePost'
       ]),
       updateTitle (e) {
-        this.editDraftTitle()
-        updateTitle.call(this, e.target.value)
+        let title = e.target.value
+        this.editDraftTitle(title)
+        updateTitle.call(this, title)
       },
       addTag () {
         this.tagInput = true

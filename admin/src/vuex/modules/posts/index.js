@@ -63,10 +63,11 @@ const mutations = {
       state.title = state.all[index].title
     }
   },
-  [draftTypes.DRAFT_TITLE_EDIT] (state) {
+  [draftTypes.DRAFT_TITLE_EDIT] (state, title) {
     if (state.draftTitleSaved) {
       state.all[state.currentDraftIndex].draftPublished = false
       state.draftTitleSaved = false
+      state.title = title
     }
   },
   [draftTypes.DRAFT_TITLE_MODIFY] (state, title) {
