@@ -25,7 +25,7 @@ function getDraft (draftId) {
 }
 
 function publish (draftId) {
-  return api.post('')
+  return api.post(`drafts/${draftId}`)
 }
 
 function deleteDraft (draftId) {

@@ -1,7 +1,7 @@
 /* eslint-disable standard/object-curly-even-spacing */
 'use strict'
 const Draft = require('../models/draft')
-const Utils = require('../utils/index')
+const Article = require('../models/article')
 const LOG = require('../utils/logger')
 
 function getDraft () {
@@ -36,7 +36,7 @@ let draftList = async (ctx, next) => {
   if (tag !== undefined) {
     queryOpt.tags = {'$all': [tag]}
   }
-  Utils.print(queryOpt)
+  console.log(queryOpt)
   // validate populate result
   const draftArr = await Draft.find(queryOpt)
     .select('title tags createTime lastEditTime excerpt article draftPublished')
@@ -145,4 +145,75 @@ let deleteDraft = async (ctx, next) => {
   }
 }
 
-module.exports = {create, draftList, modify, draftDetail, deleteDraft}
+let getArticleOption = function (articleOpt) {
+  delete articleOpt._id
+  delete articleOpt.id
+  delete articleOpt.article
+  delete articleOpt.draftPublished
+  delete articleOpt.createTime
+  return articleOpt
+}
+
+let publish = async (ctx, next) => {
+  const id = ctx.params.id
+  const draft = await Draft.findOne({_id: id}).exec((err, draft) => {
+    if (err) {
+      LOG.error(err)
+      console.error(err)
+    } else {
+      console.log(draft)
+    }
+  })
+  if (!draft.title) {
+    ctx.throw(400, 'The title can not be blank')
+  } else if (!draft.excerpt) {
+    ctx.throw(400, 'The excerpt can not be blank, please insert "<!--more-->" writ excerpt')
+  } else if (!draft.content) {
+    ctx.throw(400, 'The content can not be blank')
+  }
+  draft.draftPublished = true
+  draft.lastEditTime = new Date()
+  const articleOpt = getArticleOption(draft.toObject())
+  if (draft.article) {
+    await Article.update({id: draft.article}, {$set: articleOpt}, null, (err, raw) => {
+      if (err) {
+        LOG.error(err)
+        ctx.throw(500, '系统错误')
+      }
+      console.log(raw)
+    })
+    await draft.save().catch(err => {
+      LOG.error(err)
+      ctx.throw(500, '系统异常')
+    })
+    ctx.status = 200
+    ctx.body = {
+      success: true
+    }
+  } else {
+    articleOpt.createTime = articleOpt.lastEditTime
+    delete articleOpt.lastEditTime
+    articleOpt.visits = 0
+    articleOpt.comments = []
+    articleOpt.hidden = false
+    let article = new Article(articleOpt)
+    article = await article.save().catch(err => {
+      if (err) {
+        LOG.error(err)
+        ctx.throw(500, '系统错误')
+      }
+    })
+    article = article.toObject()
+    draft.article = article._id
+    await draft.save().catch(err => {
+      LOG.error(err)
+      ctx.throw(500, '系统异常')
+    })
+    ctx.status = 200
+    ctx.body = {
+      success: true
+    }
+  }
+}
+
+module.exports = {create, draftList, modify, draftDetail, deleteDraft, publish}
