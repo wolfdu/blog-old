@@ -2,6 +2,7 @@
 'use strict'
 const Draft = require('../models/draft')
 const Article = require('../models/article')
+const VError = require('verror')
 const LOG = require('../utils/logger')
 
 function getDraft () {
@@ -20,7 +21,6 @@ let create = async (ctx, next) => {
   let draft = getDraft()
   draft = await draft.save().catch(err => {
     LOG.error(err)
-    // error
   })
   console.log(draft.toJSON())
   ctx.status = 200
@@ -158,8 +158,9 @@ let publish = async (ctx, next) => {
   const id = ctx.params.id
   const draft = await Draft.findOne({_id: id}).exec((err, draft) => {
     if (err) {
-      LOG.error(err)
-      console.error(err)
+      let verr = new VError(err)
+      LOG.error(verr)
+      ctx.throw(500, '系统错误')
     } else {
       console.log(draft)
     }
@@ -175,20 +176,24 @@ let publish = async (ctx, next) => {
   draft.lastEditTime = new Date()
   const articleOpt = getArticleOption(draft.toObject())
   if (draft.article) {
-    await Article.update({id: draft.article}, {$set: articleOpt}, null, (err, raw) => {
-      if (err) {
-        LOG.error(err)
-        ctx.throw(500, '系统错误')
-      }
-      console.log(raw)
-    })
+    let article = await Article.findByIdAndUpdate(draft.article, {$set: articleOpt}, {new: true})
+      .exec((err, article) => {
+        if (err) {
+          let verr = new VError(err)
+          LOG.error(verr)
+          ctx.throw(500, '系统错误')
+        }
+        console.log(article)
+      })
     await draft.save().catch(err => {
-      LOG.error(err)
+      let verr = new VError(err)
+      LOG.error(verr)
       ctx.throw(500, '系统异常')
     })
     ctx.status = 200
     ctx.body = {
-      success: true
+      success: true,
+      data: article
     }
   } else {
     articleOpt.createTime = articleOpt.lastEditTime
@@ -198,20 +203,21 @@ let publish = async (ctx, next) => {
     articleOpt.hidden = false
     let article = new Article(articleOpt)
     article = await article.save().catch(err => {
-      if (err) {
-        LOG.error(err)
-        ctx.throw(500, '系统错误')
-      }
+      let verr = new VError(err)
+      LOG.error(verr)
+      ctx.throw(500, '系统错误')
     })
     article = article.toObject()
     draft.article = article._id
     await draft.save().catch(err => {
-      LOG.error(err)
+      let verr = new VError(err)
+      LOG.error(verr)
       ctx.throw(500, '系统异常')
     })
     ctx.status = 200
     ctx.body = {
-      success: true
+      success: true,
+      data: article
     }
   }
 }

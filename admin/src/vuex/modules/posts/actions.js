@@ -51,7 +51,7 @@ function draftTagsModify ({commit}, lastEditTime) {
 function publishDraft ({commit, state}) {
   return service.publish(state.currentDraftId).then(res => {
     if (res.success) {
-      commit(draftTypes.DRAFT_PUBLISH, res.data.article.id)
+      commit(draftTypes.DRAFT_PUBLISH, res.data.id)
     }
   })
 }

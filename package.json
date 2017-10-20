@@ -32,6 +32,7 @@
     "simplemde": "^1.11.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
+    "verror": "^1.10.0",
     "vue": "^2.4.2",
     "vue-msgbox": "^0.2.14",
     "vue-router": "^2.7.0",
