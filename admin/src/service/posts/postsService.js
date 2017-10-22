@@ -5,7 +5,7 @@ function createDraft () {
 }
 
 function getDraftList (tag) {
-  return api.get('drafts', tag)
+  return api.get('drafts', tag ? {tag} : undefined)
 }
 
 function modifyDraftTitle (draftId, title) {

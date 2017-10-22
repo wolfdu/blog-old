@@ -11,8 +11,8 @@ function createDraft ({commit}) {
   })
 }
 
-function getAllDraft ({commit}) {
-  return service.getDraftList().then(res => {
+function getAllDraft ({commit}, tagId) {
+  return service.getDraftList(tagId).then(res => {
     if (res.success) {
       commit(draftTypes.RECEIVE_ALL_DRAFTS, res.data)
       if (res.data.length) {

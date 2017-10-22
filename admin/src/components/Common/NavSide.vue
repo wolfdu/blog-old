@@ -3,8 +3,12 @@
     <icon id="sidebar-logo" name="chameleon" class="sidebar-logo" scale="20"></icon>
     <nav class="aside-nav">
       <ul class="aside-nav-list">
-        <li class="aside-nav-item"><router-link to="/posts" class="aside-nav-button"><icon name="posts" class="iconfont" scale="3"></icon></router-link></li>
-        <li class="aside-nav-item"><a class="aside-nav-button" ><icon name="tag" class="iconfont" scale="3"></icon></a> </li>
+        <li class="aside-nav-item"><router-link to="/posts" class="aside-nav-button">
+          <icon name="posts" class="iconfont" scale="3"></icon>
+        </router-link></li>
+        <li class="aside-nav-item"><router-link to="/tags" class="aside-nav-button">
+          <icon name="tag" class="iconfont" scale="3"></icon>
+        </router-link> </li>
         <li class="aside-nav-item"><a class="aside-nav-button" ><icon name="evil" class="iconfont" scale="3"></icon></a> </li>
       </ul>
     </nav>
