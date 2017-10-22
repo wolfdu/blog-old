@@ -40,11 +40,11 @@
 </template>
 
 <script>
-import NavSide from '../Common/NavSide.vue'
-import ArticleEditor from '../Common/ArticleEditor.vue'
-import PostList from '../Common/PostList.vue'
+import NavSide from './common/NavSide.vue'
+import ArticleEditor from './common/ArticleEditor.vue'
+import PostList from './common/PostList.vue'
 import { mapGetters, mapActions } from 'vuex'
-import tagsService from '../../service/tag/tagService'
+import tagsService from '../service/tag/tagService'
 
 export default{
   data () {
@@ -131,8 +131,8 @@ export default{
 </script>
 
 <style lang="stylus">
-  @import '../../stylus/simplemde.styl'
-  @import '../../stylus/_settings.styl'
+  @import '../stylus/simplemde.styl'
+  @import '../stylus/_settings.styl'
   .container-with-aside
     margin-left 70px
     height 100%

@@ -60,7 +60,7 @@
 </script>
 
 <style lang="stylus">
-  @import '../../stylus/_settings.styl'
+  @import '../stylus/_settings.styl'
   .banner
     padding 10px 0
     text-align center

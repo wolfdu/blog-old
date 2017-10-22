@@ -1,6 +1,6 @@
-import LoginView from 'components/Login/Login.vue'
-import PostsView from 'components/Posts/Posts.vue'
-import TagsView from 'components/Tags/Tags.vue'
+import LoginView from 'components/Login.vue'
+import PostsView from 'components/Posts.vue'
+import TagsView from 'components/Tags.vue'
 
 const routes = [
   {path: '/login', component: LoginView, name: 'login'},
