@@ -78,9 +78,14 @@
     padding 32px 15px
     .login-box
       background #fafafa
+      border 1px solid #ccc
       border-radius 10px
-      box-shadow 0 0px 2px #CCC
+      box-shadow 0 10px 10px #CCC
       padding 15px
+      transition all 0.3s ease
+      &:hover
+        border 1px solid rgba(82, 168, 236, 0.6)
+        box-shadow: 0 0 12px rgba(82, 168, 236, 0.6)
       .login-header
         text-align center
         line-height 1.5
