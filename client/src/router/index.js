@@ -1,4 +1,4 @@
-import PostsView from 'components/Posts.vue'
+import PostsView from 'components/PostList.vue'
 
 const routes = [
   {path: '/posts', component: PostsView},

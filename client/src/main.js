@@ -6,6 +6,10 @@ import VueRouter from 'vue-router'
 import routes from './router/index'
 import App from './App.vue'
 import Icon from 'vue-svg-icon/Icon.vue'
+import {markdown} from './filters/markdown'
+import 'font-awesome/css/font-awesome.min.css'
+
+Vue.filter('markdown', markdown)
 
 Vue.use(VueRouter)
 const router = new VueRouter(routes)

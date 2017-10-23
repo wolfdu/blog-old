@@ -5,7 +5,7 @@
 
 import marked from 'marked'
 import hljs from 'highlight.js'
-import {trim} from '../utils/utils'
+import trim from 'lodash/trim'
 
 const languages = ['cpp', 'xml', 'bash', 'coffeescript', 'css', 'markdown', 'http',
   'java', 'javascript', 'json', 'less', 'makefile', 'nginx', 'php', 'python', 'scss', 'sql', 'stylus']

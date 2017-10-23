@@ -75,7 +75,7 @@ function get (url, param = {}, host = process.env.api) {
 
 function patch (url, param = {}, host = process.env.api) {
   url = host + url
-  var init = {
+  let init = {
     method: 'PATCH',
     headers: getReqHeaders(this.method),
     credentials: 'include',
@@ -89,7 +89,7 @@ function patch (url, param = {}, host = process.env.api) {
 
 function deleteApi (url, param = {}, host = process.env.api) {
   url = host + url
-  var init = {
+  let init = {
     method: 'DELETE',
     headers: getReqHeaders(this.method),
     credentials: 'include',

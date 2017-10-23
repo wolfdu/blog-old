@@ -12,20 +12,35 @@
 
       </p>
 
-      <footer>
-        <a v-link="'/posts/'+post['_id']">... continue reading</a>
-      </footer>
-
     </article>
-    <div class="guide-links fix">
-      <span v-if="curPage > 1">← <a href="javascript:;" @click="prevPage()">上一页</a></span>
-      <span class="r" v-if="totalPage && (curPage < totalPage)"><a href="javascript:;" @click="nextPage()">下一页</a> →</span>
-    </div>
   </div>
 
 </template>
 <script>
+  import articleService from '../service/articleService'
   export default {
+    components: {
+    },
+    data () {
+      return {
+        posts: [],
+        totalPage: 0,
+        curPage: 1
+      }
+    },
+    beforeRouteEnter (to, from, next) {
+      articleService.getPostList({page: 1, limit: 10}).then(res => {
+        if (res.success) {
+          next(vm => {
+            vm.posts = res.data.articles
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+        alert('网络错误,请刷新重试')
+      })
+    },
+    methods: {
+    }
   }
 </script>
-
