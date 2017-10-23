@@ -73,7 +73,7 @@ let modify = async (ctx, next) => {
       data: tag
     }
   } else {
-    await Tag.update({_id: id}, {$set: {name: tagName}}).exec((err, tag) => {
+    let newTag = await Tag.update({_id: id}, {$set: {name: tagName}}).exec((err, tag) => {
       if (err) {
         let verror = new VError(err)
         console.log(verror)
@@ -85,7 +85,8 @@ let modify = async (ctx, next) => {
     })
     ctx.status = 200
     ctx.body = {
-      success: true
+      success: true,
+      data: newTag
     }
   }
 }
