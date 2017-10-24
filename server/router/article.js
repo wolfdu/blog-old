@@ -12,5 +12,6 @@ let articleRouter = new Router()
  * 创建token，middleware会init admin账号
  */
 articleRouter.get('/articles', draftController.articleList)
+articleRouter.get('/articles/:id', draftController.articleDetail)
 
 module.exports = articleRouter

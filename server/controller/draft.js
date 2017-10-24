@@ -102,7 +102,8 @@ let draftDetail = async (ctx, next) => {
   const id = ctx.params.id
   const draft = await Draft.findOne({_id: id}).populate('tags').exec((err, draft) => {
     if (err) {
-      LOG.error(err)
+      let verr = new VError(err)
+      LOG.error(verr)
       console.log(err)
     } else {
       console.log(draft.toJSON())

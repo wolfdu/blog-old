@@ -3,6 +3,8 @@
  */
 'use strict'
 const Article = require('../models/article')
+const VError = require('verror')
+const LOG = require('../utils/logger')
 
 let getArticleArr = function (result) {
   let resultArr = []
@@ -42,4 +44,23 @@ let articleList = async (ctx, next) => {
   }
 }
 
-module.exports = {articleList}
+let articleDetail = async (ctx, next) => {
+  const id = ctx.params.id
+  const article = await Article.findOne({_id: id}).populate('tags').exec((err, article) => {
+    if (err) {
+      let verr = new VError(err)
+      LOG.error(verr)
+      console.log(err)
+      ctx.throw(500, '系统异常')
+    } else {
+      console.log(article.toJSON())
+    }
+  })
+  ctx.status = 200
+  ctx.body = {
+    success: true,
+    data: article
+  }
+}
+
+module.exports = {articleList, articleDetail}

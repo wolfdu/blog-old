@@ -12,7 +12,7 @@
             </div>
           </div>
           <div class="card-content">
-            <h2 class="title"><a>{{article.title}}</a></h2>
+            <h2 class="title"><router-link :to="{name: 'post', params: {postId: article.id}}">{{article.title}}</router-link></h2>
             <p>{{article.excerpt}}</p>
             <div class="info">
               <div class="left">

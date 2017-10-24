@@ -1,6 +1,6 @@
 <template>
   <div class="post-list">
-    <article-card v-for="post in posts" :article="post"></article-card>
+    <article-card v-for="post in posts" :article="post" :key="post.id"></article-card>
   </div>
 </template>
 <script>

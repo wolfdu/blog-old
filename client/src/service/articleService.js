@@ -8,4 +8,8 @@ function getPostList (params) {
   return api.get('articles', params)
 }
 
-export default {getPostList}
+function getPost (id) {
+  return api.get(`articles/${id}`)
+}
+
+export default {getPostList, getPost}
