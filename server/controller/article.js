@@ -20,7 +20,7 @@ let articleList = async (ctx, next) => {
   const page = ~~ctx.query.page
   let skip = page ? (limit * (page - 1)) : 0
   const result = await Article.find({hidden: false})
-    .populate('Tag')
+    .populate('tags')
     .select('title visits tags createTime lastEditTime excerpt')
     .sort({createTime: -1})
     .limit(limit)
