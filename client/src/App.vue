@@ -2,7 +2,6 @@
   <div id="app">
     <header-nav></header-nav>
     <div class="content">
-      <div style="width: 100%; height: 100px"></div>
       <router-view
         transition="fade"
         transition-mode="out-in"
