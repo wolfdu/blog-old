@@ -1,13 +1,14 @@
 <template>
   <div id="app">
     <header-nav></header-nav>
-    <main class="content">
+    <div class="content">
+      <div style="width: 100%; height: 100px"></div>
       <router-view
         transition="fade"
         transition-mode="out-in"
         keep-alive>
       </router-view>
-    </main>
+    </div>
     <footer class="copyright">
       Copyrights
     </footer>
@@ -30,9 +31,9 @@
   .fade-enter, .fade-leave
     opacity: 0;
   .content
-    max-width  850px
+    max-width  950px
     box-sizing border-box
-    margin ($header-height + $header-padding-vertical * 2)  auto 0
+    margin ($header-height + $header-padding-vertical * 2)  auto
     padding: 0 1.4em;
     @media screen and (max-width: 480px)
       &
@@ -75,6 +76,10 @@
     .post-list, .post
       padding 1em 0 2em
       border-bottom 1px solid $border
+    .post-list
+      &:after
+        clear both
+        content ""
     .post
       h2
         margin 2em 0 0.8em;

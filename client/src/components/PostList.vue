@@ -1,25 +1,15 @@
 <template>
   <div class="post-list">
-    <article v-for="post in posts">
-      <header>
-        <h2><a v-link="'/posts/'+post['_id']">{{post['title']}}</a></h2>
-        <h4>
-          {{post['createTime']}}
-        </h4>
-      </header>
-
-      <p v-html="post['excerpt'] | markdown">
-
-      </p>
-
-    </article>
+    <article-card v-for="post in posts" :article="post"></article-card>
   </div>
-
 </template>
 <script>
   import articleService from '../service/articleService'
+  import ArticleCard from './common/ArticleCard.vue'
+
   export default {
     components: {
+      ArticleCard
     },
     data () {
       return {

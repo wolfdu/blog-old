@@ -1,62 +1,93 @@
 <template>
-  <div class="article-card">
-    <div class="container">
-      <div class="date">
-        <div class="detail">
-          <span class="date-detail">23</span>
-          <span class="date-detail">October</span>
-          <span class="date-detail">2017</span>
-        </div>
-        <div class="author">
-          <span><i class="fa fa-meh-o fa-1" aria-hidden="true"></i>WolfDu</span>
-        </div>
-      </div>
-      <div class="content">
-        <h2 class="title"><a>blog admin</a></h2>
-        <p>人生如寄，似水流年 如河驶流，往而不返 最惧无常，独遭斯疾</p>
-        <div class="info">
-          <div class="left">
-            <span class="tags"><a>nodeJs</a></span>
+      <div class="article-card">
+        <div class="container">
+          <div class="date">
+            <div class="detail">
+              <span class="date-detail">{{dateDetail.date}}</span>
+              <span class="date-detail">{{dateDetail.month}}</span>
+              <span class="date-detail">{{dateDetail.year}}</span>
+            </div>
+            <div class="author">
+              <span class="author-brand"><i class="fa fa-meh-o fa-1" aria-hidden="true"></i>WolfDu</span>
+            </div>
           </div>
-          <div class="right">
+          <div class="card-content">
+            <h2 class="title"><a>{{article.title}}</a></h2>
+            <p>{{article.excerpt}}</p>
+            <div class="info">
+              <div class="left">
+                <span class="tags" v-for="tag in article.tags"><a>{{tag.name}}</a></span>
+              </div>
+              <div class="right">
               <span class="article-tag">
                 <i class="fa fa-eye fa-1" aria-hidden="true"></i>
-                <span>400</span>
+                <span>{{article.visits}}</span>
               </span>
-            <span class="article-tag">
+                <span class="article-tag">
                 <i class="fa fa-heartbeat fa-1" aria-hidden="true"></i>
-                <span>300</span>
+                <span>{{article.likes}}</span>
               </span>
-            <span class="article-tag">
+                <span class="article-tag">
                 <i class="fa fa-commenting-o fa-flip-horizontal fa-1" aria-hidden="true"></i>
-                <span>200</span>
+                <span>{{commentsCount}}</span>
               </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 </template>
 
 <script>
-
+export default {
+  props: {
+    article: {
+      type: Object,
+      default: function () {
+        return {
+          createTime: '2017-10-20',
+          title: 'wolfdu blog',
+          excerpt: '人生如寄，似水流年 如河驶流，往而不返 最惧无常，独遭斯疾',
+          tags: ['nodeJs', 'JavaScript'],
+          comments: ['aa', 'bb'],
+          visits: 100,
+          likes: 50
+        }
+      }
+    }
+  },
+  computed: {
+    dateDetail: function () {
+      return this.getDateDetail(this.article.createTime)
+    },
+    commentsCount: function () {
+      const comments = this.article.comments
+      return comments ? comments.length : 0
+    }
+  },
+  methods: {
+    getDateDetail (dateStr) {
+      let date = new Date(dateStr)
+      return {
+        date: date.getDate(),
+        month: date.toString().substring(4, 7),
+        year: date.getFullYear()
+      }
+    }
+  }
+}
 </script>
 
 <style lang="stylus">
+  @import "../../stylus/_settings.styl"
   .article-card
-    width 653px
-    height 138px
+    width 100%
     display inline-block
-    padding 1rem
     margin-bottom 2rem
     background-color hsla(0,0%,100%,.6)
     border 1px solid #ccc
-    margin-left 100px
     box-shadow: 0 10px 10px #CCC
     transition all 0.3s ease
-    a
-      &:hover
-        text-decoration underline
     &:hover
       border 1px solid rgba(82, 168, 236, 0.6)
       box-shadow: 0 0 12px rgba(82, 168, 236, 0.6)
@@ -64,11 +95,12 @@
       display -webkit-box
       display -ms-flexbox
       display flex
-      .content
+      padding 1rem
+      .card-content
         -webkit-box-flex 1
         -ms-flex 1
         flex 1
-        padding 0 35px 0 20px
+        padding 0 20px 0 20px
         .title
           margin 0
           font-family Raleway
@@ -126,7 +158,11 @@
           margin-top 1rem
           padding-top 2rem
           i
-            margin-right 10px
+            margin-right 5px
+          .author-brand
+            color $dark
+            font-family $logo-font
+            font-weight 500
         .detail
           padding 0 20px
           border-right 1px solid #ebebeb

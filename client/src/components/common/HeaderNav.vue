@@ -1,5 +1,4 @@
 <template>
-  <div>
     <header class="top-nav-container">
       <nav class="top-nav">
         <router-link to="/posts" class="vertical-center nav-logo">
@@ -12,19 +11,17 @@
           <li class="nav-link-item"><a class="nav-link">关于我</a></li>
         </ul>
         <img src="../../assets/img/menu.png" alt="" class="menu-button" @click="asideNavShow = !asideNavShow">
+        <div class="nav-mask" :class="[asideNavShow? 'open':'']" @click="asideNavShow = false">
+          <aside class="nav-aside" >
+            <ul class="nav-aside-list">
+              <li ><a class="nav-link">文章</a></li>
+              <li ><a class="nav-link">标签</a></li>
+              <li ><a class="nav-link">关于我</a></li>
+            </ul>
+          </aside>
+        </div>
       </nav>
     </header>
-    <div class="nav-mask" :class="[asideNavShow? 'open':'']" @click="asideNavShow = false">
-      <aside class="nav-aside" >
-        <ul class="nav-aside-list">
-          <li ><a class="nav-link">文章</a></li>
-          <li ><a class="nav-link">标签</a></li>
-          <li ><a class="nav-link">关于我</a></li>
-        </ul>
-      </aside>
-    </div>
-
-  </div>
 </template>
 
 <script>
