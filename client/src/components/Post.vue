@@ -6,7 +6,7 @@
         {{createTime}}
       </h4>
     </header>
-    <p v-html="md2html(content)"></p>
+    <p v-html="md2html()"></p>
     <div class="fix tag-list" style="margin: 20px 0;">
       <span class="tag" v-for="tag in tags"><a class="tag-link active">{{tag.name}}</a></span>
     </div>
@@ -15,7 +15,7 @@
 
 <script>
   import articleService from '../service/articleService'
-  import markdown from '../filters/markdown'
+  import {markdown} from '../filters/markdown'
 
   export default {
     components: {
@@ -53,7 +53,7 @@
     },
     methods: {
       md2html () {
-        return markdown
+        return markdown(this.content)
       }
     }
   }
