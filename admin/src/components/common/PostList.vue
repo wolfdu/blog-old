@@ -3,7 +3,7 @@
     <li class="post-list-item" v-for="(draft, index) in draftList" @click="focus(index)">
       <article class="post-thumb" :class="[draft['draftPublished']?'published':draft['article']?'updated':'',
       {'active':draft['id'] === currentDraftId}]">
-        <h3 class="post-title"><a href="javascript:;">{{draft['title']}}</a></h3>
+        <h3 class="post-title">{{draft['title']}}</h3>
         <h6 class="post-time">{{draft['lastEditTime']}}</h6>
         <p class="post-content" v-cloak="draft['excerpt'] | md2Text">
         </p>

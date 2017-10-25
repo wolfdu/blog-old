@@ -6,7 +6,7 @@
           <span class="brand vertical-center-content">Wolf Du</span>
         </router-link>
         <ul class="nav-link-container">
-          <li class="nav-link-item"><a class="nav-link">文章</a></li>
+          <li class="nav-link-item"><router-link to="/posts" class="nav-link">文章</router-link></li>
           <li class="nav-link-item"><a class="nav-link">标签</a></li>
           <li class="nav-link-item"><a class="nav-link">关于我</a></li>
         </ul>
@@ -14,7 +14,7 @@
         <div class="nav-mask" :class="[asideNavShow? 'open':'']" @click="asideNavShow = false">
           <aside class="nav-aside" >
             <ul class="nav-aside-list">
-              <li ><a class="nav-link">文章</a></li>
+              <li ><router-link to="/posts" class="nav-link">文章</router-link></li>
               <li ><a class="nav-link">标签</a></li>
               <li ><a class="nav-link">关于我</a></li>
             </ul>
@@ -74,14 +74,7 @@
     color $dark
     font-family $logo-font
     font-weight 500
-  /**
-    留作以后的slogan样式
-  */
-  /*.slogan
-    font-size 1.3em
-    color $light
-    font-family $logo-font
-    font-weight 500*/
+
   .nav-link-container
     float right
     list-style-type none
@@ -124,8 +117,6 @@
         line-height 1em
         font-size 14px
         padding-bottom 1px
-        &:hover, &.active
-          border-bottom 2px solid $green
     &>.nav-aside-list
       padding-left 0
 
@@ -135,7 +126,7 @@
     text-decoration none
     color $medium
     padding-bottom 3px
-    &:hover, &.active
+    &:hover, &.router-link-active
       border-bottom 3px solid $green
 
   .menu-button

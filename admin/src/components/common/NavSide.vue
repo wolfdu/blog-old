@@ -72,7 +72,7 @@
     border 1px solid $border
     border-radius 50%
     color $green
-    &.active
+    &.router-link-active
       border 1px solid $green
     &:hover
       color white
