@@ -1,24 +1,37 @@
 <template>
-  <div class="sidebar">
-    <div class="sidebar-contain">
-
+  <div class="sidebar-box">
+    <div class="tags-box">
+      <h5 class="title">
+        <i class="fa fa-tags fa-2" aria-hidden="true"></i>标签
+      </h5>
+      <div class="tags">
+        <router-link v-for="tag in tags" :to="{name: 'tag', params: {tagId: tag._id}}" class="tag">{{tag.name}}</router-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+  import tagService from 'src/service/tagService'
+
   export default {
     components: {
     },
     data () {
       return {
-        article: {}
+        tags: []
       }
-    },
-    beforeRouteEnter (to, from, next) {
     },
     mounted () {
       this.$nextTick(function () {
+        tagService.getTags().then(res => {
+          if (res.success) {
+            this.tags = res.data
+          }
+        }).catch(err => {
+          console.log(err)
+          alert('网络错误')
+        })
       })
     },
     methods: {
@@ -27,10 +40,45 @@
 </script>
 
 <style lang="stylus">
-  .sidebar
-    -webkit-box-flex 1
-    -ms-flex 1 1 33.4%
-    flex 1 1 33.4%
-    padding-left 21.333px
-    padding-left 2rem
+
+  .sidebar-box
+    width 100%
+    display inline-block
+    margin-bottom 2rem
+    background-color hsla(0,0%,100%,.6)
+    border 1px solid #ccc
+    box-shadow: 0 10px 10px #CCC
+    transition all 0.3s ease
+    &:hover
+      border 1px solid rgba(82, 168, 236, 0.6)
+      box-shadow: 0 0 12px rgba(82, 168, 236, 0.6)
+    .tags-box
+      padding .5rem
+      h5
+        margin 0
+        border-bottom .1px solid #ebebeb
+        padding-bottom .3rem
+
+  .tags a
+    transition all 0.3s ease
+    margin-right 5px
+    display inline-block;
+    border 1px solid #c4c4c4
+    border-radius 999em
+    padding 0 10px
+    color #bfbfbf
+    line-height 24px
+    font-size 12px
+    text-decoration none
+    margin 0 1px
+    margin-bottom 6px
+    &:hover
+      color rgba(82, 168, 236, 0.6)
+      border 1px solid rgba(82, 168, 236, 0.6)
+
+  .tags
+    margin-bottom -5px
+    margin-top .5rem
+    a
+      border-color #bfbfbf
 </style>

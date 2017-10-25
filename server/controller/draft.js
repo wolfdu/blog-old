@@ -53,7 +53,6 @@ let draftList = async (ctx, next) => {
     draftArr.forEach((draft, index, arr) => {
       draft = draft.toObject()
       resultArr.push(draft)
-      console.log(draft)
     })
   }
   ctx.status = 200

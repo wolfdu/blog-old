@@ -10,15 +10,18 @@
     <div class="fix tag-list" style="margin: 20px 0;">
       <span class="tag" v-for="tag in article.tags"><a class="tag-link active">{{tag.name}}</a></span>
     </div>
+    <sidebar></sidebar>
   </article>
 </template>
 
 <script>
   import articleService from '../service/articleService'
   import {markdown} from '../filters/markdown'
+  import Sidebar from './common/sidebar/Sidebar.vue'
 
   export default {
     components: {
+      Sidebar
     },
     data () {
       return {

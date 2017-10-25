@@ -7,7 +7,6 @@
         </router-link>
         <ul class="nav-link-container">
           <li class="nav-link-item"><router-link to="/posts" class="nav-link">文章</router-link></li>
-          <li class="nav-link-item"><a class="nav-link">标签</a></li>
           <li class="nav-link-item"><a class="nav-link">关于我</a></li>
         </ul>
         <img src="../../assets/img/menu.png" alt="" class="menu-button" @click="asideNavShow = !asideNavShow">
@@ -15,7 +14,6 @@
           <aside class="nav-aside" >
             <ul class="nav-aside-list">
               <li ><router-link to="/posts" class="nav-link">文章</router-link></li>
-              <li ><a class="nav-link">标签</a></li>
               <li ><a class="nav-link">关于我</a></li>
             </ul>
           </aside>
@@ -52,7 +50,7 @@
       &
         position fixed
   .top-nav
-    max-width  850px
+    max-width  1000px
     margin 0 auto
     height $header-height
     padding $header-padding-vertical 0

@@ -2,11 +2,16 @@
   <div id="app">
     <header-nav></header-nav>
     <div class="content">
-      <router-view
-        transition="fade"
-        transition-mode="out-in"
-        keep-alive>
-      </router-view>
+      <div class="main">
+        <div class="page-contain">
+          <router-view
+            transition="fade"
+            transition-mode="out-in"
+            keep-alive>
+          </router-view>
+        </div>
+        <sidebar></sidebar>
+      </div>
     </div>
     <footer class="copyright">
       Copyrights
@@ -16,9 +21,11 @@
 
 <script>
   import HeaderNav from 'components/common/HeaderNav.vue'
+  import Sidebar from 'components/common/sidebar/Sidebar.vue'
   export default {
     components: {
-      HeaderNav
+      HeaderNav,
+      Sidebar
     }
   }
 </script>
@@ -30,10 +37,9 @@
   .fade-enter, .fade-leave
     opacity: 0;
   .content
-    max-width  950px
+    max-width  1000px
     box-sizing border-box
     margin ($header-height + $header-padding-vertical * 2)  auto
-    padding: 0 1.4em;
     @media screen and (max-width: 480px)
       &
         margin ($header-height + $header-padding-vertical-small * 2)  auto 0
@@ -72,6 +78,16 @@
     h4
       color $light
       margin 1.2em 0
+
+  .main
+    display -webkit-box
+    display -ms-flexbox
+    display flex
+    .page-contain
+      -webkit-box-flex 1
+      -ms-flex 1 1 73.6%
+      flex 1 1 73.6%
+      max-width 73.6%
     .post-list, .post
       padding 1em 0 2em
       border-bottom 1px solid $border
