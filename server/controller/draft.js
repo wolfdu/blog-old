@@ -90,7 +90,6 @@ let modify = async (ctx, next) => {
       console.log(draft)
     })
   result = result.toObject()
-  console.log(result)
   ctx.status = 200
   ctx.body = {
     success: true,

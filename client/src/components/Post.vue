@@ -1,14 +1,14 @@
 <template>
   <article class="post">
     <header id="header">
-      <h1>{{title}}</h1>
+      <h1>{{article.title}}</h1>
       <h4>
-        {{createTime}}
+        {{article.createTime}}
       </h4>
     </header>
     <p v-html="md2html()"></p>
     <div class="fix tag-list" style="margin: 20px 0;">
-      <span class="tag" v-for="tag in tags"><a class="tag-link active">{{tag.name}}</a></span>
+      <span class="tag" v-for="tag in article.tags"><a class="tag-link active">{{tag.name}}</a></span>
     </div>
   </article>
 </template>
@@ -22,28 +22,14 @@
     },
     data () {
       return {
-        'id': '',
-        'title': '',
-        'createTime': '',
-        'content': '',
-        'lastEditTime': null,
-        'tags': [],
-        'nextArticle': null,
-        'prevArticle': null
+        article: {}
       }
     },
     beforeRouteEnter (to, from, next) {
       articleService.getPost(to.params.postId).then(res => {
         if (res.success) {
           next(vm => {
-            vm.id = res.data._id
-            vm.title = res.data.title
-            vm.createTime = res.data.createTime
-            vm.content = res.data.content
-            vm.nextArticle = res.data.nextArticle
-            vm.prevArticle = res.data.prevArticle
-            vm.lastEditTime = res.data.lastEditTime
-            vm.tags = res.data.tags
+            vm.article = res.data
           })
         }
       }).catch(err => {
@@ -51,9 +37,16 @@
         alert('网络错误,请刷新重试')
       })
     },
+    mounted () {
+      this.$nextTick(function () {
+        articleService.visit(this.article.id, this.article.visits).catch(err => {
+          console.log(err)
+        })
+      })
+    },
     methods: {
       md2html () {
-        return markdown(this.content)
+        return markdown(this.article.content)
       }
     }
   }

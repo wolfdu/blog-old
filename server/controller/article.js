@@ -63,4 +63,26 @@ let articleDetail = async (ctx, next) => {
   }
 }
 
-module.exports = {articleList, articleDetail}
+let modify = async (ctx, next) => {
+  const id = ctx.params.id
+  const modifyOptions = ctx.request.body
+  let result = await Article.findByIdAndUpdate(id, {$set: modifyOptions}, {new: true}).exec((err, article) => {
+    if (err) {
+      LOG.error(err)
+      if (err.name === 'CastError') {
+        console.log('id不存在')
+      } else {
+        console.log('内部错误')
+      }
+    }
+    console.log(article)
+  })
+  result = result.toObject()
+  ctx.status = 200
+  ctx.body = {
+    success: true,
+    data: result
+  }
+}
+
+module.exports = {articleList, articleDetail, modify}

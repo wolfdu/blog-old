@@ -13,5 +13,6 @@ let articleRouter = new Router()
  */
 articleRouter.get('/articles', draftController.articleList)
 articleRouter.get('/articles/:id', draftController.articleDetail)
+articleRouter.patch('/articles/:id', draftController.modify)
 
 module.exports = articleRouter

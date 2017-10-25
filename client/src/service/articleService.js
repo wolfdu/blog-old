@@ -12,4 +12,8 @@ function getPost (id) {
   return api.get(`articles/${id}`)
 }
 
-export default {getPostList, getPost}
+function visit (id, visits) {
+  return api.patch(`articles/${id}`, {visits: visits + 1})
+}
+
+export default {getPostList, getPost, visit}
