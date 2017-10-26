@@ -91,10 +91,6 @@
     .post-list, .post
       padding 1em 0 2em
       border-bottom 1px solid $border
-    .post-list
-      &:after
-        clear both
-        content ""
     .post
       h2
         margin 2em 0 0.8em;

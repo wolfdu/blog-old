@@ -1,17 +1,18 @@
 <template>
-  <article class="post">
-    <header id="header">
-      <h1>{{article.title}}</h1>
-      <h4>
-        {{article.createTime}}
-      </h4>
-    </header>
-    <p v-html="md2html()"></p>
-    <div class="fix tag-list" style="margin: 20px 0;">
-      <span class="tag" v-for="tag in article.tags"><a class="tag-link active">{{tag.name}}</a></span>
-    </div>
-    <sidebar></sidebar>
-  </article>
+  <div class="post">
+    <article class="article">
+      <header id="header">
+        <h1>{{article.title}}</h1>
+        <h4>
+          {{article.createTime}}
+        </h4>
+      </header>
+      <p v-html="md2html()"></p>
+      <div class="fix tag-list" style="margin: 20px 0;">
+        <span class="tag" v-for="tag in article.tags"><a class="tag-link active">{{tag.name}}</a></span>
+      </div>
+    </article>
+  </div>
 </template>
 
 <script>
@@ -57,6 +58,13 @@
 
 <style lang="stylus">
   @import "../stylus/_settings.styl"
+  .post
+    padding 1em 0 2em
+    border-bottom  1px solid $border
+    .article
+      border  1px solid $border
+      padding .5rem 2rem 2rem 2rem
+
   .tag-list
     .tag
       float left
