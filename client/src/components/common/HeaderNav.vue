@@ -6,7 +6,7 @@
           <span class="brand vertical-center-content">Wolf Du</span>
         </router-link>
         <ul class="nav-link-container">
-          <li class="nav-link-item"><router-link to="/posts" class="nav-link">文章</router-link></li>
+          <li class="nav-link-item"><router-link to="/posts" class="nav-link">首页</router-link></li>
           <li class="nav-link-item"><a class="nav-link">关于我</a></li>
         </ul>
         <img src="../../assets/img/menu.png" alt="" class="menu-button" @click="asideNavShow = !asideNavShow">

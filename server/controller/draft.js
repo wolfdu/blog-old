@@ -4,6 +4,7 @@ const Draft = require('../models/draft')
 const Article = require('../models/article')
 const VError = require('verror')
 const LOG = require('../utils/logger')
+const trim = require('lodash/trim')
 
 function getDraft () {
   return new Draft({
@@ -62,19 +63,30 @@ let draftList = async (ctx, next) => {
   }
 }
 
+function getModifyOpt (draftContent) {
+  // default opt
+  let modifyOpt = {
+    excerpt: '',
+    thumb: ''
+  }
+  let content = draftContent.content
+  if (content) {
+    modifyOpt.content = content
+    const regexp = /^<!--\n([^]*)\n-->/
+    const optStrArr = content.match(regexp)[1].split(',')
+    optStrArr.forEach(function (item) {
+      let optArr = item.split('->')
+      this[trim(optArr[0])] = trim(optArr[1])
+    }, modifyOpt)
+  }
+  modifyOpt.lastEditTime = new Date()
+  modifyOpt.draftPulished = false
+  return modifyOpt
+}
+
 let modify = async (ctx, next) => {
   const id = ctx.params.id
-  const modifyOptions = ctx.request.body
-  if (modifyOptions.content) {
-    const contentArr = modifyOptions.content.split('<!-- more -->')
-    if (contentArr.length) {
-      modifyOptions.excerpt = contentArr[0]
-    } else {
-      modifyOptions.excerpt = ''
-    }
-  }
-  modifyOptions.lastEditTime = new Date()
-  modifyOptions.draftPulished = false
+  const modifyOptions = getModifyOpt(ctx.request.body)
   let result = await Draft.findByIdAndUpdate(id, {$set: modifyOptions}, {new: true})
     .populate('tags')
     .exec((err, draft) => {

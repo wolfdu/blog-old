@@ -28,7 +28,7 @@ let articleList = async (ctx, next) => {
   }
   const result = await Article.find(queryOpt)
     .populate('tags')
-    .select('title visits tags createTime lastEditTime excerpt')
+    .select('title visits tags createTime lastEditTime excerpt thumb')
     .sort({createTime: -1})
     .limit(limit)
     .skip(skip)

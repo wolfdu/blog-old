@@ -29,7 +29,8 @@ const articleSchema = new Schema({
   comments: [{
     type: Schema.Types.ObjectId,
     ref: 'comment'
-  }]
+  }],
+  thumb: String
 }, {versionKey: false, skipVersioning: { tags: true }})
 
 articleSchema.set('toJSON', { getters: true, virtuals: true})

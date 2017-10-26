@@ -85,9 +85,9 @@
     display flex
     .page-contain
       -webkit-box-flex 1
-      -ms-flex 1 1 73.6%
-      flex 1 1 73.6%
-      max-width 73.6%
+      -ms-flex 1 1 71.6%
+      flex 1 1 71.6%
+      max-width 71.6%
     .post-list, .post
       padding 1em 0 2em
       border-bottom 1px solid $border

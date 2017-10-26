@@ -5,7 +5,7 @@
         <i class="fa fa-tags fa-2" aria-hidden="true"></i>标签
       </h5>
       <div class="tags">
-        <router-link v-for="tag in tags" :to="{name: 'tag', params: {tagId: tag._id}}" class="tag">{{tag.name}}</router-link>
+        <router-link v-for="tag in tags" :to="{name: 'tag', params: {tagId: tag._id}}" :key="tag._id" class="tag">{{tag.name}}</router-link>
       </div>
     </div>
   </div>

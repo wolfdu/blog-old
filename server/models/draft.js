@@ -17,7 +17,8 @@ const draftSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Tag'
   },
-  draftPublished: Boolean
+  draftPublished: Boolean,
+  thumb: String
 }, {versionKey: false, skipVersioning: {tags: true}})
 
 draftSchema.set('toJSON', {getters: true, virtuals: true})
