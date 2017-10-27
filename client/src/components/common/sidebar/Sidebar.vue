@@ -42,6 +42,9 @@
     flex 1 1 28.4%
     padding-left 21.333px
     padding-left 1.5rem
+    @media screen and (max-width: 480px)
+      &
+        display none
     .sidebar-box
       margin-bottom 32px
       margin-bottom 2rem

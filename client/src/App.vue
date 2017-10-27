@@ -88,6 +88,11 @@
       -ms-flex 1 1 71.6%
       flex 1 1 71.6%
       max-width 71.6%
+      @media screen and (max-width: 480px)
+        &
+          -ms-flex 1 1 100%
+          flex 1 1 100%
+          max-width 100%
     .post-list, .post
       padding 1em 0 2em
       border-bottom 1px solid $border
