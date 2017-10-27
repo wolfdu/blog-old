@@ -26,8 +26,8 @@ function getQueryOpt (query) {
   return result
 }
 
-function getSortParam (limit) {
-  return limit < 10 ? {visits: -1} : {createTime: -1}
+function getSortParam (page) {
+  return page ? {createTime: -1} : {visits: -1}
 }
 
 let articleList = async (ctx, next) => {
@@ -35,13 +35,13 @@ let articleList = async (ctx, next) => {
   const page = ~~ctx.query.page
   let skip = page ? (limit * (page - 1)) : 0
   let queryOpt = getQueryOpt(ctx.query)
-  let sortParam = getSortParam(limit)
+  let sortParam = getSortParam(page)
   const result = await Article.find(queryOpt)
     .populate('tags')
     .select('title visits tags createTime lastEditTime excerpt thumb')
     .sort(sortParam)
-    .limit(limit)
     .skip(skip)
+    .limit(limit)
     .exec((err, result) => {
       if (err) {
         console.log(err)

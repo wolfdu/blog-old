@@ -2,7 +2,7 @@
   <div class="sidebar-box">
     <div class="tags-box">
       <h5 class="title">
-        <i class="fa fa-tags fa-2" aria-hidden="true"></i>热门文章
+        <i class="fa fa-free-code-camp fa-2" aria-hidden="true"></i>热门文章
       </h5>
       <div class="articles">
         <hot-article-card v-for="article in articles" :article="article" :key="article.id"></hot-article-card>
@@ -57,7 +57,8 @@ export default {
         margin 0
         border-bottom .1px solid #ebebeb
         padding-bottom .3rem
-
+        i
+          margin-right .2rem
   .articles a
     transition all 0.3s ease
     margin-right 5px
