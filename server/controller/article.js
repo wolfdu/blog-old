@@ -17,19 +17,29 @@ let getArticleArr = function (result) {
   return resultArr
 }
 
+function getQueryOpt (query) {
+  let result = {hidden: false}
+  const tag = query.tagId
+  if (tag) {
+    result.tags = {$all: [tag]}
+  }
+  return result
+}
+
+function getSortParam (limit) {
+  return limit < 10 ? {visits: -1} : {createTime: -1}
+}
+
 let articleList = async (ctx, next) => {
   const limit = ~~ctx.query.limit || 10
   const page = ~~ctx.query.page
   let skip = page ? (limit * (page - 1)) : 0
-  const tag = ctx.query.tagId
-  let queryOpt = {hidden: false}
-  if (tag) {
-    queryOpt.tags = {$all: [tag]}
-  }
+  let queryOpt = getQueryOpt(ctx.query)
+  let sortParam = getSortParam(limit)
   const result = await Article.find(queryOpt)
     .populate('tags')
     .select('title visits tags createTime lastEditTime excerpt thumb')
-    .sort({createTime: -1})
+    .sort(sortParam)
     .limit(limit)
     .skip(skip)
     .exec((err, result) => {

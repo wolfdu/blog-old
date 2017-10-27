@@ -26,7 +26,7 @@ export default {
   },
   mounted () {
     this.$nextTick(function () {
-      articleService.getPostList({page: 1, limit: 10}).then(res => {
+      articleService.getPostList({page: 0, limit: 5}).then(res => {
         if (res.success) {
           this.articles = res.data.articles
         }

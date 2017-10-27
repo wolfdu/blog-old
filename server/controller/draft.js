@@ -63,21 +63,25 @@ let draftList = async (ctx, next) => {
   }
 }
 
-function getModifyOpt (draftContent) {
+function getExcerptAndThumb (content) {
+  let result = {}
+  const regexp = /^<!--\n([^]*)\n-->/
+  const optStrArr = content.match(regexp)[1].split(',')
+  optStrArr.forEach(function (item) {
+    let optArr = item.split('->')
+    this[trim(optArr[0])] = trim(optArr[1])
+  }, result)
+  return result
+}
+
+function getModifyOpt (queryParams) {
   // default opt
-  let modifyOpt = {
-    excerpt: '',
-    thumb: ''
-  }
-  let content = draftContent.content
+  let modifyOpt = queryParams
+  let content = queryParams.content
   if (content) {
-    modifyOpt.content = content
-    const regexp = /^<!--\n([^]*)\n-->/
-    const optStrArr = content.match(regexp)[1].split(',')
-    optStrArr.forEach(function (item) {
-      let optArr = item.split('->')
-      this[trim(optArr[0])] = trim(optArr[1])
-    }, modifyOpt)
+    modifyOpt.excerpt = ''
+    modifyOpt.thumb = ''
+    Object.assign(modifyOpt, getExcerptAndThumb(content))
   }
   modifyOpt.lastEditTime = new Date()
   modifyOpt.draftPulished = false
