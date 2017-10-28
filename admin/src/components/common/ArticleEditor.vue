@@ -174,7 +174,7 @@
         })
       },
       submitTag (e) {
-        const val = e.type === 'click' ? e.target.innerText : e.target.value.name
+        const val = e.type === 'click' ? e.target.innerText : e.target.value
         let tag = trim(val)
         this.tagInput = false
         if (tag) {
