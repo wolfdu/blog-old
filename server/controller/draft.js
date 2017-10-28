@@ -66,11 +66,14 @@ let draftList = async (ctx, next) => {
 function getExcerptAndThumb (content) {
   let result = {}
   const regexp = /^<!--\n([^]*)\n-->/
-  const optStrArr = content.match(regexp)[1].split(',')
-  optStrArr.forEach(function (item) {
-    let optArr = item.split('->')
-    this[trim(optArr[0])] = trim(optArr[1])
-  }, result)
+  let optStrArr = content.match(regexp)
+  if (optStrArr) {
+    optStrArr = optStrArr[1].split(',')
+    optStrArr.forEach(function (item) {
+      let optArr = item.split('->')
+      this[trim(optArr[0])] = trim(optArr[1])
+    }, result)
+  }
   return result
 }
 
