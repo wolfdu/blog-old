@@ -64,7 +64,7 @@ marked.setOptions({
 })
 
 function markdown (str) {
-  return marked(str)
+  return str ? marked(str) : ''
 }
 
 export {markdown}

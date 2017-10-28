@@ -42,6 +42,13 @@ client/build/webpack.base.conf.js
 MongoDB启动：
 
 
+### linux
+
+端口占用：
+  lsof -i:`port`
+
+
+
 ### vue 2.x
 
 > [Vue warn] : You are using the runtime-only build of Vue where the template option is not available. Either pre-compile the templates into render functions, or use the compiler-included build. (found in root instance)

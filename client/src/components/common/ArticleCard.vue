@@ -20,17 +20,17 @@
                   <router-link :to="{name: 'tag', params: {tagId: tag._id}}" class="tag">{{tag.name}}</router-link></span>
               </div>
               <div class="right">
-              <span class="article-tag">
-                <i class="fa fa-eye fa-1" aria-hidden="true"></i>
-                <span>{{article.visits}}</span>
-              </span>
                 <span class="article-tag">
-                <i class="fa fa-heartbeat fa-1" aria-hidden="true"></i>
-                <span>{{article.likes}}</span>
-              </span>
+                  <i class="fa fa-eye fa-1" aria-hidden="true"></i>
+                  <span>{{article.visits}}</span>
+                </span>
                 <span class="article-tag">
-                <i class="fa fa-commenting-o fa-flip-horizontal fa-1" aria-hidden="true"></i>
-                <span>{{commentsCount}}</span>
+                  <i class="fa fa-heartbeat fa-1" aria-hidden="true"></i>
+                  <span>{{article.like}}</span>
+                </span>
+                <span class="article-tag" v-show="null">
+                  <i class="fa fa-commenting-o fa-flip-horizontal fa-1" aria-hidden="true"></i>
+                  <span></span>
               </span>
               </div>
             </div>
@@ -52,7 +52,7 @@ export default {
           tags: ['nodeJs', 'JavaScript'],
           comments: ['aa', 'bb'],
           visits: 100,
-          likes: 50
+          like: 50
         }
       }
     }
@@ -60,10 +60,6 @@ export default {
   computed: {
     dateDetail: function () {
       return this.getDateDetail(this.article.createTime)
-    },
-    commentsCount: function () {
-      const comments = this.article.comments
-      return comments ? comments.length : 0
     }
   },
   methods: {

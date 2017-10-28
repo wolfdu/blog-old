@@ -11,6 +11,7 @@
     </div>
   </div>
 </template>
+
 <script>
   import articleService from '../service/articleService'
   import ArticleCard from './common/ArticleCard.vue'

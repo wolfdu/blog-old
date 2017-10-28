@@ -5,7 +5,11 @@
         <i class="fa fa-tags fa-2" aria-hidden="true"></i>标签
       </h5>
       <div class="tags">
-        <router-link v-for="tag in tags" :to="{name: 'tag', params: {tagId: tag._id}}" :key="tag._id" class="tag">{{tag.name}}</router-link>
+        <router-link
+          v-for="tag in tags"
+          :to="{name: 'tag', params: {tagId: tag._id}}"
+          :key="tag._id"
+          class="tag">{{tag.name}}</router-link>
       </div>
     </div>
   </div>
@@ -59,26 +63,26 @@
         border-bottom .1px solid #ebebeb
         padding-bottom .3rem
 
-  .tags a
-    transition all 0.3s ease
-    margin-right 5px
-    display inline-block;
-    border 1px solid #c4c4c4
-    border-radius 999em
-    padding 0 10px
-    color #bfbfbf
-    line-height 24px
-    font-size 12px
-    text-decoration none
-    margin 0 1px
-    margin-bottom 6px
-    &:hover
-      color rgba(82, 168, 236, 0.6)
-      border 1px solid rgba(82, 168, 236, 0.6)
-
   .tags
     margin-bottom -5px
     margin-top .5rem
-    a
+    .tag
+      transition all 0.3s ease
+      margin-right 5px
+      display inline-block;
+      border 1px solid #c4c4c4
+      border-radius 999em
+      padding 0 10px
+      color #bfbfbf
+      line-height 24px
+      font-size 12px
+      text-decoration none
+      margin-bottom 6px
       border-color #bfbfbf
+      &:hover
+        color rgba(82, 168, 236, 0.6)
+        border 1px solid rgba(82, 168, 236, 0.6)
+
+
+
 </style>

@@ -16,4 +16,8 @@ function visit (id, visits) {
   return api.patch(`articles/${id}`, {visits: visits + 1})
 }
 
-export default {getPostList, getPost, visit}
+function like (id, like) {
+  return api.patch(`articles/${id}`, {like: like + 1})
+}
+
+export default {getPostList, getPost, visit, like}

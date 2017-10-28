@@ -12,6 +12,10 @@ const articleSchema = new Schema({
     type: Number,
     default: 0
   },
+  like: {
+    type: Number,
+    default: 0
+  },
   tags: [{
     type: Schema.Types.ObjectId,
     ref: 'Tag'
