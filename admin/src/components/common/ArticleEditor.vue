@@ -44,6 +44,8 @@
     })
   }, 1000)
 
+  let smde
+
   const updateContent = debounce(function () {
     postsService.modifyDraftContent(this.currentDraftId, smde.value()).then(res => {
       if (res.success) {
@@ -55,8 +57,6 @@
       alert('保存文章内容失败')
     })
   }, 1000)
-
-  let smde
   export default{
     data () {
       return {

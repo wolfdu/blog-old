@@ -14,8 +14,8 @@
 
 <script>
   import NavSide from './common/NavSide.vue'
-  import PostList from './common/PostList.vue'
   import ArticleEditor from './common/ArticleEditor.vue'
+  import PostList from './common/PostList.vue'
   import { mapGetters, mapActions } from 'vuex'
 
   export default{

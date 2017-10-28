@@ -8,8 +8,9 @@
         </router-link></li>
         <li class="aside-nav-item"><router-link to="/tags" class="aside-nav-button">
           <icon name="tag" class="iconfont" scale="3"></icon>
-        </router-link> </li>
-        <li class="aside-nav-item"><a class="aside-nav-button" ><icon name="evil" class="iconfont" scale="3"></icon></a> </li>
+        </router-link></li>
+        <li class="aside-nav-item"><router-link to="/about" class="aside-nav-button"><icon name="evil" class="iconfont" scale="3"></icon>
+        </router-link></li>
       </ul>
     </nav>
     <nav class="aside-menu">

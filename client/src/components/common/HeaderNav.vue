@@ -7,14 +7,14 @@
         </router-link>
         <ul class="nav-link-container">
           <li class="nav-link-item"><router-link to="/posts" class="nav-link">首页</router-link></li>
-          <li class="nav-link-item"><a class="nav-link">关于我</a></li>
+          <li class="nav-link-item"><router-link to="/about" class="nav-link">关于Wolf Du</router-link></li>
         </ul>
         <img src="../../assets/img/menu.png" alt="" class="menu-button" @click="asideNavShow = !asideNavShow">
         <div class="nav-mask" :class="[asideNavShow? 'open':'']" @click="asideNavShow = false">
           <aside class="nav-aside" >
             <ul class="nav-aside-list">
               <li ><router-link to="/posts" class="nav-link">文章</router-link></li>
-              <li ><a class="nav-link">关于我</a></li>
+              <li ><router-link to="/about" class="nav-link">关于Wolf Du</router-link></li>
             </ul>
           </aside>
         </div>

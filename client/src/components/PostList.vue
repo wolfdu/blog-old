@@ -6,7 +6,8 @@
         <i class="fa fa-btc" aria-hidden="true" v-show="iconStatus === 'noMore'"></i>
         <i class="fa fa-spinner fa-pulse fa-fw" v-show="iconStatus === 'loading'"></i>
         <span class="sr-only">Loading...</span>
-        <i class="fa fa-hand-lizard-o fa-flip-horizontal" aria-hidden="true" v-show="iconStatus === 'getMore'"></i> {{readMoreInfo}}
+        <i class="fa fa-hand-lizard-o fa-flip-horizontal" aria-hidden="true" v-show="iconStatus === 'getMore'"></i>
+        {{readMoreInfo}}
       </button>
     </div>
   </div>
