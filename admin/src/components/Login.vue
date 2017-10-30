@@ -7,13 +7,13 @@
       <icon id="animation" name="chameleon" class="banner-logo" scale="20"></icon>
     </header>
     <div class="center-box">
-      <div class="flash-bar danger" v-if="loginError">登录失败 {{loginErrorMsg}}</div>
+      <div class="flash-bar danger" v-if="loginErr.loginError">登录失败 {{loginErr.loginErrorMsg}}</div>
       <div class="login-box">
         <div class="login-header">
         </div>
         <div class="login-body">
-          <input type="text" class="form-control top" placeholder="Username" v-model="username">
-          <input type="password" class="form-control bottom" placeholder="Password" v-model="password" @keyup.13="login">
+          <input type="text" class="form-control top" placeholder="Username" v-model="user.username">
+          <input type="password" class="form-control bottom" placeholder="Password" v-model="user.password" @keyup.13="login">
         </div>
         <div class="login-footer">
           <div class="login-button-Container">
@@ -29,16 +29,18 @@
 
 <script>
   import { mapActions } from 'vuex'
-  import md5 from 'md5'
-  import service from '../service/login/loginService'
 
   export default {
     data () {
       return {
-        username: '',
-        password: '',
-        loginError: false,
-        loginErrorMsg: ''
+        user: {
+          username: '',
+          password: ''
+        },
+        loginErr: {
+          loginError: false,
+          loginErrorMsg: ''
+        }
       }
     },
     methods: {
@@ -46,16 +48,7 @@
         'createToken'
       ]),
       login () {
-        let user = {username: this.username, password: md5(this.password).toUpperCase()}
-        service.createToken(user).then(res => {
-          if (res.success) {
-            this.createToken(res.data.token)
-            this.$router.replace({path: '/posts'})
-          } else {
-            this.loginError = true
-            this.loginErrorMsg = '登录失败··'
-          }
-        })
+        this.loginErr = this.createToken(this.user)
       }
     }
   }

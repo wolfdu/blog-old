@@ -1,4 +1,4 @@
-import api from '../index'
+import api from '../API'
 
 function createTags (name) {
   return api.post('tags', {name})

@@ -6,36 +6,33 @@ const VError = require('verror')
 const Draft = require('../models/draft')
 const Article = require('../models/article')
 
+/**
+ * create tag by tagName
+ * @param ctx
+ * @param next
+ * @returns {Promise.<void>}
+ */
 let create = async (ctx, next) => {
   const tagName = ctx.request.body.name
-  if (tagName) {
-    let tag = await Tag.findOne({name: tagName}).exec((err, tag) => {
-      if (err) {
-        LOG.error(err)
-      } else {
-        console.log(tag ? tag.toJSON() : tag)
-      }
-    })
+  try {
+    let tag = await Tag.findOne({name: tagName}).exec()
     if (!tag) {
       const newTag = new Tag({name: tagName})
-      tag = await newTag.save((err, tag) => {
-        if (err) {
-          LOG.error(err)
-        } else {
-          console.log(tag ? tag.toJSON() : tag)
-        }
-      })
+      tag = await newTag.save()
     }
     ctx.status = 200
-    ctx.body = {
-      success: true,
-      data: tag
-    }
-  } else {
-    console.error(400, '标签名缺失')
+    ctx.body = {success: true, data: tag}
+  } catch (err) {
+    ctx.throw(err)
   }
 }
 
+/**
+ * get tags by keyword
+ * @param ctx
+ * @param next
+ * @returns {Promise.<void>}
+ */
 let keywordList = async (ctx, next) => {
   const keyword = ctx.query['keyword']
   const queryOption = {}

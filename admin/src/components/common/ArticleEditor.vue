@@ -180,19 +180,21 @@
         if (tag) {
           this.tagNew = ''
           tagService.createTags(tag).then(res => {
-            let id = res.data.id
-            if (!this.tags.some(item => item.id === id)) {
-              let tags = this.tags.map(item => item.id)
-              tags.push(id)
-              postsService.modifyDraftTags(this.currentDraftId, tags).then(res => {
-                if (res.success) {
-                  this.tags = res.data.tags
-                  this.draftTagsModify(res.data.lastEditTime)
-                }
-              }).catch(err => {
-                console.log(err)
-                alert('网络错误,修改标签失败')
-              })
+            if (res.success) {
+              let id = res.data.id
+              if (!this.tags.some(item => item.id === id)) {
+                let tags = this.tags.map(item => item.id)
+                tags.push(id)
+                postsService.modifyDraftTags(this.currentDraftId, tags).then(res => {
+                  if (res.success) {
+                    this.tags = res.data.tags
+                    this.draftTagsModify(res.data.lastEditTime)
+                  }
+                }).catch(err => {
+                  console.log(err)
+                  alert('网络错误,修改标签失败')
+                })
+              }
             }
           }).catch(err => {
             console.log(err)

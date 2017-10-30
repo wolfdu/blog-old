@@ -1,4 +1,4 @@
-import api from '../index'
+import api from '../API'
 
 function createDraft () {
   return api.post('drafts')

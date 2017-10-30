@@ -1,7 +1,7 @@
 /**
  * Created by wolfdu on 17-10-28.
  */
-import api from './index'
+import api from './API'
 
 function getAbout () {
   return api.get('about')

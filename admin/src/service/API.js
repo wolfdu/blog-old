@@ -1,5 +1,4 @@
 import store from '../vuex/store'
-import { deleteToken } from '../vuex/modules/token/actions'
 
 function parseResponse (response) {
   return Promise.all([response.status, response.statusText, response.json()])
@@ -13,7 +12,7 @@ function checkStatus ([status, statusText, data]) {
       if (data.error === 'token expired') {
         alert('token已过期,请注意内容保存,并重新登录')
       } else if (data.error === 'invalid token') {
-        deleteToken(store)
+        // deleteToken(store)
         // route to login
       }
     }
