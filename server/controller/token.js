@@ -1,37 +1,35 @@
 'use strict'
 
 const User = require('../models/user')
-const LOG = require('../utils/logger')
 const md5 = require('md5')
 const jwt = require('jsonwebtoken')
 const config = require('../config/index')
+
+let getAdminUser = function () {
+  return new User({
+    name: 'admin',
+    username: 'admin',
+    password: md5('password').toUpperCase(),
+    avatar: '',
+    createTime: new Date()
+  })
+}
 
 /**
  * init admin
  * @returns {Promise.<void>}
  */
 let seed = async (ctx, next) => {
-  let user = await User.find({}).exec((err, users) => {
-    if (err) {
-      LOG.error(err)
-      throw (new Error('数据seed失败,请debug后重新启动'))
+  try {
+    let user = await User.find({}).exec()
+    if (user.length === 0) {
+      user = getAdminUser()
+      await user.save()
     }
-  })
-
-  if (user.length === 0) {
-    user = new User({
-      name: 'admin',
-      username: 'admin',
-      password: md5('password').toUpperCase(),
-      avatar: '',
-      createTime: new Date()
-    })
-    await user.save().catch(err => {
-      LOG.error(err)
-      throw (new Error('数据seed失败,请debug后重新启动'))
-    })
+    await next()
+  } catch (err) {
+    ctx.throw(err)
   }
-  await next()
 }
 
 function getToken (user) {
@@ -53,15 +51,14 @@ let create = async (ctx, next) => {
   const password = ctx.request.body.password
   try {
     let user = await User.findOne({username}).exec()
+    ctx.status = 200
     if (user && user.password === password) {
       const token = getToken(user)
-      ctx.status = 200
       ctx.body = {
         success: true,
         data: {uid: user._id, name: user.name, token}
       }
     } else {
-      ctx.status = 200
       ctx.body = {message: '用户名或密码错误'}
     }
   } catch (err) {
