@@ -2,6 +2,7 @@
 'use strict'
 const Koa = require('koa')
 const loggerAsync = require('./middleware/logger-async')
+const errorHandle = require('./middleware/error-handle')
 const mongoose = require('mongoose')
 const config = require('./config/index')
 const jwt = require('jsonwebtoken')
@@ -11,6 +12,7 @@ const cors = require('koa2-cors')
 
 const app = new Koa()
 app.use(loggerAsync())
+app.use(errorHandle())
 
 jwt.co_verify = function (jwtString, secretOrPublicKey, options) {
   return function (cb) {
@@ -30,6 +32,12 @@ app.use(cors({
 
 app.use(bodyParser())
 app.use(router.routes()).use(router.allowedMethods())
+
+app.on('error', (err, ctx) => {
+  if (process.env.NODE_ENV !== 'test') {
+    console.error('error', err)
+  }
+})
 
 app.listen(config.app.port, () => {
   console.log(`[demo] start-quick is starting at port ${config.app.port}`)

@@ -1,7 +1,6 @@
 'use strict'
 
 const User = require('../models/user')
-const Utils = require('../utils/index')
 const LOG = require('../utils/logger')
 const md5 = require('md5')
 const jwt = require('jsonwebtoken')
@@ -35,6 +34,14 @@ let seed = async (ctx, next) => {
   await next()
 }
 
+function getToken (user) {
+  return jwt.sign({
+    uid: user._id,
+    name: user.name,
+    exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60// 1 hours
+  }, config.jwt.cert)
+}
+
 /**
  * create token
  * @param ctx
@@ -44,34 +51,21 @@ let seed = async (ctx, next) => {
 let create = async (ctx, next) => {
   const username = ctx.request.body.username
   const password = ctx.request.body.password
-  let user = await User.findOne({username}).exec((err, user) => {
-    console.log(user.toJSON())
-    if (err) {
-      LOG.error(err)
-      throw (new Error('数据seed失败,请debug后重新启动'))
-    }
-  })
-  if (user !== null && user.password === password) {
-    const token = jwt.sign({
-      uid: user._id,
-      name: user.name,
-      exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60// 1 hours
-    }, config.jwt.cert)
-    Utils.print(token)
-    ctx.status = 200
-    ctx.body = {
-      success: true,
-      data: {
-        uid: user._id,
-        name: user.name,
-        token
+  try {
+    let user = await User.findOne({username}).exec()
+    if (user && user.password === password) {
+      const token = getToken(user)
+      ctx.status = 200
+      ctx.body = {
+        success: true,
+        data: {uid: user._id, name: user.name, token}
       }
+    } else {
+      ctx.status = 200
+      ctx.body = {message: '用户名或密码错误'}
     }
-  } else {
-    ctx.response.status = 401
-    ctx.response.body = {
-      message: '用户名或密码错误'
-    }
+  } catch (err) {
+    ctx.throw(err)
   }
 }
 

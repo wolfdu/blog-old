@@ -1,13 +1,7 @@
 import {tokenTypes} from '../../mutation_types'
-import service from '../../../service/login/loginService'
 
-function createToken ({commit}, param) {
-  return service.createToken(param.user).then(res => {
-    if (res.success) {
-      commit(tokenTypes.TOKEN_CREATE, res.data.token)
-      param.router.replace({path: '/posts'})
-    }
-  })
+function createToken ({commit}, token) {
+  commit(tokenTypes.TOKEN_CREATE, token)
 }
 
 function deleteToken ({commit}, router) {

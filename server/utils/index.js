@@ -1,12 +1,5 @@
 'use strict'
-
-const print = require('debug')('blog')
 const utils = {}
-
-/**
- * debug plugin
- */
-utils.print = print
 
 // 将时间输出为统一的格式
 // eslint-disable-next-line no-extend-native

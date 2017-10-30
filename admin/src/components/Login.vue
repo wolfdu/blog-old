@@ -30,6 +30,7 @@
 <script>
   import { mapActions } from 'vuex'
   import md5 from 'md5'
+  import service from '../service/login/loginService'
 
   export default {
     data () {
@@ -46,13 +47,15 @@
       ]),
       login () {
         let user = {username: this.username, password: md5(this.password).toUpperCase()}
-        let param = {user: user, router: this.$router}
-        this.createToken(param)
-          .catch(err => {
-            console.log(err)
-            this.loginErrorMsg = err.message
+        service.createToken(user).then(res => {
+          if (res.success) {
+            this.createToken(res.data.token)
+            this.$router.replace({path: '/posts'})
+          } else {
             this.loginError = true
-          })
+            this.loginErrorMsg = '登录失败··'
+          }
+        })
       }
     }
   }
