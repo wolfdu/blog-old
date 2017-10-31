@@ -2,7 +2,6 @@ import { tokenTypes } from '../mutation_types'
 import tokenApi from '../../service/token.resource'
 import router from '../../router'
 import msg from './toaster-msg'
-import store from '../store'
 
 const showMsg = msg.actions.showMsg
 
@@ -16,11 +15,13 @@ const actions = {
       if (res.success) {
         commit(tokenTypes.TOKEN_CREATE, res.data.token)
         router.replace({path: '/posts'})
-        showMsg(store, 'Welcome Wolf Du !!!')
+        let msg = {content: 'Welcome Wolf Du !!!', type: 'success'}
+        showMsg(msg)
       } else {
-        showMsg(store, res.data.error_message || '登陆失败')
+        let msg = {content: res.data.error_message || '登陆失败'}
+        showMsg(msg)
       }
-    })
+    }, res => { showMsg({content: res.data.error_message || '登陆失败'}) })
   },
   deleteToken ({commit}) {
     commit(tokenTypes.TOKEN_DELETE)

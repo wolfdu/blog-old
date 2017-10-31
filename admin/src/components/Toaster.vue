@@ -29,7 +29,7 @@
         'showMsg',
         'hideMsg'
       ]),
-      showToastr (content, type = 'error', position = 'top right') {
+      showToastr (content, type, position = 'top right') {
         const toast = this.$refs.toast
         toast.setOptions({ maxToasts: 3, position: position })
         toast.showToast(content, {

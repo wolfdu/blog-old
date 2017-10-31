@@ -118,8 +118,7 @@
     },
     beforeDestroy () {
       smde.toTextArea()
-      let editor = document.getElementById('editor')
-      editor.outerHTML = editor.outerHTML
+      smde = null
     },
     watch: {
       tagNew (val) {

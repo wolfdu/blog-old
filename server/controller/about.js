@@ -4,7 +4,6 @@
 'use strict'
 
 const About = require('../models/about')
-const LOG = require('../utils/logger')
 
 function initAbout () {
   return new About({
@@ -12,55 +11,55 @@ function initAbout () {
   })
 }
 
+/**
+ * 初始化about内容
+ * @param ctx
+ * @param next
+ * @returns {Promise.<void>}
+ */
 let seed = async (ctx, next) => {
-  let about = await About.find().exec((err, about) => {
-    if (err) {
-      console.log(err)
-      ctx.throw(500, 'about数据seed失败,请debug后重新启动')
-    } else {
-      console.log(about)
+  try {
+    let about = await About.find().exec()
+    if (!about.length) {
+      let newAbout = initAbout()
+      newAbout.save()
     }
-  })
-  if (!about.length) {
-    let newAbout = initAbout()
-    newAbout.save().catch(err => {
-      LOG.error(err)
-      throw (new Error('about数据seed失败,请debug后重新启动'))
-    })
+    await next()
+  } catch (err) {
+    ctx.throw(err)
   }
-  await next()
 }
 
+/**
+ * 获取about内容
+ * @param ctx
+ * @param next
+ * @returns {Promise.<void>}
+ */
 let getAbout = async (ctx, next) => {
-  let about = await About.find().exec((err, about) => {
-    if (err) {
-      console.log(err)
-      ctx.throw(500, '系统错误')
-    } else {
-      console.log(about[0])
+  try {
+    let about = await About.find().exec()
+    ctx.status = 200
+    ctx.body = {
+      success: true,
+      data: about[0]
     }
-  })
-  ctx.status = 200
-  ctx.body = {
-    success: true,
-    data: about[0]
+  } catch (err) {
+    ctx.throw(err)
   }
 }
 
 let modify = async (ctx, next) => {
   const content = ctx.request.body.content
-  let about = await About.findOneAndUpdate({}, {content}).exec((err, about) => {
-    if (err) {
-      console.log(err)
-      ctx.throw(500, '系统错误')
-    } else {
-      console.log(about)
+  try {
+    let about = await About.findOneAndUpdate({}, {content}).exec()
+    ctx.status = 200
+    ctx.body = {
+      success: true,
+      data: about
     }
-  })
-  ctx.status = 200
-  ctx.body = {
-    success: true,
-    data: about
+  } catch (err) {
+    ctx.throw(err)
   }
 }
 

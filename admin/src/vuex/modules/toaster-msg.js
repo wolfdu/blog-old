@@ -19,8 +19,9 @@ const state = {
 }
 
 const actions = {
-  showMsg ({commit}, content, type = 'error') {
-    commit(msgTypes.SHOW_MSG, {content, type})
+  showMsg ({commit}, msg) {
+    msg.type = msg.type || 'error'
+    commit(msgTypes.SHOW_MSG, msg)
   },
   hideMsg ({commit}) {
     commit(msgTypes.HIDE_MSG)

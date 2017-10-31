@@ -12,7 +12,8 @@
 <script>
   import SimpleMDE from 'simplemde'
   import {marked} from '../../filters/md2Text'
-  import aboutService from '../../service/aboutService'
+  import aboutService from '../../service/about.resource'
+  import {mapActions} from 'vuex'
 
   let smde
 
@@ -35,7 +36,6 @@
         })
         smde.codemirror.on('change', () => {
           let value = smde.value()
-          console.log('aaa')
           if (this.content !== value) {
             this.content = value
           }
@@ -47,29 +47,29 @@
               smde.value(res.data.content)
             })
           }
-        }).catch(err => {
-          alert('获取about失败')
-          console.log(err)
+        }, res => {
+          this.showMsg({content: res.data.error_message || '获取about失败'})
         })
       })
     },
-    beforeDestroy () {
-      smde.toTextArea()
-      let editor = document.getElementById('editor')
-      editor.outerHTML = editor.outerHTML
-    },
     methods: {
+      ...mapActions([
+        'showMsg'
+      ]),
       save () {
         aboutService.modify(smde.value()).then(res => {
           if (res.success) {
             this.content = res.data.content
-            alert('保存成功')
+            this.showMsg({content: '保存about成功', type: 'success'})
           }
-        }).catch(err => {
-          console.log(err)
-          alert('保存文章内容失败')
+        }, res => {
+          this.showMsg({content: res.data.error_message || '保存失败'})
         })
       }
+    },
+    beforeDestroy () {
+      smde.toTextArea()
+      smde = null
     }
   }
 </script>
