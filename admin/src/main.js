@@ -9,6 +9,7 @@ import {md2Text} from './filters/md2Text'
 import './stylus/index.styl'
 import 'font-awesome/css/font-awesome.min.css'
 import 'vue-msgbox/lib/vue-msgbox.css'
+import 'vue-toast/dist/vue-toast.min.css'
 
 Vue.config.productionTip = false
 

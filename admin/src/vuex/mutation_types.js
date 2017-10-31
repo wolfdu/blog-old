@@ -21,4 +21,9 @@ const draftTypes = {
   DRAFT_DELETE: 'DRAFT_DELETE'
 }
 
-export {tokenTypes, draftTypes}
+const msgTypes = {
+  SHOW_MSG: 'SHOW_MSG',
+  HIDE_MSG: 'HIDE_MSG'
+}
+
+export {tokenTypes, draftTypes, msgTypes}

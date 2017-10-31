@@ -37,6 +37,7 @@
     "vue-msgbox": "^0.2.14",
     "vue-router": "^2.7.0",
     "vue-svg-icon": "^1.2.9",
+    "vue-toast": "^3.1.0",
     "vuex": "^2.4.0",
     "whatwg-fetch": "^2.0.3"
   },

@@ -7,7 +7,6 @@
       <icon id="animation" name="chameleon" class="banner-logo" scale="20"></icon>
     </header>
     <div class="center-box">
-      <div class="flash-bar danger" v-if="loginErr.loginError">登录失败 {{loginErr.loginErrorMsg}}</div>
       <div class="login-box">
         <div class="login-header">
         </div>
@@ -36,10 +35,6 @@
         user: {
           username: '',
           password: ''
-        },
-        loginErr: {
-          loginError: false,
-          loginErrorMsg: ''
         }
       }
     },

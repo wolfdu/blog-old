@@ -1,6 +1,10 @@
 import { tokenTypes } from '../mutation_types'
-import loginService from '../../service/loginService'
+import tokenApi from '../../service/token.resource'
 import router from '../../router'
+import msg from './toaster-msg'
+import store from '../store'
+
+const showMsg = msg.actions.showMsg
 
 const state = {
   token: sessionStorage.getItem('token') || null
@@ -8,13 +12,13 @@ const state = {
 
 const actions = {
   createToken ({commit}, user) {
-    loginService.createToken(user).then(res => {
+    tokenApi.createToken(user).then(res => {
       if (res.success) {
         commit(tokenTypes.TOKEN_CREATE, res.data.token)
         router.replace({path: '/posts'})
+        showMsg(store, 'Welcome Wolf Du !!!')
       } else {
-        this.loginError = true
-        this.loginErrorMsg = '登录失败··'
+        showMsg(store, res.data.error_message || '登陆失败')
       }
     })
   },
@@ -36,7 +40,7 @@ const mutations = {
 }
 
 export default {
-  state: state,
-  actions: actions,
-  mutations: mutations
+  state,
+  actions,
+  mutations
 }
