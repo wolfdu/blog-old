@@ -53,38 +53,22 @@ let keywordList = async (ctx, next) => {
   }
 }
 
+// 修改tagName
 let modify = async (ctx, next) => {
   const id = ctx.params.id
   const tagName = ctx.request.body.newName
-  const tag = await Tag.findOne({name: tagName}).exec((err, tag) => {
-    if (err) {
-      let verror = new VError(err)
-      console.log(verror)
-      ctx.throw(500, '系统错误')
+  try {
+    const tag = await Tag.findOne({name: tagName}).exec()
+    if (tag) {
+      ctx.status = 200
+      ctx.body = {success: false, data: {error_message: '已存在同名标签'}}
+    } else {
+      let newTag = await Tag.update({_id: id}, {$set: {name: tagName}}).exec()
+      ctx.status = 200
+      ctx.body = {success: true, data: newTag}
     }
-  })
-  if (tag) {
-    ctx.status = 200
-    ctx.body = {
-      success: false,
-      data: tag
-    }
-  } else {
-    let newTag = await Tag.update({_id: id}, {$set: {name: tagName}}).exec((err, tag) => {
-      if (err) {
-        let verror = new VError(err)
-        console.log(verror)
-        ctx.throw(500, '系统错误')
-      } else {
-        console.log('修改成功')
-        console.log(tag)
-      }
-    })
-    ctx.status = 200
-    ctx.body = {
-      success: true,
-      data: newTag
-    }
+  } catch (err) {
+    ctx.throw(err)
   }
 }
 

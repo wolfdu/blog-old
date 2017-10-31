@@ -73,34 +73,33 @@ export default{
       }
       next(vm => {
         vm.tags = res.data
-        vm.getAllDraft().catch(err => {
-          vm.error = err.toString()
-        })
+        vm.getAllDraft()
+      })
+    }, res => {
+      next(vm => {
+        vm.showMsg({content: res.data.error_message || '获取tags失败'})
       })
     })
   },
   methods: {
     ...mapActions([
-      'getAllDraft'
+      'getAllDraft',
+      'showMsg'
     ]),
     searchTag (tag) {
       this.tagActive = tag
-      this.getAllDraft(tag.id).catch(err => {
-        this.error = err.toString()
-      })
+      this.getAllDraft(tag.id)
     },
     blurTag (tagId) {
       this.tagActive = null
-      this.getAllDraft(tagId).catch(err => {
-        this.error = err.toString()
-      })
+      this.getAllDraft(tagId)
     },
     modifyTag (tag) {
       tag.newName = tag.name
       tag.editing = true
     },
     saveTag (tag) {
-      if (!tag.name || tag.newName === tag.name) {
+      if (!tag.newName || tag.newName === tag.name) {
         tag.editing = false
       } else {
         tagsService.modifyTag(tag.id, tag.newName).then(res => {
@@ -108,11 +107,10 @@ export default{
             tag.name = tag.newName
             tag.editing = false
           } else {
-            alert('已有同名标签')
+            this.showMsg({content: res.data.error_message || '存在同名tag'})
           }
-        }).catch(err => {
-          console.error(err)
-          alert('网络错误，修改标签失败')
+        }, res => {
+          this.showMsg({content: res.data.error_message || '网络错误，修改tag失败'})
         })
       }
     },

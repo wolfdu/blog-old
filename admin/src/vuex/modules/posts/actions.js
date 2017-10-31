@@ -1,5 +1,8 @@
 import { draftTypes } from '../../mutation_types'
 import service from '../../../service/posts/postsService'
+import msg from '../toaster-msg'
+
+const showMsg = msg.actions.showMsg
 
 function createDraft ({commit}) {
   return service.createDraft().then(res => {
@@ -11,6 +14,12 @@ function createDraft ({commit}) {
   })
 }
 
+/**
+ * 获取所有的草稿
+ * @param commit
+ * @param tagId 查询参数若有值则查询该tagId 下所有的草稿
+ * @returns {Promise|Promise.<TResult>|*}
+ */
 function getAllDraft ({commit}, tagId) {
   return service.getDraftList(tagId).then(res => {
     if (res.success) {
@@ -19,6 +28,8 @@ function getAllDraft ({commit}, tagId) {
         commit(draftTypes.DRAFT_FOCUS, 0)
       }
     }
+  }, res => {
+    showMsg({content: res.data.error_message || '获取AllDraft失败'})
   })
 }
 
