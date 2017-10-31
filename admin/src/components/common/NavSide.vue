@@ -30,7 +30,7 @@
         'deleteToken'
       ]),
       signOut () {
-        this.deleteToken(this.$router)
+        this.deleteToken()
       }
     }
   }

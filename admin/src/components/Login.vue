@@ -48,7 +48,7 @@
         'createToken'
       ]),
       login () {
-        this.loginErr = this.createToken(this.user)
+        this.createToken(this.user)
       }
     }
   }

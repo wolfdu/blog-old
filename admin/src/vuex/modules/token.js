@@ -18,7 +18,7 @@ const actions = {
       }
     })
   },
-  deleteToken ({commit}, router) {
+  deleteToken ({commit}) {
     commit(tokenTypes.TOKEN_DELETE)
     router.replace({path: '/login'})
   }

@@ -1,7 +1,8 @@
-var path = require('path')
-var utils = require('./utils')
-var config = require('../config')
-var vueLoaderConfig = require('./vue-loader.conf')
+const path = require('path')
+const utils = require('./utils')
+const config = require('../config')
+const vueLoaderConfig = require('./vue-loader.conf')
+const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
 console.log(path.resolve(__dirname, '../src/assets'))
 console.log(path.resolve(__dirname, '../src/components'))
 
@@ -11,6 +12,7 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
+    vendor: ['vue', 'vuex', 'vue-router'],
     app: './admin/src/main.js'
   },
   output: {
@@ -20,6 +22,12 @@ module.exports = {
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
   },
+  plugins: [
+    new CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity // Infinity
+    })
+  ],
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
