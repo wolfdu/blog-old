@@ -5,7 +5,6 @@ const state = {
   all: [],
   currentDraftId: null,
   currentDraftIndex: -1,
-  // post其实只是笔记/草稿,article才是对外发布后,外部可见的文章
   articleId: null,
   title: '',
   draftSaved: true,
