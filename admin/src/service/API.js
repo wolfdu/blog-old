@@ -16,10 +16,7 @@ function checkStatus ([status, statusText, data]) {
         // route to login
       }
     }
-    let error = new Error(data.message)
-    error.status = status
-    error.error_message = statusText
-    return Promise.reject(error)
+    return Promise.reject(data)
   }
 }
 

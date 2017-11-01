@@ -1,12 +1,12 @@
 import { draftTypes } from '../../mutation_types'
-import service from '../../../service/posts/postsService'
+import postsApi from '../../../service/posts.resource'
 import store from '../../store'
 import msg from '../toaster-msg'
 
 const showMsg = msg.actions.showMsg
 
 function createDraft ({commit}) {
-  return service.createDraft().then(res => {
+  return postsApi.createDraft().then(res => {
     if (res.success) {
       commit(draftTypes.DRAFT_CREATE, res.data)
     } else {
@@ -22,7 +22,7 @@ function createDraft ({commit}) {
  * @returns {Promise|Promise.<TResult>|*}
  */
 function getAllDraft ({commit}, tagId) {
-  return service.getDraftList(tagId).then(res => {
+  return postsApi.getDraftList(tagId).then(res => {
     if (res.success) {
       commit(draftTypes.RECEIVE_ALL_DRAFTS, res.data)
       if (res.data.length) {
@@ -42,17 +42,20 @@ function editDraftTitle ({commit}, title) {
   commit(draftTypes.DRAFT_TITLE_EDIT, title)
 }
 
-function submitDraftTitle ({commit, state}, title) {
-  return service.modifyDraftTitle(state.currentDraftId, title).then(res => {
-    if (res.success) {
-      commit(draftTypes.DRAFT_TITLE_MODIFY, title)
-      commit(draftTypes.DRAFT_LAST_EDIT_TIME, res.data.lastEditTime)
-    }
-  })
-}
-
 function saveDraftTitle ({commit}) {
   commit(draftTypes.DRAFT_TITLE_SAVE)
+}
+
+function updateDraftTitle ({commit, state}) {
+  postsApi.modifyDraftTitle(state.currentDraftId, state.title).then(res => {
+    if (res.success) {
+      commit(draftTypes.DRAFT_TITLE_MODIFY, state.title)
+      commit(draftTypes.DRAFT_LAST_EDIT_TIME, res.data.lastEditTime)
+      saveDraftTitle(store)
+    }
+  }, res => {
+    showMsg(store, {content: res.error_message || '网络错误,标题保存失败'})
+  })
 }
 
 function draftTagsModify ({commit}, lastEditTime) {
@@ -61,7 +64,7 @@ function draftTagsModify ({commit}, lastEditTime) {
 }
 
 function publishDraft ({commit, state}) {
-  return service.publish(state.currentDraftId).then(res => {
+  return postsApi.publish(state.currentDraftId).then(res => {
     if (res.success) {
       commit(draftTypes.DRAFT_PUBLISH, res.data.id)
     }
@@ -77,13 +80,24 @@ function saveDraft ({commit}) {
   commit(draftTypes.DRAFT_SAVE)
 }
 
+function updateDraft ({state}, content) {
+  postsApi.modifyDraftContent(state.currentDraftId, content).then(res => {
+    if (res.success) {
+      submitDraftExcerpt(store, {excerpt: res.data.excerpt, lastEditTime: res.data.lastEditTime})
+      saveDraft(store)
+    }
+  }, res => {
+    this.showMsg(res.error_message || '保存文章内容失败')
+  })
+}
+
 function editDraft ({commit}) {
   commit(draftTypes.DRAFT_EDIT)
 }
 
 function deletePost ({commit, state}) {
   if (state.draftSaved) {
-    return service.deleteDraft(state.currentDraftId).then(res => {
+    return postsApi.deleteDraft(state.currentDraftId).then(res => {
       if (res.success) {
         commit(draftTypes.DRAFT_DELETE)
       }
@@ -100,12 +114,13 @@ export {
   getAllDraft,
   focusOnDraft,
   editDraftTitle,
-  submitDraftTitle,
   saveDraftTitle,
   draftTagsModify,
   publishDraft,
   submitDraftExcerpt,
   editDraft,
   saveDraft,
-  deletePost
+  deletePost,
+  updateDraft,
+  updateDraftTitle
 }

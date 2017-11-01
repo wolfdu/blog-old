@@ -26,14 +26,16 @@
       ])
     },
     methods: {
-      ...mapActions(['focusOnDraft']),
+      ...mapActions(['focusOnDraft', 'showMag']),
       focus (index) {
         if (this.draftSaved && this.draftTitleSaved) {
           if (index !== this.currentDraftIndex) {
             this.focusOnDraft(index)
           }
         } else {
-          alert('当前文章正在保存中,请稍后重试')
+          let content = '文章正在保存，请稍后再试！'
+          let type = 'info'
+          this.showMsg({content, type})
         }
       }
     }

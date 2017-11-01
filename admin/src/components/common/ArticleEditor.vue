@@ -26,37 +26,16 @@
 </template>
 
 <script>
-  import MessageBox from 'vue-msgbox'
   import SimpleMDE from 'simplemde'
   import {marked} from '../../filters/md2Text'
   import { mapGetters, mapActions } from 'vuex'
   import debounce from 'lodash/debounce'
   import trim from 'lodash/trim'
   import tagApi from '../../service/tag.resource'
-  import postsService from '../../service/posts/postsService'
-
-  const updateTitle = debounce(function (draftTitle) {
-    this.submitDraftTitle(draftTitle).then(() => {
-      this.saveDraftTitle()
-    }).catch(err => {
-      console.log(err)
-      alert('网络错误,标题保存失败')
-    })
-  }, 1000)
+  import postsApi from '../../service/posts.resource'
 
   let smde
 
-  const updateContent = debounce(function () {
-    postsService.modifyDraftContent(this.currentDraftId, smde.value()).then(res => {
-      if (res.success) {
-        this.submitDraftExcerpt({excerpt: res.data.excerpt, lastEditTime: res.data.lastEditTime})
-        this.saveDraft()
-      }
-    }).catch(err => {
-      console.log(err)
-      alert('保存文章内容失败')
-    })
-  }, 1000)
   export default{
     data () {
       return {
@@ -92,15 +71,15 @@
         smde.codemirror.on('change', () => {
           if (this.change) {
             this.change = false
-          } else {
-            if (this.draftSaved) {
-              this.editDraft()
-            }
-            updateContent.call(this)
+          } else if (this.draftSaved) {
+            this.editDraft(smde.value())
+            debounce(function (vm) {
+              vm.updateDraft(smde.value())
+            }, 1000)(this)
           }
         })
         if (this.currentDraftId) {
-          postsService.getDraft(this.currentDraftId).then(res => {
+          postsApi.getDraft(this.currentDraftId).then(res => {
             if (res.success) {
               this.tagNew = ''
               this.tagInput = false
@@ -109,16 +88,11 @@
                 smde.value(res.data.content)
               })
             }
-          }).catch(err => {
-            console.log(err)
-            MessageBox('网络错误,获取文章失败')
+          }, res => {
+            this.showMsg({content: res.error_message || '网络错误,获取文章失败'})
           })
         }
       })
-    },
-    beforeDestroy () {
-      smde.toTextArea()
-      smde = null
     },
     watch: {
       tagNew (val) {
@@ -127,7 +101,7 @@
       currentDraftId (val) {
         this.change = true
         if (val) {
-          postsService.getDraft(val).then(res => {
+          postsApi.getDraft(val).then(res => {
             if (res.success) {
               this.tagNew = ''
               this.tagInput = false
@@ -146,19 +120,20 @@
     methods: {
       ...mapActions([
         'editDraftTitle',
-        'submitDraftTitle',
-        'saveDraftTitle',
+        'updateDraftTitle',
         'draftTagsModify',
         'publishDraft',
         'editDraft',
-        'submitDraftExcerpt',
-        'saveDraft',
-        'deletePost'
+        'updateDraft',
+        'deletePost',
+        'showMsg'
       ]),
       updateTitle (e) {
         let title = e.target.value
         this.editDraftTitle(title)
-        updateTitle.call(this, title)
+        debounce(function (vm) {
+          vm.updateDraftTitle()
+        }, 1000)(this)
       },
       addTag () {
         this.tagInput = true
@@ -184,20 +159,17 @@
               if (!this.tags.some(item => item.id === id)) {
                 let tags = this.tags.map(item => item.id)
                 tags.push(id)
-                postsService.modifyDraftTags(this.currentDraftId, tags).then(res => {
+                this.draftTagsModify(res.data.lastEditTime)
+                postsApi.modifyDraftTags(this.currentDraftId, tags).then(res => {
                   if (res.success) {
                     this.tags = res.data.tags
                     this.draftTagsModify(res.data.lastEditTime)
                   }
-                }).catch(err => {
-                  console.log(err)
-                  alert('网络错误,修改标签失败')
                 })
               }
             }
-          }).catch(err => {
-            console.log(err)
-            alert('网络错误,增加标签失败')
+          }, res => {
+            this.showMsg({content: res.error_message || '网络错误,增加标签失败'})
           })
         }
       },
@@ -208,28 +180,37 @@
             tags.push(i.id)
           }
         }
-        postsService.modifyDraftTags(this.currentDraftId, tags).then(res => {
+        postsApi.modifyDraftTags(this.currentDraftId, tags).then(res => {
           if (res.success) {
             this.tags = res.data.tags
             this.draftTagsModify(res.data.lastEditTime)
           }
-        }).catch(err => {
-          console.log(err)
-          alert('网络错误,修改标签失败')
+        }, res => {
+          this.showMsg({content: res.error_message || '网络错误,修改标签失败'})
         })
       },
       publish () {
         if (this.draftSaved && this.draftTitleSaved) {
           this.publishDraft().then(() => {
-            alert('发布成功')
-          }).catch(err => {
-            console.log(err)
-            alert('发布失败')
+            let msg = {
+              content: '发布成功',
+              type: 'success'
+            }
+            this.showMsg(msg)
+          }, res => {
+            this.showMsg({content: res.error_message || '发布失败'})
           })
         } else {
-          alert('当前文章正在保存中，稍后再试')
+          this.showMsg({
+            content: '当前文章正在保存中，稍后再试',
+            type: 'info'
+          })
         }
       }
+    },
+    beforeDestroy () {
+      smde.toTextArea()
+      smde = null
     }
   }
 </script>

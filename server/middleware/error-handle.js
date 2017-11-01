@@ -8,15 +8,15 @@ const errorHandleMiddle = function () {
       await next()
     } catch (err) {
       ctx.status = err.status || 500
-      let error_msg = err.message
+      let error_message = err.message
       if (err.errors && typeof (err.errors) === 'object') {
         _.mapValues(err.errors, (item) => {
           if (item.message) {
-            error_msg = item.message
+            error_message = item.message
           }
         })
       }
-      ctx.body = {error_msg: error_msg}
+      ctx.body = {error_message: error_message}
       ctx.app.emit('error', err, ctx)
     }
   }
