@@ -3,7 +3,10 @@
     <nav-side>
     </nav-side>
     <section class="post-list-column">
-      <h3 class="page-title"><icon name="posts-gray" class="iconfont" scale="2"></icon>文章列表  <i @click="createDraft"><icon name="plus" class="iconfont post-add" scale="2"></icon></i></h3>
+      <h3 class="page-title">
+        <icon name="posts-gray" class="iconfont" scale="2"></icon>文章列表
+        <i @click="createDraft"><icon name="plus" class="iconfont post-add" scale="2"></icon></i>
+      </h3>
       <post-list></post-list>
     </section>
     <div class="post-edit">
