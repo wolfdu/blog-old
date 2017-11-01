@@ -11,7 +11,7 @@ Vue.use(Router)
 
 const routes = [
   {path: '/posts', component: PostsView},
-  {path: '/post/:postId', component: PostView, name: 'post'},
+  {path: '/post', component: PostView, name: 'post'},
   {path: '/tag/:tagId', component: TagView, name: 'tag'},
   {path: '/about', component: AboutView, name: 'about'},
   {path: '*', redirect: '/posts'}

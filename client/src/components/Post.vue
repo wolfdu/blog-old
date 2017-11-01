@@ -47,7 +47,7 @@ export default {
     }
   },
   beforeRouteEnter (to, from, next) {
-    articleService.getPost(to.params.postId).then(res => {
+    articleService.getPost(to.query.postId).then(res => {
       if (res.success) {
         next(vm => {
           vm.article = res.data

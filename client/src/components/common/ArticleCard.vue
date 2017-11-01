@@ -12,12 +12,12 @@
             </div>
           </div>
           <div class="card-content">
-            <h2 class="title"><router-link :to="{name: 'post', params: {postId: article.id}}">{{article.title}}</router-link></h2>
+            <h2 class="title"><router-link :to="{name: 'post', query: {postId: article.id}}">{{article.title}}</router-link></h2>
             <p>{{article.excerpt}}</p>
             <div class="info">
               <div class="left">
                 <span class="tags" v-for="tag in article.tags">
-                  <router-link :to="{name: 'tag', params: {tagId: tag._id}}" class="tag">{{tag.name}}</router-link></span>
+                  <router-link :to="{name: 'tag', params: {tagId: tag._id, tagName: tag.name}}" class="tag">{{tag.name}}</router-link></span>
               </div>
               <div class="right">
                 <span class="article-tag">

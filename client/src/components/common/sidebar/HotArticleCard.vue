@@ -6,7 +6,7 @@
       </div>
       <div class="card-content">
         <div>
-          <h5 class="title"><router-link :to="{name: 'post', params: {postId: article.id}}">{{article.title}}</router-link></h5>
+          <h5 class="title"><router-link :to="{name: 'post', query: {postId: article.id}}">{{article.title}}</router-link></h5>
           <span>{{dateDetail}}</span>
         </div>
       </div>
@@ -27,10 +27,6 @@
           }
         }
       }
-    },
-    mounted () {
-      this.$nextTick(function () {
-      })
     },
     computed: {
       dateDetail: function () {

@@ -7,7 +7,7 @@
       <div class="tags">
         <router-link
           v-for="tag in tags"
-          :to="{name: 'tag', params: {tagId: tag._id}}"
+          :to="{name: 'tag', params: {tagId: tag._id, tagName: tag.name}}"
           :key="tag._id"
           class="tag">{{tag.name}}</router-link>
       </div>
