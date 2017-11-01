@@ -26,7 +26,7 @@
 
 <script>
 
-import articleService from '../service/articleService'
+import articleService from '../service/article.resource'
 import {markdown} from '../filters/markdown'
 import Sidebar from './common/sidebar/Sidebar.vue'
 

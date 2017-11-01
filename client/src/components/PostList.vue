@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import articleService from '../service/articleService'
+  import articleService from '../service/article.resource'
   import ArticleCard from './common/ArticleCard.vue'
 
   const LIMIT = 3

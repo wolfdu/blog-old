@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import articleService from 'src/service/articleService'
+import articleService from 'src/service/article.resource'
 import HotArticleCard from './HotArticleCard.vue'
 
 export default {

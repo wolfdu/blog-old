@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-  import aboutService from '../service/aboutService'
+  import aboutService from '../service/about.resource'
   import {markdown} from '../filters/markdown'
 
   export default{
