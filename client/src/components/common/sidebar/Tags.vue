@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import tagService from 'src/postsApi/tagApi'
+  import tagService from 'src/service/tagService'
 
   export default {
     components: {
