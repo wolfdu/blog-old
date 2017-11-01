@@ -15,19 +15,6 @@
     components: {
       Tags,
       HotArticle
-    },
-    data () {
-      return {
-        article: {}
-      }
-    },
-    beforeRouteEnter (to, from, next) {
-    },
-    mounted () {
-      this.$nextTick(function () {
-      })
-    },
-    methods: {
     }
   }
 </script>

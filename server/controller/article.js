@@ -36,67 +36,53 @@ let articleList = async (ctx, next) => {
   let skip = page ? (limit * (page - 1)) : 0
   let queryOpt = getQueryOpt(ctx.query)
   let sortParam = getSortParam(page)
-  const result = await Article.find(queryOpt)
-    .populate('tags')
-    .select('title visits like tags createTime lastEditTime excerpt thumb')
-    .sort(sortParam)
-    .skip(skip)
-    .limit(limit)
-    .exec((err, result) => {
-      if (err) {
-        console.log(err)
-        ctx.throw(500, '系统错误')
-      } else {
-        console.log(result)
+  try {
+    const result = await Article.find(queryOpt)
+      .populate('tags')
+      .select('title visits like tags createTime lastEditTime excerpt thumb')
+      .sort(sortParam)
+      .skip(skip)
+      .limit(limit)
+      .exec()
+    ctx.status = 200
+    ctx.body = {
+      success: true,
+      data: {
+        articles: getArticleArr(result)
       }
-    })
-  ctx.status = 200
-  ctx.body = {
-    success: true,
-    data: {
-      articles: getArticleArr(result)
     }
+  } catch (err) {
+    ctx.throw(err)
   }
 }
 
 let articleDetail = async (ctx, next) => {
   const id = ctx.params.id
-  const article = await Article.findOne({_id: id}).populate('tags').exec((err, article) => {
-    if (err) {
-      let verr = new VError(err)
-      LOG.error(verr)
-      console.log(err)
-      ctx.throw(500, '系统异常')
-    } else {
-      console.log(article.toJSON())
+  try {
+    const article = await Article.findOne({_id: id}).populate('tags').exec()
+    ctx.status = 200
+    ctx.body = {
+      success: true,
+      data: article
     }
-  })
-  ctx.status = 200
-  ctx.body = {
-    success: true,
-    data: article
+  } catch (err) {
+    ctx.throw(err)
   }
 }
 
 let modify = async (ctx, next) => {
   const id = ctx.params.id
   const modifyOptions = ctx.request.body
-  let result = await Article.findByIdAndUpdate(id, {$set: modifyOptions}, {new: true}).exec((err, article) => {
-    if (err) {
-      LOG.error(err)
-      if (err.name === 'CastError') {
-        console.log('id不存在')
-      } else {
-        console.log('内部错误')
-      }
+  try {
+    let result = await Article.findByIdAndUpdate(id, {$set: modifyOptions}, {new: true}).exec()
+    result = result.toObject()
+    ctx.status = 200
+    ctx.body = {
+      success: true,
+      data: result
     }
-    console.log(article)
-  })
-  result = result.toObject()
-  ctx.status = 200
-  ctx.body = {
-    success: true,
-    data: result
+  } catch (err) {
+    ctx.throw(err)
   }
 }
 

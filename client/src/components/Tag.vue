@@ -26,7 +26,7 @@
           })
         }
       }).catch(err => {
-        console.log(err)
+        console.error(err)
         alert('网络错误,请刷新重试')
       })
     },
@@ -36,7 +36,7 @@
           this.posts = res.data.articles
         }
       }).catch(err => {
-        console.log(err)
+        console.error(err)
         alert('网络错误,请刷新重试')
       })
     },
