@@ -34,6 +34,7 @@
       articleService.getPostList({page: 1, limit: 10, tagId: to.params.tagId}).then(res => {
         if (res.success) {
           this.posts = res.data.articles
+          next()
         }
       }).catch(err => {
         console.error(err)

@@ -58,6 +58,17 @@ export default {
       alert('网络错误,请刷新重试')
     })
   },
+  beforeRouteUpdate (to, from, next) {
+    articleService.getPost(to.query.postId).then(res => {
+      if (res.success) {
+        this.article = res.data
+        next()
+      }
+    }).catch(err => {
+      console.log(err)
+      alert('网络错误,请刷新重试')
+    })
+  },
   mounted () {
     this.$nextTick(function () {
       this.initLikedHistory()
