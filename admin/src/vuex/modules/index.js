@@ -1,5 +1,5 @@
 import token from './token'
-import posts from './posts/index'
+import posts from './posts'
 import msg from './toaster-msg'
 
 const moduleMap = {

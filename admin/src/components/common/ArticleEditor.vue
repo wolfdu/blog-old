@@ -32,7 +32,7 @@
   import { mapGetters, mapActions } from 'vuex'
   import debounce from 'lodash/debounce'
   import trim from 'lodash/trim'
-  import tagService from '../../service/tag/tagService'
+  import tagApi from '../../service/tag.resource'
   import postsService from '../../service/posts/postsService'
 
   const updateTitle = debounce(function (draftTitle) {
@@ -166,7 +166,7 @@
         this.searchTags('')
       },
       searchTags (val) {
-        tagService.searchTagsByWord(val).then(res => {
+        tagApi.searchTagsByWord(val).then(res => {
           if (res.success) {
             this.tagsToAdd = res.data
           }
@@ -178,7 +178,7 @@
         this.tagInput = false
         if (tag) {
           this.tagNew = ''
-          tagService.createTags(tag).then(res => {
+          tagApi.createTags(tag).then(res => {
             if (res.success) {
               let id = res.data.id
               if (!this.tags.some(item => item.id === id)) {

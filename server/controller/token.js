@@ -59,7 +59,7 @@ let create = async (ctx, next) => {
         data: {uid: user._id, name: user.name, token}
       }
     } else {
-      ctx.body = {data: {error_message: '用户名或密码错误'}}
+      ctx.body = {error_message: '用户名或密码错误'}
     }
   } catch (err) {
     ctx.throw(err)

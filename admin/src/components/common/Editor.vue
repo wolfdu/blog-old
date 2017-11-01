@@ -48,7 +48,7 @@
             })
           }
         }, res => {
-          this.showMsg({content: res.data.error_message || '获取about失败'})
+          this.showMsg({content: res.error_message || '获取about失败'})
         })
       })
     },
@@ -63,7 +63,7 @@
             this.showMsg({content: '保存about成功', type: 'success'})
           }
         }, res => {
-          this.showMsg({content: res.data.error_message || '保存失败'})
+          this.showMsg({content: res.error_message || '保存失败'})
         })
       }
     },

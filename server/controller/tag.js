@@ -2,7 +2,6 @@
 'use strict'
 const LOG = require('../utils/logger')
 const Tag = require('../models/tag')
-const VError = require('verror')
 const Draft = require('../models/draft')
 const Article = require('../models/article')
 
@@ -61,7 +60,7 @@ let modify = async (ctx, next) => {
     const tag = await Tag.findOne({name: tagName}).exec()
     if (tag) {
       ctx.status = 200
-      ctx.body = {success: false, data: {error_message: '已存在同名标签'}}
+      ctx.body = {success: false, error_message: '已存在同名标签'}
     } else {
       let newTag = await Tag.update({_id: id}, {$set: {name: tagName}}).exec()
       ctx.status = 200
@@ -74,30 +73,14 @@ let modify = async (ctx, next) => {
 
 let deleteTag = async (ctx, next) => {
   const id = ctx.params.id
-  await Draft.update({}, {$pull: {tags: id}}).exec(err => {
-    if (err) {
-      let verr = new VError(err)
-      console.error(verr)
-      ctx.throw(500, '系统错误')
-    }
-  })
-  await Article.update({}, {$pull: {tags: id}}).exec(err => {
-    if (err) {
-      let verr = new VError(err)
-      console.error(verr)
-      ctx.throw(500, '系统错误')
-    }
-  })
-  await Tag.remove({_id: id}).exec(err => {
-    if (err) {
-      let verr = new VError(err)
-      console.error(verr)
-      ctx.throw(500, '系统错误')
-    }
-  })
-  ctx.status = 200
-  ctx.body = {
-    success: true
+  try {
+    await Draft.update({}, {$pull: {tags: id}}).exec()
+    await Article.update({}, {$pull: {tags: id}}).exec()
+    await Tag.remove({_id: id}).exec()
+    ctx.status = 200
+    ctx.body = {success: true}
+  } catch (err) {
+    ctx.throw(err)
   }
 }
 

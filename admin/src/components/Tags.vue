@@ -44,7 +44,7 @@ import NavSide from './common/NavSide.vue'
 import ArticleEditor from './common/ArticleEditor.vue'
 import PostList from './common/PostList.vue'
 import { mapGetters, mapActions } from 'vuex'
-import tagsService from '../service/tag/tagService'
+import tagsApi from '../service/tag.resource'
 
 export default{
   data () {
@@ -64,20 +64,20 @@ export default{
     PostList
   },
   beforeRouteEnter (to, from, next) {
-    tagsService.getAllTags().then(res => {
+    tagsApi.getAllTags().then(res => {
       if (res.success) {
-        for (let i of res.data) {
-          i.newName = ''
-          i.editing = false
+        for (let item of res.data) {
+          item.newName = ''
+          item.editing = false
         }
+        next(vm => {
+          vm.tags = res.data
+          vm.getAllDraft()
+        })
       }
-      next(vm => {
-        vm.tags = res.data
-        vm.getAllDraft()
-      })
     }, res => {
       next(vm => {
-        vm.showMsg({content: res.data.error_message || '获取tags失败'})
+        vm.showMsg({content: res.error_message || '获取tags失败'})
       })
     })
   },
@@ -102,26 +102,27 @@ export default{
       if (!tag.newName || tag.newName === tag.name) {
         tag.editing = false
       } else {
-        tagsService.modifyTag(tag.id, tag.newName).then(res => {
+        tagsApi.modifyTag(tag.id, tag.newName).then(res => {
           if (res.success) {
             tag.name = tag.newName
             tag.editing = false
           } else {
-            this.showMsg({content: res.data.error_message || '存在同名tag'})
+            this.showMsg({content: res.error_message || '存在同名tag'})
           }
         }, res => {
-          this.showMsg({content: res.data.error_message || '网络错误，修改tag失败'})
+          this.showMsg({content: res.error_message || '网络错误，修改tag失败'})
         })
       }
     },
     deleteTag (tag) {
-      tagsService.deleteTag(tag.id).then(res => {
+      tagsApi.deleteTag(tag.id).then(res => {
         if (res.success) {
-          alert('删除成功')
+          let content = '删除成功'
+          let type = 'success'
+          this.showMsg({content, type})
         }
-      }).catch(err => {
-        console.error(err)
-        alert('网络错误，修改标签失败')
+      }, res => {
+        this.showMsg({content: res.error_message || '网络错误，修改标签失败'})
       })
     }
   }

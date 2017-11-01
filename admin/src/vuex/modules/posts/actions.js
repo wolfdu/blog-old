@@ -1,5 +1,6 @@
 import { draftTypes } from '../../mutation_types'
 import service from '../../../service/posts/postsService'
+import store from '../../store'
 import msg from '../toaster-msg'
 
 const showMsg = msg.actions.showMsg
@@ -29,7 +30,7 @@ function getAllDraft ({commit}, tagId) {
       }
     }
   }, res => {
-    showMsg({content: res.data.error_message || '获取AllDraft失败'})
+    showMsg(store, {content: res.error_message || '获取AllDraft失败'})
   })
 }
 

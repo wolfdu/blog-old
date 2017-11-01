@@ -37,9 +37,7 @@
     },
     beforeRouteEnter (to, from, next) {
       next(vm => {
-        vm.getAllDraft().catch(err => {
-          vm.error = err.toString()
-        })
+        vm.getAllDraft()
       })
     },
     methods: {
