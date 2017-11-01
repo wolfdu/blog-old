@@ -3,8 +3,6 @@
  */
 'use strict'
 const Article = require('../models/article')
-const VError = require('verror')
-const LOG = require('../utils/logger')
 
 let getArticleArr = function (result) {
   let resultArr = []

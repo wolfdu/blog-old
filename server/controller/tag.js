@@ -1,6 +1,5 @@
 /* eslint-disable standard/object-curly-even-spacing */
 'use strict'
-const LOG = require('../utils/logger')
 const Tag = require('../models/tag')
 const Draft = require('../models/draft')
 const Article = require('../models/article')
@@ -38,17 +37,15 @@ let keywordList = async (ctx, next) => {
   if (keyword) {
     queryOption.name = {$regex: `^${keyword}`}
   }
-  const tags = await Tag.find(queryOption).exec((err, tags) => {
-    if (err) {
-      LOG.error(err)
-    } else {
-      console.log(tags)
+  try {
+    const tags = await Tag.find(queryOption).exec()
+    ctx.status = 200
+    ctx.body = {
+      success: true,
+      data: tags
     }
-  })
-  ctx.status = 200
-  ctx.body = {
-    success: true,
-    data: tags
+  } catch (err) {
+    ctx.throw(err)
   }
 }
 
