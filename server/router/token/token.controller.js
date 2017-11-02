@@ -1,9 +1,9 @@
 'use strict'
 
-const User = require('../models/user')
+const User = require('../../models/user')
 const md5 = require('md5')
 const jwt = require('jsonwebtoken')
-const config = require('../config/index')
+const config = require('../../config/index')
 
 let getAdminUser = function () {
   return new User({

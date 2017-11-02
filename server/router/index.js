@@ -3,7 +3,7 @@ const Router = require('koa-router')
 const config = require('../config/index')
 const token = require('./token')
 const draft = require('./draft')
-const tags = require('./tags')
+const tags = require('./tag')
 const article = require('./article')
 const about = require('./about')
 

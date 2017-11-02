@@ -1,18 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import LoginView from 'components/Login.vue'
-import PostsView from 'components/Posts.vue'
-import TagsView from 'components/Tags.vue'
-import AboutView from 'components/About.vue'
+import Login from 'components/Login.vue'
+import Posts from 'components/Posts.vue'
+import Tags from 'components/Tags.vue'
+import About from 'components/About.vue'
 import {isLogin} from './utils/authUtil'
 
 Vue.use(Router)
 
 const routes = [
-  {path: '/login', component: LoginView, name: 'login'},
-  {path: '/posts', component: PostsView, meta: {requireAuth: true}},
-  {path: '/tags', component: TagsView, meta: {requireAuth: true}},
-  {path: '/about', component: AboutView, meta: {requireAuth: true}},
+  {path: '/login', component: Login, name: 'login'},
+  {path: '/posts', component: Posts, meta: {requireAuth: true}},
+  {path: '/tags', component: Tags, meta: {requireAuth: true}},
+  {path: '/about', component: About, meta: {requireAuth: true}},
   {path: '*', redirect: '/posts', meta: {requireAuth: true}}
 ]
 

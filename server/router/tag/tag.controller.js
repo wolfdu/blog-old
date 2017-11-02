@@ -1,8 +1,8 @@
 /* eslint-disable standard/object-curly-even-spacing */
 'use strict'
-const Tag = require('../models/tag')
-const Draft = require('../models/draft')
-const Article = require('../models/article')
+const Tag = require('../../models/tag')
+const Draft = require('../../models/draft')
+const Article = require('../../models/article')
 
 /**
  * create tag by tagName

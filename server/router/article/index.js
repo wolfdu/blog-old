@@ -4,7 +4,7 @@
 'use strict'
 
 const Router = require('koa-router')
-const draftController = require('../controller/article')
+const draftController = require('./article.controller')
 
 let articleRouter = new Router()
 

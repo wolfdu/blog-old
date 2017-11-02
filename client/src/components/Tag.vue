@@ -18,10 +18,16 @@
         tagName: ''
       }
     },
+    props: {
+      tag: {
+        type: Object
+      }
+    },
     beforeRouteEnter (to, from, next) {
       articleService.getPostList({page: 1, limit: 10, tagId: to.params.tagId}).then(res => {
         if (res.success) {
           next(vm => {
+            vm.tagName = to.params.tagName
             vm.posts = res.data.articles
           })
         }

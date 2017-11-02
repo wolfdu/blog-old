@@ -2,7 +2,7 @@
  * Created by wolfdu on 17-10-23.
  */
 'use strict'
-const Article = require('../models/article')
+const Article = require('../../models/article')
 
 let getArticleArr = function (result) {
   let resultArr = []

@@ -1,8 +1,8 @@
 'use strict'
 
 const Router = require('koa-router')
-const tagController = require('../controller/tag')
-const verifyToken = require('../middleware/verify-token')
+const tagController = require('./tag.controller')
+const verifyToken = require('../../middleware/verify-token')
 
 let draftRouter = new Router()
 

@@ -1,7 +1,7 @@
 /* eslint-disable standard/object-curly-even-spacing */
 'use strict'
-const Draft = require('../models/draft')
-const Article = require('../models/article')
+const Draft = require('../../models/draft')
+const Article = require('../../models/article')
 const trim = require('lodash/trim')
 
 function getDraft () {

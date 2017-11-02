@@ -3,7 +3,7 @@
  */
 'use strict'
 
-const About = require('../models/about')
+const About = require('../../models/about')
 
 function initAbout () {
   return new About({

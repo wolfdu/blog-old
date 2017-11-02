@@ -4,8 +4,8 @@
 'use strict'
 
 const Router = require('koa-router')
-const aboutController = require('../controller/about')
-const verifyToken = require('../middleware/verify-token')
+const aboutController = require('./about.controller')
+const verifyToken = require('../../middleware/verify-token')
 
 let aboutRouter = new Router()
 
