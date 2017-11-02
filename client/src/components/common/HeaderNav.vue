@@ -2,7 +2,7 @@
     <header class="top-nav-container">
       <nav class="top-nav">
         <router-link to="/posts" class="vertical-center nav-logo">
-          <img src="../../assets/img/logo.png" class="logo vertical-center-content" alt="">
+          <icon id="sidebar-logo" name="chameleon" class="sidebar-logo logo vertical-center-content" scale="20"></icon>
           <span class="brand vertical-center-content">Wolf Du</span>
         </router-link>
         <ul class="nav-link-container">
@@ -38,12 +38,12 @@
   //顶部导航条的垂直长度还是太长了
   //还是让他在正常情况下随页面滚动把
   //只在移动端的时候fixed
-    position absolute
+    position fixed
     top 0
     right 0
     left 0
     z-index 100
-    background #fff
+    background-color hsla(0,0%,100%,.6)
     box-shadow 0 0 4px rgba(0,0,0,0.25)
   //在移动端就让顶部的导航条fixed
     @media screen and (max-width: 480px)
@@ -124,6 +124,9 @@
     text-decoration none
     color $medium
     padding-bottom 3px
+    font-size 1.2em
+    font-family $logo-font
+    font-weight 500
     &:hover, &.router-link-active
       border-bottom 3px solid $green
 
@@ -136,4 +139,21 @@
     @media screen and (min-width: 480px)
       &
         display none
+
+  #sidebar-logo
+    animation changeColor 5s infinite linear
+
+  @keyframes changeColor
+    0%
+      color red
+    20%
+      color yellow
+    40%
+      color blue
+    60%
+      color green
+    80%
+      color purple
+    100%
+      color gold
 </style>

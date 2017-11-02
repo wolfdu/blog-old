@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <background></background>
     <header-nav></header-nav>
     <div class="content">
       <div class="main">
@@ -22,10 +23,12 @@
 <script>
   import HeaderNav from 'components/common/HeaderNav.vue'
   import Sidebar from 'components/common/sidebar/Sidebar.vue'
+  import Background from 'components/common/Background.vue'
   export default {
     components: {
       HeaderNav,
-      Sidebar
+      Sidebar,
+      Background
     }
   }
 </script>

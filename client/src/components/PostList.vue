@@ -71,7 +71,7 @@
   .loading
     width 100%
     display inline-block
-    background-color hsla(0,0%,100%,.6)
+    background-color rgb(238, 238, 238)
     text-align center
     button
       text-shadow 0 1px 0 #fff

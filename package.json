@@ -29,6 +29,7 @@
     "marked": "^0.3.6",
     "md5": "^2.2.1",
     "mongoose": "^4.11.13",
+    "particles.js": "^2.0.0",
     "simplemde": "^1.11.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
