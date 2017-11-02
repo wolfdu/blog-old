@@ -4,6 +4,7 @@ const User = require('../../models/user')
 const md5 = require('md5')
 const jwt = require('jsonwebtoken')
 const config = require('../../config/index')
+const logger = require('../../utils/logger')
 
 let getAdminUser = function () {
   return new User({
@@ -59,9 +60,11 @@ let create = async (ctx, next) => {
         data: {uid: user._id, name: user.name, token}
       }
     } else {
+      logger.error('用户名或密码错误', {username: username})
       ctx.body = {error_message: '用户名或密码错误'}
     }
   } catch (err) {
+    logger.debug('token error')
     ctx.throw(err)
   }
 }

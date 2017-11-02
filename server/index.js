@@ -2,9 +2,10 @@
 'use strict'
 const Koa = require('koa')
 const loggerAsync = require('./middleware/logger-async')
+const logger = require('./utils/logger')
 const errorHandle = require('./middleware/error-handle')
 const mongoose = require('mongoose')
-const config = require('./config/index')
+const config = require('./config')
 const jwt = require('jsonwebtoken')
 const router = require('./router/index')
 const bodyParser = require('koa-bodyparser')
@@ -12,6 +13,12 @@ const cors = require('koa2-cors')
 
 const app = new Koa()
 app.use(loggerAsync())
+// log记录
+// router use : this.logger.error('msg')
+app.use(async (ctx, next) => {
+  ctx.logger = logger
+  await next()
+})
 app.use(errorHandle())
 
 jwt.co_verify = function (jwtString, secretOrPublicKey, options) {
