@@ -12,7 +12,7 @@ Vue.use(Router)
 const routes = [
   {path: '/posts', component: PostsList},
   {path: '/post', component: Post, name: 'post'},
-  {path: '/tag/:tagName', component: Tag, name: 'tag', prop: true},
+  {path: '/tag', component: Tag, name: 'tag'},
   {path: '/about', component: About, name: 'about'},
   {path: '*', redirect: '/posts'}
 ]

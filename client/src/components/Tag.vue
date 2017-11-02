@@ -18,16 +18,11 @@
         tagName: ''
       }
     },
-    props: {
-      tag: {
-        type: Object
-      }
-    },
     beforeRouteEnter (to, from, next) {
-      articleService.getPostList({page: 1, limit: 10, tagId: to.params.tagId}).then(res => {
+      articleService.getPostList({page: 1, limit: 10, tagId: to.query.tagId}).then(res => {
         if (res.success) {
           next(vm => {
-            vm.tagName = to.params.tagName
+            vm.tagName = to.query.tagName
             vm.posts = res.data.articles
           })
         }
@@ -37,8 +32,9 @@
       })
     },
     beforeRouteUpdate (to, from, next) {
-      articleService.getPostList({page: 1, limit: 10, tagId: to.params.tagId}).then(res => {
+      articleService.getPostList({page: 1, limit: 10, tagId: to.query.tagId}).then(res => {
         if (res.success) {
+          this.tagName = to.query.tagName
           this.posts = res.data.articles
           next()
         }
