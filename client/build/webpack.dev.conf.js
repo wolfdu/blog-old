@@ -22,10 +22,12 @@ module.exports = merge(baseWebpackConfig, {
       'process.env': config.dev.env
     }),
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
+      favicon: './client/src/assets/img/favicon.ico', // favicon路径
       filename: 'index.html',
       template: './client/index.html',
       inject: true
