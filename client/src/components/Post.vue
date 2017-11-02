@@ -16,9 +16,9 @@
           class="tag">{{tag.name}}</router-link>
       </div>
       <div class="fix like">
-        <span @click="likePost"><i class="fa fa-heart-o fa-3x" v-show="!liked" aria-hidden="true"></i>
-          <i class="fa fa-heartbeat fa-3x" v-show="liked" aria-hidden="true"></i> like {{article.like}}</span>
-        <span>已被 <i class="fa fa-user-secret fa-2x" aria-hidden="true"></i> 围观 {{article.visits}} 次</span>
+        <span @click="likePost" class="like-span"><i class="fa fa-heart-o fa-hover fa-2x" v-show="!liked" aria-hidden="true"></i>
+          <i class="fa fa-heartbeat fa-2x" v-show="liked" aria-hidden="true"></i> like {{article.like}}</span>
+        <span> <i class="fa fa-user-secret fa-2x" aria-hidden="true"></i> 围观 {{article.visits}} 次</span>
       </div>
     </article>
   </div>
@@ -141,4 +141,11 @@ export default {
         margin: 0 5px 5px;
         &+.tag
           margin-left 5px
+
+  .like-span
+    padding-right 30px
+
+  .fa-hover
+    &:hover
+      color $green
 </style>
