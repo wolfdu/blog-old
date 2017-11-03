@@ -42,19 +42,31 @@ function editDraftTitle ({commit}, title) {
   commit(draftTypes.DRAFT_TITLE_EDIT, title)
 }
 
+function submitDraftTitle ({commit, state}, title) {
+  postsApi.modifyDraftTitle(state.currentDraftId, title).then(res => {
+    if (res.success) {
+      commit(draftTypes.DRAFT_TITLE_MODIFY, title)
+      commit(draftTypes.DRAFT_LAST_EDIT_TIME, res.data.lastEditTime)
+      commit(draftTypes.DRAFT_TITLE_SAVE)
+    }
+  }, res => {
+    this.showMsg(store, {content: res.error_message || '网络错误,标题保存失败'})
+  })
+}
+
 function saveDraftTitle ({commit}) {
   commit(draftTypes.DRAFT_TITLE_SAVE)
 }
 
-function updateDraftTitle ({commit, state}) {
-  postsApi.modifyDraftTitle(state.currentDraftId, state.title).then(res => {
+function updateDraft ({commit, state}, content) {
+  postsApi.modifyDraftContent(state.currentDraftId, content).then(res => {
     if (res.success) {
-      commit(draftTypes.DRAFT_TITLE_MODIFY, state.title)
+      commit(draftTypes.DRAFT_EXCERPT_MODIFY, res.data.excerpt)
       commit(draftTypes.DRAFT_LAST_EDIT_TIME, res.data.lastEditTime)
-      saveDraftTitle(store)
+      commit(draftTypes.DRAFT_SAVE)
     }
   }, res => {
-    showMsg(store, {content: res.error_message || '网络错误,标题保存失败'})
+    this.showMsg(store, {content: res.error_message || '保存文章内容失败'})
   })
 }
 
@@ -80,17 +92,6 @@ function saveDraft ({commit}) {
   commit(draftTypes.DRAFT_SAVE)
 }
 
-function updateDraft ({state}, content) {
-  postsApi.modifyDraftContent(state.currentDraftId, content).then(res => {
-    if (res.success) {
-      submitDraftExcerpt(store, {excerpt: res.data.excerpt, lastEditTime: res.data.lastEditTime})
-      saveDraft(store)
-    }
-  }, res => {
-    this.showMsg(res.error_message || '保存文章内容失败')
-  })
-}
-
 function editDraft ({commit}) {
   commit(draftTypes.DRAFT_EDIT)
 }
@@ -114,6 +115,7 @@ export {
   getAllDraft,
   focusOnDraft,
   editDraftTitle,
+  submitDraftTitle,
   saveDraftTitle,
   draftTagsModify,
   publishDraft,
@@ -121,6 +123,5 @@ export {
   editDraft,
   saveDraft,
   deletePost,
-  updateDraft,
-  updateDraftTitle
+  updateDraft
 }

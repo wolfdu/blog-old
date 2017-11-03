@@ -31,8 +31,16 @@
   import { mapGetters, mapActions } from 'vuex'
   import debounce from 'lodash/debounce'
   import trim from 'lodash/trim'
-  import tagApi from '../../service/tag.resource'
   import postsApi from '../../service/posts.resource'
+  import tagApi from '../../service/tag.resource'
+
+  const debounceTitle = debounce(function (draftTitle) {
+    this.submitDraftTitle(draftTitle)
+  }, 1000)
+
+  const debounceDraft = debounce(function (content) {
+    this.updateDraft(content)
+  }, 1000)
 
   let smde
 
@@ -72,10 +80,8 @@
           if (this.change) {
             this.change = false
           } else if (this.draftSaved) {
-            this.editDraft(smde.value())
-            debounce(function (vm) {
-              vm.updateDraft(smde.value())
-            }, 1000)(this)
+            this.editDraft()
+            debounceDraft.call(this, smde.value())
           }
         })
         if (this.currentDraftId) {
@@ -120,20 +126,21 @@
     methods: {
       ...mapActions([
         'editDraftTitle',
-        'updateDraftTitle',
+        'submitDraftTitle',
+        'saveDraftTitle',
         'draftTagsModify',
         'publishDraft',
-        'editDraft',
         'updateDraft',
+        'editDraft',
+        'submitDraftExcerpt',
+        'saveDraft',
         'deletePost',
         'showMsg'
       ]),
       updateTitle (e) {
         let title = e.target.value
         this.editDraftTitle(title)
-        debounce(function (vm) {
-          vm.updateDraftTitle()
-        }, 1000)(this)
+        debounceTitle.call(this, title)
       },
       addTag () {
         this.tagInput = true
@@ -217,13 +224,14 @@
 
 <style lang="stylus">
   @import '../../stylus/_settings.styl'
-  .title-active
-    .big
-      border 1px solid $yellow
   .big
     transition border 0.5s
     padding 13px 20px 13px 30px
     font-size 26px
+  .title-active
+    .big
+      border 1px solid $yellow
+      outline none
   .only-border-bottom
     border 1px solid transparent
     border-bottom 1px solid $border
