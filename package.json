@@ -7,11 +7,10 @@
   "scripts": {
     "dev-admin": "node admin/build/dev-server.js",
     "build-admin": "node admin/build/build.js",
-    "start-admin": "node admin/build/dev-server.js",
     "dev-client": "node client/build/dev-server.js",
     "build-client": "node client/build/build.js",
-    "start-client": "node client/build/dev-server.js",
     "dev-server": "cross-env NODE_ENV=development supervisor --harmony server/index.js",
+    "server": "cross-env NODE_ENV=production supervisor --harmony server/index.js",
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
@@ -72,6 +71,7 @@
     "opn": "^5.1.0",
     "optimize-css-assets-webpack-plugin": "^2.0.0",
     "ora": "^1.2.0",
+    "portfinder": "^1.0.13",
     "rimraf": "^2.6.0",
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",

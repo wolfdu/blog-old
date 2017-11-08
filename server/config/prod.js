@@ -6,6 +6,9 @@ module.exports = {
       pass: ''
     }
   },
+  app: {
+    port: 3001
+  },
   'jwt': {
     'cert': 'blog-product'
   }
