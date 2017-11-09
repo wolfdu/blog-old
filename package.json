@@ -7,6 +7,7 @@
   "scripts": {
     "dev-admin": "node admin/build/dev-server.js",
     "build-admin": "node admin/build/build.js",
+    "analyz-admin": "NODE_ENV=production npm_config_report=true npm run build-admin",
     "dev-client": "node client/build/dev-server.js",
     "build-client": "node client/build/build.js",
     "dev-server": "cross-env NODE_ENV=development supervisor --harmony server/index.js",

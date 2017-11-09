@@ -10,6 +10,7 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
+    vendor: ['vue', 'vue-router', 'vuex', 'marked', 'highlight.js', 'simplemde'],
     app: './admin/src/main.js'
   },
   output: {
