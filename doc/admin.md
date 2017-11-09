@@ -6,7 +6,7 @@
 
 1. client--前端为blog展示博
 2. admin--前端为blog管理平台
-3. server--后端，为client和admin提供接口服务
+3. server--后端，为cliadment和in提供接口服务
 
 ## 1. 使用[vue-cli](https://github.com/vuejs/vue-cli)初始化vue工程
 
