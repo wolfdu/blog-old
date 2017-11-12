@@ -22,11 +22,16 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      'vue': 'vue/dist/vue.js',
+      'vue$': 'vue/dist/vue.esm.js',
+      'vue-router$': 'vue-router/dist/vue-router.esm.js',
+      'simplemde$': 'simplemde/dist/simplemde.min.js',
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
       'components': path.resolve(__dirname, '../src/components')
     }
+  },
+  externals: {
+    'simplemde': 'SimpleMDE'
   },
   module: {
     rules: [

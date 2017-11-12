@@ -2,10 +2,10 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
-import PostsList from 'components/PostList.vue'
-import Post from 'components/Post.vue'
-import Tag from 'components/Tag.vue'
-import About from 'components/About.vue'
+const PostsList = () => import('components/PostList.vue')
+const Post = () => import('components/Post.vue')
+const Tag = () => import('components/Tag.vue')
+const About = () => import('components/About.vue')
 
 Vue.use(Router)
 

@@ -1,4 +1,5 @@
 'use strict'
+// 检查node和npm的版本
 require('./check-versions')()
 
 const config = require('../config')
@@ -30,7 +31,7 @@ const devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
   quiet: true
 })
-
+// hot-reload
 const hotMiddleware = require('webpack-hot-middleware')(compiler, {
   log: false,
   heartbeat: 2000

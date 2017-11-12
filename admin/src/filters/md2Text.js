@@ -4,7 +4,7 @@
 'use strict'
 
 import marked from 'marked'
-import hljs from 'highlight.js'
+import hljs from 'highlight.js/lib/highlight'
 import trim from 'lodash/trim'
 
 const languages = ['cpp', 'xml', 'bash', 'coffeescript', 'css', 'markdown', 'http',

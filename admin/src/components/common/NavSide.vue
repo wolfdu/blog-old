@@ -4,18 +4,21 @@
     <nav class="aside-nav">
       <ul class="aside-nav-list">
         <li class="aside-nav-item"><router-link to="/posts" class="aside-nav-button">
-          <icon name="posts" class="iconfont" scale="3"></icon>
+          <i name="posts" class="fa fa-linode fa-2x" aria-hidden="true"></i>
         </router-link></li>
         <li class="aside-nav-item"><router-link to="/tags" class="aside-nav-button">
-          <icon name="tag" class="iconfont" scale="3"></icon>
+          <i name="tag" class="fa fa-tags fa-2x" aria-hidden="true"></i>
         </router-link></li>
-        <li class="aside-nav-item"><router-link to="/about" class="aside-nav-button"><icon name="evil" class="iconfont" scale="3"></icon>
+        <li class="aside-nav-item"><router-link to="/about" class="aside-nav-button">
+          <i name="about" class="fa fa-user-secret fa-2x" aria-hidden="true"></i>
         </router-link></li>
       </ul>
     </nav>
     <nav class="aside-menu">
       <ul class="aside-nav-list">
-        <li class="aside-nav-item"><a class="aside-nav-button" @click="signOut"><icon name="signOut" class="iconfont" scale="3"></icon> </a></li>
+        <li class="aside-nav-item"><a class="aside-nav-button" @click="signOut">
+          <i name="signOut" class="fa fa-sign-out fa-2x fa-flip-horizontal" aria-hidden="true"></i>
+        </a></li>
       </ul>
     </nav>
   </aside>
@@ -68,8 +71,7 @@
     width 45px
     height 45px
     background #fff
-    padding 0
-    padding-top 10px
+    padding-top 7px
     border 1px solid $border
     border-radius 50%
     color $green

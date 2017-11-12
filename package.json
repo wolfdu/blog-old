@@ -10,6 +10,7 @@
     "analyz-admin": "NODE_ENV=production npm_config_report=true npm run build-admin",
     "dev-client": "node client/build/dev-server.js",
     "build-client": "node client/build/build.js",
+    "analyz-client": "NODE_ENV=production npm_config_report=true npm run build-client",
     "dev-server": "cross-env NODE_ENV=development supervisor --harmony server/index.js",
     "server": "cross-env NODE_ENV=production supervisor --harmony server/index.js",
     "lint": "eslint --ext .js,.vue src"

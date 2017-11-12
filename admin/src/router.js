@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from 'components/Login.vue'
-import Posts from 'components/Posts.vue'
-import Tags from 'components/Tags.vue'
-import About from 'components/About.vue'
+const Login = () => import('components/Login.vue')
+const Posts = () => import('components/Posts.vue')
+const Tags = () => import('components/Tags.vue')
+const About = () => import('components/About.vue')
 import {isLogin} from './utils/authUtil'
 
 Vue.use(Router)

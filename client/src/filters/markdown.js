@@ -4,7 +4,7 @@
 'use strict'
 
 import marked from 'marked'
-import hljs from 'highlight.js'
+import hljs from 'highlight.js/lib/highlight'
 
 const languages = ['cpp', 'xml', 'bash', 'coffeescript', 'css', 'markdown', 'http',
   'java', 'javascript', 'json', 'less', 'makefile', 'nginx', 'php', 'python', 'scss', 'sql', 'stylus']
