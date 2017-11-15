@@ -4,8 +4,8 @@
     </nav-side>
     <section class="post-list-column">
       <h3 class="page-title">
-        <i class="fa fa-linode" aria-hidden="true"></i>文章列表
-        <i @click="createDraft"><icon name="plus" class="iconfont post-add" scale="2"></icon></i>
+        <i class="fa fa-linode title-color" aria-hidden="true"></i>文章列表
+        <i @click="createDraft" class="fa fa-plus fa-1 post-add" aria-hidden="true"></i>
       </h3>
       <post-list></post-list>
     </section>
@@ -69,6 +69,9 @@
     float right
     margin-right 10px
     margin-top 2px
+    color #42b983
+  .title-color
+    color #42b983
   .page-title
     color $light
     padding-left 25px
