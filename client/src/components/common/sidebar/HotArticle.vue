@@ -15,6 +15,7 @@
 import articleService from 'src/service/article.resource'
 import HotArticleCard from './HotArticleCard.vue'
 
+const LIMIT = 6
 export default {
   components: {
     HotArticleCard
@@ -26,7 +27,7 @@ export default {
   },
   mounted () {
     this.$nextTick(function () {
-      articleService.getPostList({page: 0, limit: 5}).then(res => {
+      articleService.getPostList({page: 0, limit: LIMIT}).then(res => {
         if (res.success) {
           this.articles = res.data.articles
         }

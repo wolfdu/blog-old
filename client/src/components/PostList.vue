@@ -17,7 +17,7 @@
   import articleService from '../service/article.resource'
   import ArticleCard from './common/ArticleCard.vue'
 
-  const LIMIT = 3
+  const LIMIT = 10
   export default {
     components: {
       ArticleCard
