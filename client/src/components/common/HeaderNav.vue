@@ -50,10 +50,15 @@
       &
         position fixed
   .top-nav
-    max-width  1000px
     margin 0 auto
     height $header-height
     padding $header-padding-vertical 0
+    @media screen and (min-width 1200px)
+      width 1170px
+    @media screen and (min-width 992px) and (max-width 1200px)
+      width 970px
+    @media screen and (min-width 768px) and (max-width 992px)
+      width 750px
     @media screen and (max-width: 480px)
       &
         padding $header-padding-vertical-small 0

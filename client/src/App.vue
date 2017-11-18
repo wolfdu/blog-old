@@ -49,7 +49,12 @@
   .app
     height 100%
   .content
-    max-width  1000px
+    @media screen and (min-width 1200px)
+      width 1170px
+    @media screen and (min-width 992px) and (max-width 1200px)
+      width 970px
+    @media screen and (min-width 768px) and (max-width 992px)
+      width 750px
     box-sizing border-box
     min-height 100%
     margin ($header-height + $header-padding-vertical * 2) auto 0 auto
