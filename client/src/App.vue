@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="app">
     <background></background>
     <header-nav></header-nav>
     <div class="content">
@@ -15,7 +15,13 @@
       </div>
     </div>
     <footer class="copyright">
-      Copyrights
+      Wolfdu.fun © 2017
+      <span>|</span>
+      Powered By <a href="https://vuefe.cn/" target="_blank">Vue</a>
+      & <a href="http://koajs.com/" target="_blank">koa</a>
+      & <a href="https://www.aliyun.com/" target="_blank">Aliyun</a>
+      <span>|</span>
+      Link <a href="https://github.com/wolfdu" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
     </footer>
   </div>
 </template>
@@ -39,10 +45,14 @@
     transition: opacity .2s ease
   .fade-enter, .fade-leave
     opacity: 0;
+
+  .app
+    height 100%
   .content
     max-width  1000px
     box-sizing border-box
-    margin ($header-height + $header-padding-vertical * 2)  auto
+    min-height 100%
+    margin ($header-height + $header-padding-vertical * 2) auto 0 auto
     @media screen and (max-width: 480px)
       &
         margin ($header-height + $header-padding-vertical-small * 2)  auto 0
@@ -187,8 +197,9 @@
 
   .copyright
     color $light
+    min-height 60px
     font-size 1em
     text-align center
-    padding 0 20px 30px
-    margin-top 30px
+    padding-top 30px
+    background-color #f9f9f9
 </style>
