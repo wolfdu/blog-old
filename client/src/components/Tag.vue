@@ -1,6 +1,6 @@
 <template>
   <div class="post-list">
-    <h3>tag:{{tagName}}</h3>
+    <h2><i class="fa fa-tag fa-1x" aria-hidden="true"></i> {{tagName}}</h2>
     <article-card v-for="post in posts" :article="post" :key="post.id"></article-card>
   </div>
 </template>
