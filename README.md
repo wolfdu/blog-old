@@ -14,7 +14,7 @@
 密码：password
 blog的后台管理，功能类似于印象笔记，会对草稿进行实时的保存。后面可能会加上数据监控，备忘录，任务表这些东西。
 
-![admin](http://oyf26dx0a.bkt.clouddn.com/image/blog/new-blog/admin.jpg)
+![admin](http://oyf26dx0a.bkt.clouddn.com/image/blog/new-blog/admin.jpg-blogImg)
 
 当草稿修改满意后可以点击发布，将文章发布到blog进行展示。
 
@@ -25,7 +25,7 @@ md编辑器用[simplemde](https://github.com/sparksuite/simplemde-markdown-edito
 ## blog
 blog前端展示也就，功能相对admin就比较简单。
 
-![](http://oyf26dx0a.bkt.clouddn.com/image/blog/new-blog/blog-page.jpg)
+![](http://oyf26dx0a.bkt.clouddn.com/image/blog/new-blog/blog-page.jpg-blogImg)
 
 由于功能比较简单就只使用了vue并没有用全家桶。
 比较花时间的是样式调整和学习，这里沿用了Chuck安利的[stylus](http://stylus-lang.com/)
