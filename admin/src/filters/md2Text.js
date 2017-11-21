@@ -28,6 +28,7 @@ hljs.registerLanguage('scss', require('highlight.js/lib/languages/scss'))
 hljs.registerLanguage('sql', require('highlight.js/lib/languages/sql'))
 hljs.registerLanguage('stylus', require('highlight.js/lib/languages/stylus'))
 hljs.configure({
+  tabReplace: '    ', // 4 spaces
   classPrefix: ''     // don't append class prefix
 })
 
