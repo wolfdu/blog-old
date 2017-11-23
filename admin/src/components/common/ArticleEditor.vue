@@ -79,7 +79,7 @@
         smde.codemirror.on('change', () => {
           if (this.change) {
             this.change = false
-          } else if (this.draftSaved) {
+          } else {
             this.editDraft()
             debounceDraft.call(this, smde.value())
           }
@@ -127,13 +127,11 @@
       ...mapActions([
         'editDraftTitle',
         'submitDraftTitle',
-        'saveDraftTitle',
         'draftTagsModify',
         'publishDraft',
         'updateDraft',
         'editDraft',
         'submitDraftExcerpt',
-        'saveDraft',
         'deletePost',
         'showMsg'
       ]),
