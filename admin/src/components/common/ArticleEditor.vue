@@ -407,6 +407,8 @@
         font-size 14px
     figure, p
       margin-left 0
+    code
+      color #cb7832
     pre
       position relative
       background-color $codebg
