@@ -324,20 +324,6 @@
       font-weight 600
       color $dark
 
-    code, pre
-      font-family $code-font
-      font-size $code-font-size
-      background-color $codebg
-      -webkit-font-smoothing initial
-      -moz-osx-font-smoothing initial
-
-    code
-      color #e96900
-      padding 3px 5px
-      margin 0 2px
-      border-radius 2px
-      white-space nowrap
-
     em
       color $light
 
@@ -433,10 +419,10 @@
         padding 1.2em 1.4em
         line-height 1.5em
         margin 0
-        color #525252
+        color $code
         border-radius 0
         white-space pre
-        &.lang-html, &.lang-javascript, &.lang-bash, &.lang-css, &.lang-java
+        &.lang-html, &.lang-js, &.lang-bash, &.lang-css, &.lang-java
           &:after
             position absolute
             top 0
@@ -450,7 +436,7 @@
             font-weight 600
         &.lang-html:after
           content 'HTML'
-        &.lang-javascript:after
+        &.lang-js:after
           content 'JS'
         &.lang-bash:after
           content 'Shell'

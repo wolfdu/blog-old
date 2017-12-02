@@ -174,7 +174,7 @@
         padding 1.2em 1.4em
         line-height 1.5em
         margin 0
-        color #525252
+        color $code
         border-radius 0
         white-space pre
         &.lang-html, &.lang-js, &.lang-bash, &.lang-css, &.lang-java
