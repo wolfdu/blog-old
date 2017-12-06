@@ -54,6 +54,21 @@ let articleList = async (ctx, next) => {
   }
 }
 
+let articlesCount = async (ctx, next) => {
+  try {
+    const count = await Article.count({})
+    ctx.status = 200
+    ctx.body = {
+      success: true,
+      data: {
+        count
+      }
+    }
+  }catch (err){
+    ctx.throw(err)
+  }
+}
+
 let articleDetail = async (ctx, next) => {
   const id = ctx.params.id
   try {
@@ -84,4 +99,4 @@ let modify = async (ctx, next) => {
   }
 }
 
-module.exports = {articleList, articleDetail, modify}
+module.exports = {articleList, articleDetail, modify, articlesCount}

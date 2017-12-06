@@ -9,6 +9,7 @@ const draftController = require('./article.controller')
 let articleRouter = new Router()
 
 articleRouter.get('/articles', draftController.articleList)
+articleRouter.get('/articles/count', draftController.articlesCount)
 articleRouter.get('/articles/:id', draftController.articleDetail)
 articleRouter.patch('/articles/:id', draftController.modify)
 
