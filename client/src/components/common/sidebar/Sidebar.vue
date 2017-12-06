@@ -25,8 +25,8 @@
     padding 1em 0 2em
     border-bottom 1px solid $border
     -webkit-box-flex 1
-    -ms-flex 1 1 28.4%
-    flex 1 1 28.4%
+    -ms-flex 1 1
+    flex 1 1
     padding-left 21.333px
     padding-left 1.5rem
     @media screen and (max-width: 480px)

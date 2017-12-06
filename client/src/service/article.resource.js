@@ -8,6 +8,10 @@ function getPostList (params) {
   return api.get('articles', params)
 }
 
+function getPostCount () {
+  return api.get('articles/count')
+}
+
 function getPost (id) {
   return api.get(`articles/${id}`)
 }
@@ -20,4 +24,4 @@ function like (id, like) {
   return api.patch(`articles/${id}`, {like: like + 1})
 }
 
-export default {getPostList, getPost, visit, like}
+export default {getPostList, getPost, visit, like, getPostCount}

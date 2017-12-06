@@ -5,11 +5,11 @@
     <div class="content">
       <div class="main">
         <div class="page-contain">
-          <router-view
-            transition="fade"
-            transition-mode="out-in"
-            keep-alive>
-          </router-view>
+          <transition name="slide-fade">
+            <keep-alive>
+              <router-view></router-view>
+            </keep-alive>
+          </transition>
         </div>
         <sidebar></sidebar>
       </div>
@@ -41,10 +41,16 @@
 
 <style lang="stylus">
   @import "./stylus/_settings.styl"
-  .fade-transition
-    transition: opacity .2s ease
-  .fade-enter, .fade-leave
-    opacity: 0;
+  .slide-fade-enter-active {
+    transition: all 2s ease
+  }
+  .slide-fade-leave-active {
+    transition: all .6s cubic-bezier(1.0, 0.5, 0.8, 1.0)
+  }
+  .slide-fade-enter, .slide-fade-leave-to {
+    transform: translateX(10px)
+    opacity: 0
+  }
 
   .app
     height 100%
@@ -111,7 +117,7 @@
           -ms-flex 1 1 100%
           flex 1 1 100%
           max-width 100%
-    .post-list, .post
+    .post-list, .post .archive-tree
       padding 1em 0 2em
       border-bottom 1px solid $border
     .post

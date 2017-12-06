@@ -7,13 +7,14 @@
         </router-link>
         <ul class="nav-link-container">
           <li class="nav-link-item"><router-link to="/posts" class="nav-link">首页</router-link></li>
+          <li class="nav-link-item"><router-link to="/archive" class="nav-link">归档</router-link></li>
           <li class="nav-link-item"><router-link to="/about" class="nav-link">关于Wolf Du</router-link></li>
         </ul>
         <img src="../../assets/img/menu.png" alt="" class="menu-button" @click="asideNavShow = !asideNavShow">
         <div class="nav-mask" :class="[asideNavShow? 'open':'']" @click="asideNavShow = false">
           <aside class="nav-aside" >
             <ul class="nav-aside-list">
-              <li ><router-link to="/posts" class="nav-link">文章</router-link></li>
+              <li ><router-link to="/posts" class="nav-link">首页</router-link></li>
               <li ><router-link to="/about" class="nav-link">关于Wolf Du</router-link></li>
             </ul>
           </aside>
@@ -146,19 +147,29 @@
         display none
 
   #sidebar-logo
-    animation changeColor 5s infinite linear
+    animation changeColor 20s infinite linear
 
   @keyframes changeColor
     0%
-      color red
+      color #07ff00
+    10%
+      color #00ceb0
     20%
-      color yellow
+      color #008488
+    30%
+      color #003da8
     40%
-      color blue
+      color #8306c9
+    50%
+      color #ff04c7
     60%
-      color green
+      color #dc0018
+    70%
+      color #df9300
     80%
-      color purple
+      color #f1d200
+    90%
+      color #9fff00
     100%
-      color gold
+      color #01ff00
 </style>
