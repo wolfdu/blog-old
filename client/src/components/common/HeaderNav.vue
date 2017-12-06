@@ -161,9 +161,9 @@
     40%
       color #8306c9
     50%
-      color #ff04c7
+      color #ff4b00
     60%
-      color #dc0018
+      color #dcc200
     70%
       color #df9300
     80%
