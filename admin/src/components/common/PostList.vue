@@ -1,6 +1,6 @@
 <template>
   <ul class="post-list reset-list">
-    <li class="post-list-item" v-for="(draft, index) in draftList" @click="focus(index)">
+    <li class="post-list-item" v-for="(draft, index) in draftList" v-show="getShowByStatus(draft['draftPublished'])" @click="focus(index)">
       <article class="post-thumb" :class="[draft['draftPublished']?'published':draft['article']?'updated':'',
       {'active':draft['id'] === currentDraftId}]">
         <h3 class="post-title">{{draft['title']}}</h3>
@@ -16,6 +16,12 @@
   import {mapGetters, mapActions} from 'vuex'
 
   export default {
+    props: {
+      showByStatus: {
+        type: String,
+        default: 'all'
+      }
+    },
     computed: {
       ...mapGetters([
         'draftList',
@@ -37,6 +43,20 @@
           let type = 'info'
           this.showMsg({content, type})
         }
+      },
+      getShowByStatus (draftPublished) {
+        let isShow = false
+        let showByStatus = this.showByStatus
+        if (showByStatus !== 'all') {
+          if (showByStatus === 'published' && draftPublished) {
+            isShow = true
+          } else if (showByStatus === 'draft' && !draftPublished) {
+            isShow = true
+          }
+        } else {
+          isShow = true
+        }
+        return isShow
       }
     }
 

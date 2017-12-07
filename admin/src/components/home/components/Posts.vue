@@ -5,7 +5,12 @@
         <i class="fa fa-linode title-color" aria-hidden="true"></i>文章列表
         <i @click="createDraft" class="fa fa-plus fa-1 post-add" aria-hidden="true"></i>
       </h3>
-      <post-list></post-list>
+      <div class="show-by-status">
+        <button type="button" class="btn btn-save r" @click="showPublished">已发布</button>
+        <button type="button" class="btn btn-border r" @click="showDraft">未发布</button>
+        <button type="button" class="btn btn-border r" @click="showAll">全部</button>
+      </div>
+      <post-list :showByStatus="showByStatus"></post-list>
     </section>
     <div class="post-edit">
       <article-editor v-if="null !== currentDraftId"></article-editor>
@@ -21,6 +26,7 @@
   export default{
     data () {
       return {
+        showByStatus: 'all'
       }
     },
     components: {
@@ -43,7 +49,16 @@
       ...mapActions([
         'createDraft',
         'getAllDraft'
-      ])
+      ]),
+      showPublished () {
+        this.showByStatus = 'published'
+      },
+      showDraft () {
+        this.showByStatus = 'draft'
+      },
+      showAll () {
+        this.showByStatus = 'all'
+      }
     }
   }
 </script>
@@ -57,6 +72,8 @@
     height 100%
     width 300px
     overflow-y auto
+  .show-by-status
+    box-sizing border-box
   .post-add
     cursor pointer
     float right
