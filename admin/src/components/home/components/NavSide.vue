@@ -3,6 +3,9 @@
     <icon id="sidebar-logo" name="chameleon" class="sidebar-logo" scale="20"></icon>
     <nav class="aside-nav">
       <ul class="aside-nav-list">
+        <li class="aside-nav-item"><router-link to="/dashboard" class="aside-nav-button">
+          <i name="posts" class="fa fa-tachometer fa-2x" aria-hidden="true"></i>
+        </router-link></li>
         <li class="aside-nav-item"><router-link to="/posts" class="aside-nav-button">
           <i name="posts" class="fa fa-linode fa-2x" aria-hidden="true"></i>
         </router-link></li>

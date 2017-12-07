@@ -5,6 +5,7 @@ const Home = () => import('components/home/Home.vue')
 const Posts = () => import('components/home/components/Posts.vue')
 const Tags = () => import('components/home/components/Tags.vue')
 const About = () => import('components/home/components/About.vue')
+const Dashboard = () => import('components/home/components/Dashboard.vue')
 import {isLogin} from './utils/authUtil'
 
 Vue.use(Router)
@@ -16,7 +17,8 @@ const routes = [
     children: [
     {path: 'posts', component: Posts},
     {path: 'tags', component: Tags},
-    {path: 'about', component: About}
+    {path: 'about', component: About},
+    {path: 'dashboard', component: Dashboard}
     ],
     meta: {requireAuth: true}},
   {path: '*', redirect: '/posts', meta: {requireAuth: true}}

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import Toaster from 'components/common/Toaster.vue'
+  import Toaster from 'components/Toaster.vue'
   import store from './vuex/store'
 
   export default {
