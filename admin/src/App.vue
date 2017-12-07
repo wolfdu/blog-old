@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <router-view transition="fade" transition-mode="out-in"></router-view>
+    <router-view></router-view>
     <Toaster></Toaster>
   </div>
 </template>
 
 <script>
-  import Toaster from 'components/Toaster.vue'
+  import Toaster from 'components/common/Toaster.vue'
   import store from './vuex/store'
 
   export default {
@@ -16,9 +16,7 @@
 </script>
 
 <style lang="stylus">
-  .fade-transition
-    transition: opacity .2s ease
-
-  .fade-enter, .fade-leave
-    opacity: 0;
+  .container-with-aside
+    margin-left 70px
+    height 100%
 </style>

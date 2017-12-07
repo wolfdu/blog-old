@@ -1,6 +1,5 @@
 <template>
-  <div class="container-with-aside">
-    <nav-side></nav-side>
+  <div>
     <div class="ovh">
       <editor></editor>
     </div>
@@ -9,12 +8,10 @@
 <style lang="stylus">
 </style>
 <script>
-  import NavSide from './common/NavSide.vue'
-  import Editor from './common/Editor.vue'
+  import Editor from 'components/common/Editor.vue'
 
   export default {
     components: {
-      NavSide,
       Editor
     },
     data () {

@@ -1,7 +1,5 @@
 <template>
-  <div class="container-with-aside">
-    <nav-side>
-    </nav-side>
+  <div>
     <section class="post-list-column">
       <h3 class="page-title">
         <i class="fa fa-linode title-color" aria-hidden="true"></i>文章列表
@@ -16,9 +14,8 @@
 </template>
 
 <script>
-  import NavSide from './common/NavSide.vue'
-  import ArticleEditor from './common/ArticleEditor.vue'
-  import PostList from './common/PostList.vue'
+  import ArticleEditor from 'components/common/ArticleEditor.vue'
+  import PostList from 'components/common/PostList.vue'
   import { mapGetters, mapActions } from 'vuex'
 
   export default{
@@ -27,7 +24,6 @@
       }
     },
     components: {
-      NavSide,
       PostList,
       ArticleEditor
     },
@@ -53,11 +49,8 @@
 </script>
 
 <style lang="stylus">
-  @import '../stylus/simplemde.styl'
-  @import '../stylus/_settings.styl'
-  .container-with-aside
-    margin-left 70px
-    height 100%
+  @import '../../../stylus/simplemde.styl'
+  @import '../../../stylus/_settings.styl'
   .post-list-column
     float left
     border-right 1px solid $border

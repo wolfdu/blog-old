@@ -1,7 +1,5 @@
 <template>
-  <div class="container-with-aside">
-    <nav-side>
-    </nav-side>
+  <div>
     <section class="post-list-column">
       <h3 class="page-title" style="margin-bottom:0" v-if="null === tagActive">
         <i class="fa fa-tags fa-2" aria-hidden="true"></i>根据标签搜索文章
@@ -40,11 +38,10 @@
 </template>
 
 <script>
-import NavSide from './common/NavSide.vue'
-import ArticleEditor from './common/ArticleEditor.vue'
-import PostList from './common/PostList.vue'
+import ArticleEditor from 'components/common/ArticleEditor.vue'
+import PostList from 'components/common/PostList.vue'
 import { mapGetters, mapActions } from 'vuex'
-import tagsApi from '../service/tag.resource'
+import tagsApi from 'service/tag.resource'
 
 export default{
   data () {
@@ -59,7 +56,6 @@ export default{
     ])
   },
   components: {
-    NavSide,
     ArticleEditor,
     PostList
   },
@@ -130,11 +126,8 @@ export default{
 </script>
 
 <style lang="stylus">
-  @import '../stylus/simplemde.styl'
-  @import '../stylus/_settings.styl'
-  .container-with-aside
-    margin-left 70px
-    height 100%
+  @import '../../../stylus/simplemde.styl'
+  @import '../../../stylus/_settings.styl'
   .post-list-column
     float left
     border-right 1px solid $border

@@ -28,7 +28,8 @@ module.exports = {
       'simplemde$': 'simplemde/dist/simplemde.min.js',
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
+      'components': path.resolve(__dirname, '../src/components'),
+      'service': path.resolve(__dirname, '../src/service')
     }
   },
   externals: {

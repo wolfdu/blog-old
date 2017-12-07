@@ -40,7 +40,7 @@
 </script>
 
 <style lang="stylus">
-  @import '../../stylus/_settings.styl'
+  @import '../../../stylus/_settings.styl'
   .sidebar
     box-sizing border-box
     border-right 1px solid $border

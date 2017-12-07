@@ -1,18 +1,24 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 const Login = () => import('components/Login.vue')
-const Posts = () => import('components/Posts.vue')
-const Tags = () => import('components/Tags.vue')
-const About = () => import('components/About.vue')
+const Home = () => import('components/home/Home.vue')
+const Posts = () => import('components/home/components/Posts.vue')
+const Tags = () => import('components/home/components/Tags.vue')
+const About = () => import('components/home/components/About.vue')
 import {isLogin} from './utils/authUtil'
 
 Vue.use(Router)
 
 const routes = [
   {path: '/login', component: Login, name: 'login'},
-  {path: '/posts', component: Posts, meta: {requireAuth: true}},
-  {path: '/tags', component: Tags, meta: {requireAuth: true}},
-  {path: '/about', component: About, meta: {requireAuth: true}},
+  {path: '/',
+    component: Home,
+    children: [
+    {path: 'posts', component: Posts},
+    {path: 'tags', component: Tags},
+    {path: 'about', component: About}
+    ],
+    meta: {requireAuth: true}},
   {path: '*', redirect: '/posts', meta: {requireAuth: true}}
 ]
 
