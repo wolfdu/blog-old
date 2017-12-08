@@ -21,9 +21,7 @@
 					<strong v-text="remaining"></strong> {{pluralize('item', remaining)}} left
 				</span>
       <ul class="filters">
-        <li><a :class="{selected: visibility == 'all'}">All</a></li>
-        <li><a :class="{selected: visibility == 'active'}">Active</a></li>
-        <li><a :class="{selected: visibility == 'completed'}">Completed</a></li>
+        <li v-for="option in options" @click="selectItem(option.value)" :class="{selected: visibility == option.value}">{{ option.text }}</li>
       </ul>
       <button class="clear-completed" @click="removeCompleted" v-show="todos.length > remaining">
         Clear completed
@@ -60,7 +58,12 @@
         todos: todoStorage.fetch(),
         newTodo: '',
         editedTodo: null,
-        visibility: 'all'
+        visibility: 'all',
+        options: [
+          { text: 'All', value: 'all' },
+          { text: 'Active', value: 'active' },
+          { text: 'Completed', value: 'completed' }
+        ]
       }
     },
     // watch todos change for localStorage persistence
@@ -99,7 +102,7 @@
       },
 
       addTodo: function () {
-        var value = this.newTodo && this.newTodo.trim()
+        let value = this.newTodo && this.newTodo.trim()
         if (!value) {
           return
         }
@@ -108,7 +111,7 @@
       },
 
       removeTodo: function (todo) {
-        var index = this.todos.indexOf(todo)
+        let index = this.todos.indexOf(todo)
         this.todos.splice(index, 1)
       },
 
@@ -135,6 +138,10 @@
 
       removeCompleted: function () {
         this.todos = filters.active(this.todos)
+      },
+
+      selectItem (val) {
+        this.visibility = val
       }
     },
 
@@ -180,8 +187,7 @@
     background: #fff;
     position: relative;
     border:1px solid #ccc;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
-    0 25px 50px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2)
   }
 
   .todoapp input::-webkit-input-placeholder {
@@ -397,21 +403,6 @@
     border-top: 1px solid #e6e6e6;
   }
 
-  .footer:before {
-    content: '';
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    height: 50px;
-    overflow: hidden;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
-    0 8px 0 -3px #f6f6f6,
-    0 9px 1px -3px rgba(0, 0, 0, 0.2),
-    0 16px 0 -6px #f6f6f6,
-    0 17px 2px -6px rgba(0, 0, 0, 0.2);
-  }
-
   .todo-count {
     float: left;
     text-align: left;
@@ -434,7 +425,7 @@
     display: inline;
   }
 
-  .filters li a {
+  .filters li{
     color: inherit;
     margin: 1px;
     padding: 1px 3px;
@@ -443,11 +434,11 @@
     border-radius: 3px;
   }
 
-  .filters li a:hover {
+  .filters li:hover {
     border-color: rgba(175, 47, 47, 0.1);
   }
 
-  .filters li a.selected {
+  .filters li.selected {
     border-color: rgba(175, 47, 47, 0.2);
   }
 

@@ -21,7 +21,7 @@ const routes = [
     {path: 'dashboard', component: Dashboard}
     ],
     meta: {requireAuth: true}},
-  {path: '*', redirect: '/posts', meta: {requireAuth: true}}
+  {path: '*', redirect: '/dashboard', meta: {requireAuth: true}}
 ]
 
 const router = new Router({

@@ -54,7 +54,6 @@
     .grid-header
       grid-column 1/4
       height 60px
-      border 1px solid #ccc
       h3
         margin-left 10px
     .other
