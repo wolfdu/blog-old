@@ -17,9 +17,10 @@
       </div>
       <div class="fix like">
         <span @click="likePost" class="like-span"><i class="fa fa-heart-o fa-hover fa-2x" v-show="!liked" aria-hidden="true"></i>
-          <i class="fa fa-heartbeat fa-2x" v-show="liked" aria-hidden="true"></i> like {{article.like}}</span>
-        <span> <i class="fa fa-user-secret fa-2x" aria-hidden="true"></i> 围观 {{article.visits}} 次</span>
+          <i class="fa fa-heartbeat fa-x" v-show="liked" aria-hidden="true"></i> like {{article.like}}</span>
+        <span> <i class="fa fa-user-secret fa-x" aria-hidden="true"></i> 围观 {{article.visits}} 次</span>
       </div>
+      <div id="gitment"></div>
     </article>
   </div>
 </template>
@@ -29,6 +30,8 @@
 import articleService from '../service/article.resource'
 import {markdown} from '../filters/markdown'
 import Sidebar from './common/sidebar/Sidebar.vue'
+import 'gitment/style/default.css'
+import Gitment from 'gitment'
 
 export default {
   components: {
@@ -71,6 +74,7 @@ export default {
   },
   mounted () {
     this.$nextTick(function () {
+      this.renderGitment()
       this.initLikedHistory()
       articleService.visit(this.article.id, this.article.visits).catch(err => {
         console.log('visits error')
@@ -102,6 +106,41 @@ export default {
           console.log(err)
         })
       }
+    },
+    renderGitment () {
+      const myTheme = {
+        render (state, instance) {
+          const container = document.createElement('div')
+          container.lang = 'en-US'
+          container.className = 'gitment-container gitment-root-container'
+
+          // your custom component
+          container.appendChild(instance.renderSomething(state, instance))
+
+          container.appendChild(instance.renderEditor(state, instance))
+          container.appendChild(instance.renderComments(state, instance))
+          container.appendChild(instance.renderFooter(state, instance))
+          return container
+        },
+        renderSomething (state, instance) {
+          const container = document.createElement('div')
+          container.lang = 'en-US'
+          if (state.user.login) {
+            container.innerText = `Hello, ${state.user.login}`
+          }
+          return container
+        }
+      }
+      const gitment = new Gitment({
+        owner: 'wolfdu',
+        repo: 'blog-gitment',
+        oauth: {
+          client_id: 'd09d01b5172896d0b7ee',
+          client_secret: '41d4e5bee172016fe3fe5c8c75ce48651349558a'
+        },
+        theme: myTheme
+      })
+      gitment.render(document.getElementById('gitment'))
     }
   }
 }
