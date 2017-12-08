@@ -6,11 +6,13 @@
         <i @click="createDraft" class="fa fa-plus fa-1 post-add" aria-hidden="true"></i>
       </h3>
       <div class="show-by-status">
-        <button type="button" class="btn btn-save r" @click="showPublished">已发布</button>
-        <button type="button" class="btn btn-border r" @click="showDraft">未发布</button>
-        <button type="button" class="btn btn-border r" @click="showAll">全部</button>
+        <select v-model="selected">
+          <option v-for="option in options" v-bind:value="option.value">
+            {{ option.text }}
+          </option>
+        </select>
       </div>
-      <post-list :showByStatus="showByStatus"></post-list>
+      <post-list :showByStatus="selected"></post-list>
     </section>
     <div class="post-edit">
       <article-editor v-if="null !== currentDraftId"></article-editor>
@@ -26,7 +28,12 @@
   export default{
     data () {
       return {
-        showByStatus: 'all'
+        selected: 'all',
+        options: [
+          { text: 'all', value: 'all' },
+          { text: 'published', value: 'published' },
+          { text: 'draft', value: 'draft' }
+        ]
       }
     },
     components: {
@@ -74,6 +81,11 @@
     overflow-y auto
   .show-by-status
     box-sizing border-box
+    display flex
+    flex-direction row-reverse
+    select
+      border-radius 3px
+      margin 3px
   .post-add
     cursor pointer
     float right
