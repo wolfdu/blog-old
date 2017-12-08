@@ -16,7 +16,4 @@
 </script>
 
 <style lang="stylus">
-  .container-with-aside
-    margin-left 70px
-    height 100%
 </style>

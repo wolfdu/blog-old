@@ -34,6 +34,8 @@
     "simplemde": "^1.11.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
+    "todomvc-app-css": "^2.1.0",
+    "todomvc-common": "^1.0.4",
     "vue": "^2.4.2",
     "vue-router": "^2.7.0",
     "vue-svg-icon": "^1.2.9",
