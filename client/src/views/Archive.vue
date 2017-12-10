@@ -1,9 +1,12 @@
 <template>
   <div class="archive-tree">
     <div class="archive-contain">
-      <i class="fa fa-rocket" aria-hidden="true">已经写了{{postsCount}}篇日志。“不积跬步，无以至千里”</i>
+      <i class="fa fa-rocket" aria-hidden="true">  已经写了{{postsCount}}篇日志: “不积跬步，无以至千里”</i>
       <ul>
-        <article-archive v-for="post in posts" :article="post" :key="post.id"></article-archive>
+        <li v-for="post in posts" :key="post.id">
+          <span>{{getDateDetail(post.createTime)}} --
+          <h2 class="title"><router-link :to="{name: 'post', query: {postId: post.id}}">{{post.title}}</router-link></h2></span>
+        </li>
       </ul>
       <div class="archive-loading">
         <button type="button" class="btn btn-border" @click="readMore">
@@ -20,12 +23,10 @@
 
 <script>
   import articleService from '../service/article.resource'
-  import ArticleArchive from './common/ArchiveItem.vue'
 
   const LIMIT = 25
   export default {
     components: {
-      ArticleArchive
     },
     data () {
       return {
@@ -73,6 +74,9 @@
           console.log(err)
           alert('网络错误,请刷新重试')
         })
+      },
+      getDateDetail (dateStr) {
+        return dateStr.substring(0, 10)
       }
     }
   }
@@ -101,4 +105,19 @@
       vertical-align middle
       touch-action manipulation
       cursor pointer
+  span
+    display -webkit-inline-box
+  .title
+    margin 0
+    font-family Raleway
+    font-size 15px
+    font-style normal
+    font-weight 400
+    letter-spacing 1px
+    text-transform uppercase
+    margin-left .5rem
+    margin-bottom .5rem
+    transition all 0.6s ease
+    &:hover
+      transform translate(15px,0)
 </style>

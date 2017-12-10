@@ -12,32 +12,32 @@
 </template>
 
 <script>
-import articleService from 'src/service/article.resource'
-import HotArticleCard from './HotArticleCard.vue'
+  import articleService from 'src/service/article.resource'
+  import HotArticleCard from './HotArticleCard.vue'
 
-const LIMIT = 6
-export default {
-  components: {
-    HotArticleCard
-  },
-  data () {
-    return {
-      articles: []
-    }
-  },
-  mounted () {
-    this.$nextTick(function () {
-      articleService.getPostList({page: 0, limit: LIMIT}).then(res => {
-        if (res.success) {
-          this.articles = res.data.articles
-        }
-      }).catch(err => {
-        console.log(err)
-        alert('网络错误,请刷新重试')
+  const LIMIT = 6
+  export default {
+    components: {
+      HotArticleCard
+    },
+    data () {
+      return {
+        articles: []
+      }
+    },
+    mounted () {
+      this.$nextTick(function () {
+        articleService.getPostList({page: 0, limit: LIMIT}).then(res => {
+          if (res.success) {
+            this.articles = res.data.articles
+          }
+        }).catch(err => {
+          console.log(err)
+          alert('网络错误,请刷新重试')
+        })
       })
-    })
+    }
   }
-}
 </script>
 
 <style lang="stylus">

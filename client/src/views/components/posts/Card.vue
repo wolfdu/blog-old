@@ -1,82 +1,82 @@
 <template>
-      <div class="article-card">
-        <div class="container">
-          <div class="date">
-            <div class="detail">
-              <span class="date-detail">{{dateDetail.date}}</span>
-              <span class="date-detail">{{dateDetail.month}}</span>
-              <span class="date-detail">{{dateDetail.year}}</span>
-            </div>
-            <div class="author">
-              <span class="author-brand"><i class="fa fa-meh-o fa-1" aria-hidden="true"></i>WolfDu</span>
-            </div>
-          </div>
-          <div class="card-content">
-            <h2 class="title"><router-link :to="{name: 'post', query: {postId: article.id}}">{{article.title}}</router-link></h2>
-            <p>{{article.excerpt}}</p>
-            <div class="info">
-              <div class="left">
+  <div class="article-card">
+    <div class="container">
+      <div class="date">
+        <div class="detail">
+          <span class="date-detail">{{dateDetail.date}}</span>
+          <span class="date-detail">{{dateDetail.month}}</span>
+          <span class="date-detail">{{dateDetail.year}}</span>
+        </div>
+        <div class="author">
+          <span class="author-brand"><i class="fa fa-meh-o fa-1" aria-hidden="true"></i>WolfDu</span>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="title"><router-link :to="{name: 'post', query: {postId: article.id}}">{{article.title}}</router-link></h2>
+        <p>{{article.excerpt}}</p>
+        <div class="info">
+          <div class="left">
                 <span class="tags" v-for="tag in article.tags">
                   <router-link :to="{name: 'tag', params: {tagId: tag._id, tagName: tag.name}}" class="tag">{{tag.name}}</router-link></span>
-              </div>
-              <div class="right">
+          </div>
+          <div class="right">
                 <span class="article-tag">
                   <i class="fa fa-eye fa-1" aria-hidden="true"></i>
                   <span>{{article.visits}}</span>
                 </span>
-                <span class="article-tag">
+            <span class="article-tag">
                   <i class="fa fa-heartbeat fa-1" aria-hidden="true"></i>
                   <span>{{article.like}}</span>
                 </span>
-                <span class="article-tag" v-show="null">
+            <span class="article-tag" v-show="null">
                   <i class="fa fa-commenting-o fa-flip-horizontal fa-1" aria-hidden="true"></i>
                   <span></span>
               </span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
 </template>
 
 <script>
-export default {
-  props: {
-    article: {
-      type: Object,
-      default: function () {
+  export default {
+    props: {
+      article: {
+        type: Object,
+        default: function () {
+          return {
+            createTime: '2017-10-20',
+            title: 'wolfdu blog',
+            excerpt: '人生如寄，似水流年 如河驶流，往而不返 最惧无常，独遭斯疾',
+            tags: ['nodeJs', 'JavaScript'],
+            comments: ['aa', 'bb'],
+            visits: 100,
+            like: 50
+          }
+        }
+      }
+    },
+    computed: {
+      dateDetail: function () {
+        return this.getDateDetail(this.article.createTime)
+      }
+    },
+    methods: {
+      getDateDetail (dateStr) {
+        let date = new Date(dateStr)
         return {
-          createTime: '2017-10-20',
-          title: 'wolfdu blog',
-          excerpt: '人生如寄，似水流年 如河驶流，往而不返 最惧无常，独遭斯疾',
-          tags: ['nodeJs', 'JavaScript'],
-          comments: ['aa', 'bb'],
-          visits: 100,
-          like: 50
+          date: date.getDate(),
+          month: date.toString().substring(4, 7),
+          year: date.getFullYear()
         }
       }
     }
-  },
-  computed: {
-    dateDetail: function () {
-      return this.getDateDetail(this.article.createTime)
-    }
-  },
-  methods: {
-    getDateDetail (dateStr) {
-      let date = new Date(dateStr)
-      return {
-        date: date.getDate(),
-        month: date.toString().substring(4, 7),
-        year: date.getFullYear()
-      }
-    }
   }
-}
 </script>
 
 <style lang="stylus">
-  @import "../../stylus/_settings.styl"
+  @import "../../../stylus/_settings.styl"
   .article-card
     width 100%
     display inline-block

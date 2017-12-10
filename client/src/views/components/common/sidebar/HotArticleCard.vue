@@ -48,7 +48,7 @@
 </script>
 
 <style lang="stylus">
-  @import "../../../stylus/_settings.styl"
+  @import "../../../../stylus/_settings.styl"
   .hot-article-card
     padding .3rem
     .article-info

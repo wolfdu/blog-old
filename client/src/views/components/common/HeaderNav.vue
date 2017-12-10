@@ -1,26 +1,26 @@
 <template>
-    <header class="top-nav-container">
-      <nav class="top-nav">
-        <router-link to="/posts" class="vertical-center nav-logo">
-          <icon id="sidebar-logo" name="chameleon" class="sidebar-logo logo vertical-center-content" scale="20"></icon>
-          <span class="brand vertical-center-content">Wolf Du</span>
-        </router-link>
-        <ul class="nav-link-container">
-          <li class="nav-link-item"><router-link to="/posts" class="nav-link">首页</router-link></li>
-          <li class="nav-link-item"><router-link to="/archive" class="nav-link">归档</router-link></li>
-          <li class="nav-link-item"><router-link to="/about" class="nav-link">关于Wolf Du</router-link></li>
-        </ul>
-        <img src="../../assets/img/menu.png" alt="" class="menu-button" @click="asideNavShow = !asideNavShow">
-        <div class="nav-mask" :class="[asideNavShow? 'open':'']" @click="asideNavShow = false">
-          <aside class="nav-aside" >
-            <ul class="nav-aside-list">
-              <li ><router-link to="/posts" class="nav-link">首页</router-link></li>
-              <li ><router-link to="/about" class="nav-link">关于Wolf Du</router-link></li>
-            </ul>
-          </aside>
-        </div>
-      </nav>
-    </header>
+  <header class="top-nav-container">
+    <nav class="top-nav">
+      <router-link to="/posts" class="vertical-center nav-logo">
+        <icon id="sidebar-logo" name="chameleon" class="sidebar-logo logo vertical-center-content" scale="20"></icon>
+        <span class="brand vertical-center-content">Wolf Du</span>
+      </router-link>
+      <ul class="nav-link-container">
+        <li class="nav-link-item"><router-link to="/posts" class="nav-link">首页</router-link></li>
+        <li class="nav-link-item"><router-link to="/archive" class="nav-link">归档</router-link></li>
+        <li class="nav-link-item"><router-link to="/about" class="nav-link">关于Wolf Du</router-link></li>
+      </ul>
+      <img src="../../../assets/img/menu.png" alt="" class="menu-button" @click="asideNavShow = !asideNavShow">
+      <div class="nav-mask" :class="[asideNavShow? 'open':'']" @click="asideNavShow = false">
+        <aside class="nav-aside" >
+          <ul class="nav-aside-list">
+            <li ><router-link to="/posts" class="nav-link">首页</router-link></li>
+            <li ><router-link to="/about" class="nav-link">关于Wolf Du</router-link></li>
+          </ul>
+        </aside>
+      </div>
+    </nav>
+  </header>
 </template>
 
 <script>
@@ -34,7 +34,7 @@
 </script>
 
 <style lang="stylus">
-  @import "../../stylus/_settings.styl"
+  @import "../../../stylus/_settings.styl"
   .top-nav-container
   //顶部导航条的垂直长度还是太长了
   //还是让他在正常情况下随页面滚动把

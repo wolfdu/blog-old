@@ -15,7 +15,7 @@ const actions = {
     tokenApi.createToken(user).then(res => {
       if (res.success) {
         commit(tokenTypes.TOKEN_CREATE, res.data.token)
-        router.replace({path: '/posts'})
+        router.replace({path: '/dashboard'})
         let msg = {content: 'Welcome Wolf Du !!!', type: 'success'}
         showMsg(store, msg)
       } else {

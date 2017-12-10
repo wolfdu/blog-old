@@ -2,21 +2,26 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
-const PostsList = () => import('components/PostList.vue')
-const Post = () => import('components/Post.vue')
-const Tag = () => import('components/Tag.vue')
-const About = () => import('components/About.vue')
-const Archive = () => import('components/Archive.vue')
+const Index = () => import('views/index.vue')
+const PostsList = () => import('components/posts/List.vue')
+const Post = () => import('components/posts/Post.vue')
+const Tag = () => import('views/Tag.vue')
+const About = () => import('views/About.vue')
+const Archive = () => import('views/Archive.vue')
 
 Vue.use(Router)
 
 const routes = [
-  {path: '/posts', component: PostsList},
-  {path: '/archive', component: Archive, meta: {goTop: true}},
-  {path: '/post', component: Post, name: 'post', meta: {goTop: true}},
-  {path: '/tag', component: Tag, name: 'tag', meta: {goTop: true}},
+  {path: '/',
+    component: Index,
+    children: [
+    {path: '/', component: PostsList},
+    {path: '/post', component: Post, name: 'post', meta: {goTop: true}},
+    {path: '/tag', component: Tag, name: 'tag', meta: {goTop: true}},
+    {path: '/archive', component: Archive, meta: {goTop: true}}
+    ]},
   {path: '/about', component: About, name: 'about', meta: {goTop: true}},
-  {path: '*', redirect: '/posts'}
+  {path: '*', redirect: '/'}
 ]
 
 const router = new Router({

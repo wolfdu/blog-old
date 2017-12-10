@@ -26,7 +26,9 @@ module.exports = {
       'vue-router$': 'vue-router/dist/vue-router.esm.js',
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
+      'views': path.resolve(__dirname, '../src/views'),
+      'components': path.resolve(__dirname, '../src/views/components'),
+      'service': path.resolve(__dirname, '../src/service')
     }
   },
   module: {

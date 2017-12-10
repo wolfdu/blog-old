@@ -1,26 +1,26 @@
 <template>
-    <div class="sidebar">
-      <div class="sidebar-contain">
-        <hot-article></hot-article>
-        <tags></tags>
-      </div>
+  <div class="sidebar">
+    <div class="sidebar-contain">
+      <hot-posts></hot-posts>
+      <tags></tags>
     </div>
+  </div>
 </template>
 
 <script>
   import Tags from './Tags.vue'
-  import HotArticle from './HotArticle.vue'
+  import HotPosts from './HotArticle.vue'
 
   export default {
     components: {
       Tags,
-      HotArticle
+      HotPosts
     }
   }
 </script>
 
 <style lang="stylus">
-  @import "../../../stylus/_settings.styl"
+  @import "../../../../stylus/_settings.styl"
   .sidebar
     padding 1em 0 2em
     border-bottom 1px solid $border
