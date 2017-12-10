@@ -22,6 +22,7 @@
 </script>
 
 <style lang="stylus">
+  @import "../stylus/_settings.styl"
   .slide-fade-enter-active {
     transition: all 2s ease
   }
