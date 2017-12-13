@@ -72,7 +72,9 @@
         alert('网络错误,请刷新重试')
       })
     },
-    mounted () {
+    activated () {
+      gitment = new Gitment(getGitmentInfo())
+      gitment.render(document.getElementById('gitment'))
       this.$nextTick(function () {
         this.initLikedHistory()
         articleService.visit(this.article.id, this.article.visits).catch(err => {
@@ -80,10 +82,6 @@
           console.log(err)
         })
       })
-    },
-    activated () {
-      gitment = new Gitment(getGitmentInfo())
-      gitment.render(document.getElementById('gitment'))
     },
     methods: {
       initLikedHistory () {
