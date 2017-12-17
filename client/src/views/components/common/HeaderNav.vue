@@ -14,8 +14,9 @@
       <div class="nav-mask" :class="[asideNavShow? 'open':'']" @click="asideNavShow = false">
         <aside class="nav-aside" >
           <ul class="nav-aside-list">
-            <li ><router-link to="/posts" class="nav-link">首页</router-link></li>
-            <li ><router-link to="/about" class="nav-link">关于Wolf Du</router-link></li>
+            <li><router-link to="/posts" class="nav-link">首页</router-link></li>
+            <li><router-link to="/archive" class="nav-link">归档</router-link></li>
+            <li><router-link to="/about" class="nav-link">关于Wolf Du</router-link></li>
           </ul>
         </aside>
       </div>

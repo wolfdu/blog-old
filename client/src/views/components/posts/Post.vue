@@ -76,6 +76,7 @@
       gitment = new Gitment(getGitmentInfo())
       gitment.render(document.getElementById('gitment'))
       this.$nextTick(function () {
+        document.title = `${this.article.title} | WolfDu后山`
         this.initLikedHistory()
         articleService.visit(this.article.id, this.article.visits).catch(err => {
           console.log('visits error')
@@ -121,6 +122,10 @@
       border  1px solid $border
       background-color hsla(0,0%,100%,.6)
       padding .5rem 2rem 2rem 2rem
+
+  table td,th
+    border 1px solid #ddd
+    padding 5px
 
   .gitment-comment-header
     background-color #f7f7f8
