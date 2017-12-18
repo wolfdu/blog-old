@@ -31,8 +31,8 @@ export function getGitmentInfo () {
     owner: 'wolfdu',
     repo: 'blog-gitment',
     oauth: {
-      client_id: 'd09d01b5172896d0b7ee',
-      client_secret: '41d4e5bee172016fe3fe5c8c75ce48651349558a'
+      client_id: '9e43702aa84891d10b3c',
+      client_secret: '070aeb7215dcc46830f6e1faf30a8ffec4971f5a'
     },
     theme: myTheme
   }
