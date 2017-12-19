@@ -67,38 +67,34 @@
       ])
     },
     mounted () {
-      this.$nextTick(function () {
-        smde = new SimpleMDE({
-          autoDownloadFontAwesome: false,
-          element: document.getElementById('editor'),
-          previewRender: function (plainText) {
-            return marked(plainText) // Returns HTML from a custom parser
-          },
-          spellChecker: false
-        })
-        smde.codemirror.on('change', () => {
-          if (this.change) {
-            this.change = false
-          } else {
-            this.editDraft()
-            debounceDraft.call(this, smde.value())
-          }
-        })
-        if (this.currentDraftId) {
-          postsApi.getDraft(this.currentDraftId).then(res => {
-            if (res.success) {
-              this.tagNew = ''
-              this.tagInput = false
-              this.tags = res.data.tags
-              this.$nextTick(() => {
-                smde.value(res.data.content)
-              })
-            }
-          }, res => {
-            this.showMsg({content: res.error_message || '网络错误,获取文章失败'})
-          })
+      smde = new SimpleMDE({
+        autoDownloadFontAwesome: false,
+        element: document.getElementById('editor'),
+        previewRender: function (plainText) {
+          return marked(plainText) // Returns HTML from a custom parser
+        },
+        spellChecker: false
+      })
+      smde.codemirror.on('change', () => {
+        if (this.change) {
+          this.change = false
+        } else {
+          this.editDraft()
+          debounceDraft.call(this, smde.value())
         }
       })
+      if (this.currentDraftId) {
+        postsApi.getDraft(this.currentDraftId).then(res => {
+          if (res.success) {
+            this.tagNew = ''
+            this.tagInput = false
+            this.tags = res.data.tags
+            smde.value(res.data.content)
+          }
+        }, res => {
+          this.showMsg({content: res.error_message || '网络错误,获取文章失败'})
+        })
+      }
     },
     watch: {
       tagNew (val) {

@@ -32,7 +32,7 @@
       ])
     },
     methods: {
-      ...mapActions(['focusOnDraft', 'showMag']),
+      ...mapActions(['focusOnDraft', 'showMsg']),
       focus (index) {
         if (this.draftSaved && this.draftTitleSaved) {
           if (index !== this.currentDraftIndex) {
@@ -59,7 +59,6 @@
         return isShow
       }
     }
-
   }
 </script>
 
