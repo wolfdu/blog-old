@@ -1,18 +1,22 @@
 <template>
   <div>
     <section class="post-list-column">
-      <h3 class="page-title">
-        <i class="fa fa-linode title-color" aria-hidden="true"></i>文章列表
-        <i @click="createDraft" class="fa fa-plus fa-1 post-add" aria-hidden="true"></i>
-      </h3>
-      <div class="show-by-status">
-        <select v-model="selected">
-          <option v-for="option in options" v-bind:value="option.value">
-            {{ option.text }}
-          </option>
-        </select>
+      <div class="list-header">
+        <h3 class="page-title">
+          <i class="fa fa-linode title-color" aria-hidden="true"></i>文章列表
+          <i @click="createDraft" class="fa fa-plus fa-1 post-add" aria-hidden="true"></i>
+        </h3>
+        <div class="show-by-status">
+          <select v-model="selected">
+            <option v-for="option in options" v-bind:value="option.value">
+              {{ option.text }}
+            </option>
+          </select>
+        </div>
       </div>
-      <post-list :showByStatus="selected"></post-list>
+      <div class="post-list-container">
+        <post-list :showByStatus="selected"></post-list>
+      </div>
     </section>
     <div class="post-edit">
       <article-editor v-if="null !== currentDraftId"></article-editor>
@@ -52,6 +56,13 @@
         vm.getAllDraft()
       })
     },
+    mounted: function () {
+      this.$nextTick(function () {
+//        let clientHeight = document.body.clientHeight
+//        let listHeaderHeight = document.getElementsByClassName('list-header').offsetHeight
+//        document.getElementsByClassName('post-list-container').style.height = (clientHeight - listHeaderHeight) + 'px'
+      })
+    },
     methods: {
       ...mapActions([
         'createDraft',
@@ -79,6 +90,8 @@
     height 100%
     width 300px
     overflow-y auto
+    .list-header
+      height 80px
   .show-by-status
     box-sizing border-box
     display flex
