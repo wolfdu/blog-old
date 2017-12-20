@@ -221,7 +221,9 @@
   section
     height 100%
     width 100%
+    flex 0 1 auto
     display grid
+    grid-template-rows 60px 60px 50px
   .big
     transition border 0.5s
     padding 13px 20px 13px 30px

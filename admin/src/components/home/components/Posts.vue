@@ -76,10 +76,11 @@
   @import '../../../stylus/simplemde.styl'
   @import '../../../stylus/_settings.styl'
   .main
-    display flex
-    flex-direction row
     box-sizing border-box
     height 100%
+    width 100%
+    display flex
+    flex 0 1 auto
   .post-list-column
     margin 0
     padding 0
@@ -87,10 +88,11 @@
     height 100%
     width 300px
     display grid
-    box-sizing: border-box;
+    grid-template-rows 90px
+    box-sizing: border-box
     .list-header
       display inline-block
-      height 80px
+      height 90px
     .post-list-container
       overflow auto
   .show-by-status

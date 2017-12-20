@@ -15,10 +15,6 @@
         <li class="aside-nav-item"><router-link to="/about" class="aside-nav-button">
           <i name="about" class="fa fa-user-secret fa-2x" aria-hidden="true"></i>
         </router-link></li>
-      </ul>
-    </nav>
-    <nav class="aside-menu">
-      <ul class="aside-nav-list">
         <li class="aside-nav-item"><a class="aside-nav-button" @click="signOut">
           <i name="signOut" class="fa fa-sign-out fa-2x fa-flip-horizontal" aria-hidden="true"></i>
         </a></li>
@@ -49,12 +45,9 @@
     border-right 1px solid $border
     background-color #f8f8f8
     text-align center
-    position fixed
     height 100%
     width 70px
     padding 12px 12px 24px 12px
-    left 0
-    top 0
     .aside-nav
       margin-top 30px
   .sidebar-logo

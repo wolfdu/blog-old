@@ -1,5 +1,5 @@
 <template>
-    <div class="container-with-aside">
+    <div class="home">
       <nav-side></nav-side>
       <router-view></router-view>
     </div>
@@ -14,7 +14,9 @@
 </script>
 
 <style lang="stylus">
-  .container-with-aside
-    margin-left 70px
+  .home
     height 100%
+    width 100%
+    display flex
+    box-sizing border-box
 </style>
