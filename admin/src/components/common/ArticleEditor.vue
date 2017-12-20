@@ -218,6 +218,10 @@
 
 <style lang="stylus">
   @import '../../stylus/_settings.styl'
+  section
+    height 100%
+    width 100%
+    display grid
   .big
     transition border 0.5s
     padding 13px 20px 13px 30px
@@ -294,6 +298,7 @@
   .CodeMirror
     transition border 0.5s
     border-left 1px solid transparent
+    overflow-x hidden
   .CodeMirror-sided
     box-sizing border-box
   .editor-preview,

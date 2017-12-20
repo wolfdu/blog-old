@@ -104,8 +104,4 @@
     .post-time
       color $light
       margin 0 0 6px
-  .post-thumb-content
-    white-space nowrap
-    overflow hidden
-    text-overflow ellipsis
 </style>

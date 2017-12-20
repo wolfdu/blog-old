@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <section class="post-list-column">
+  <div class="main">
+    <div class="post-list-column">
       <div class="list-header">
         <h3 class="page-title">
           <i class="fa fa-linode title-color" aria-hidden="true"></i>文章列表
@@ -17,10 +17,8 @@
       <div class="post-list-container">
         <post-list :showByStatus="selected"></post-list>
       </div>
-    </section>
-    <div class="post-edit">
-      <article-editor v-if="null !== currentDraftId"></article-editor>
     </div>
+    <article-editor v-if="null !== currentDraftId"></article-editor>
   </div>
 </template>
 
@@ -56,13 +54,6 @@
         vm.getAllDraft()
       })
     },
-    mounted: function () {
-      this.$nextTick(function () {
-//        let clientHeight = document.body.clientHeight
-//        let listHeaderHeight = document.getElementsByClassName('list-header').offsetHeight
-//        document.getElementsByClassName('post-list-container').style.height = (clientHeight - listHeaderHeight) + 'px'
-      })
-    },
     methods: {
       ...mapActions([
         'createDraft',
@@ -84,14 +75,24 @@
 <style lang="stylus">
   @import '../../../stylus/simplemde.styl'
   @import '../../../stylus/_settings.styl'
+  .main
+    display flex
+    flex-direction row
+    box-sizing border-box
+    height 100%
   .post-list-column
-    float left
+    margin 0
+    padding 0
     border-right 1px solid $border
     height 100%
     width 300px
-    overflow-y auto
+    display grid
+    box-sizing: border-box;
     .list-header
+      display inline-block
       height 80px
+    .post-list-container
+      overflow auto
   .show-by-status
     box-sizing border-box
     display flex
@@ -114,8 +115,5 @@
     .iconfont
       font-size 22px
       display inline
-  .post-edit
-    overflow auto
-    height 100%
 
 </style>
