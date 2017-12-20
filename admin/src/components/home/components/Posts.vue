@@ -86,7 +86,7 @@
     padding 0
     border-right 1px solid $border
     height 100%
-    width 300px
+    min-width 300px
     display grid
     grid-template-rows 90px
     box-sizing: border-box
