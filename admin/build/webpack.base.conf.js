@@ -29,7 +29,8 @@ module.exports = {
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
       'components': path.resolve(__dirname, '../src/components'),
-      'service': path.resolve(__dirname, '../src/service')
+      'service': path.resolve(__dirname, '../src/service'),
+      'filters': path.resolve(__dirname, '../src/filters')
     }
   },
   externals: {

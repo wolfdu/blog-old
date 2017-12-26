@@ -38,12 +38,37 @@ function buildDraft2Obj (draftArr) {
   return resultArr
 }
 
-let draftList = async (ctx, next) => {
-  const tag = ctx.query.tag
-  const queryOpt = {}
-  if (tag !== undefined) {
-    queryOpt.tags = {'$all': [tag]}
+function getDraftStatus (postType) {
+  const status = {
+    'published': true,
+    'draft': false
   }
+  return status[postType]
+}
+
+function getDraftListQueryOpt (param) {
+  let queryOpt = {
+    draftPublished: false
+  }
+  if (param.postType) {
+    if (param.postType === 'all') {
+      delete queryOpt.draftPublished
+    } else {
+      queryOpt.draftPublished = getDraftStatus(param.postType)
+    }
+  }
+  if (param.tag !== undefined) {
+    queryOpt.tags = {'$all': [param.tag]}
+  }
+  return queryOpt
+}
+
+let draftList = async (ctx, next) => {
+  const param = ctx.query
+  const queryOpt = getDraftListQueryOpt(param)
+  // const limit = ~~ctx.query.limit || 10
+  // const page = ~~ctx.query.page
+  // let skip = page ? (limit * (page - 1)) : 0
   try {
     const draftArr = await Draft.find(queryOpt)
       .select('title tags createTime lastEditTime excerpt article draftPublished')
@@ -82,7 +107,7 @@ function getModifyOpt (queryParams) {
     Object.assign(modifyOpt, getExcerptAndThumb(content))
   }
   modifyOpt.lastEditTime = new Date()
-  modifyOpt.draftPulished = false
+  modifyOpt.draftPublished = false
   return modifyOpt
 }
 

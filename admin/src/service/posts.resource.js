@@ -1,35 +1,33 @@
 import api from './API'
 
-function createDraft () {
+export function createPost () {
   return api.post('drafts')
 }
 
-function getDraftList (tag) {
-  return api.get('drafts', tag ? {tag} : undefined)
+export function getPostList (param) {
+  return api.get('drafts', param)
 }
 
-function modifyDraftTitle (draftId, title) {
+export function updatePostTitle (draftId, title) {
   return api.patch(`drafts/${draftId}`, {title})
 }
 
-function modifyDraftTags (draftId, tags) {
+export function modifyPostTags (draftId, tags) {
   return api.patch(`drafts/${draftId}`, {tags})
 }
 
-function modifyDraftContent (draftId, content) {
+export function updatePostContent (draftId, content) {
   return api.patch(`drafts/${draftId}`, {content})
 }
 
-function getDraft (draftId) {
-  return api.get(`drafts/${draftId}`)
+export function getPost (postId) {
+  return api.get(`drafts/${postId}`)
 }
 
-function publish (draftId) {
+export function publishPost (draftId) {
   return api.post(`drafts/${draftId}`)
 }
 
-function deleteDraft (draftId) {
+export function deletePost (draftId) {
   return api.deleteApi(`drafts/${draftId}`)
 }
-
-export default {createDraft, getDraftList, modifyDraftTitle, modifyDraftTags, modifyDraftContent, getDraft, publish, deleteDraft}

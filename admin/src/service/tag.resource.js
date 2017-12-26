@@ -1,6 +1,6 @@
 import api from './API'
 
-function createTags (name) {
+export function createTag (name) {
   return api.post('tags', {name})
 }
 
@@ -20,4 +20,4 @@ function deleteTag (id) {
   return api.deleteApi(`tags/${id}`)
 }
 
-export default {createTags, searchTagsByWord, getAllTags, modifyTag, deleteTag}
+export default {createTag, searchTagsByWord, getAllTags, modifyTag, deleteTag}

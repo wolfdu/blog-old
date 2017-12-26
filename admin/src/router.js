@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { isLogin } from './utils/authUtil'
 const Login = () => import('components/Login.vue')
 const Home = () => import('components/home/Home.vue')
 const Posts = () => import('components/home/components/Posts.vue')
 const Tags = () => import('components/home/components/Tags.vue')
 const About = () => import('components/home/components/About.vue')
 const Dashboard = () => import('components/home/components/Dashboard.vue')
-import {isLogin} from './utils/authUtil'
 
 Vue.use(Router)
 
@@ -15,7 +15,7 @@ const routes = [
   {path: '/',
     component: Home,
     children: [
-    {path: 'posts', component: Posts},
+    {path: 'posts', name: 'posts', component: Posts},
     {path: 'tags', component: Tags},
     {path: 'about', component: About},
     {path: 'dashboard', component: Dashboard}

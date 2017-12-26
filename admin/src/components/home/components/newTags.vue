@@ -29,96 +29,100 @@
           <span @click="searchTag(tag)" v-show="!tag['editing']">{{tag['name']}}</span>
         </li>
       </ul>
+      <post-list></post-list>
     </section>
+    <div class="post-edit">
+      <article-editor v-if="null !== currentDraftId"></article-editor>
+    </div>
   </div>
 </template>
 
 <script>
-import ArticleEditor from 'components/common/ArticleEditor.vue'
-import PostList from 'components/common/PostList.vue'
-import { mapGetters, mapActions } from 'vuex'
-import tagsApi from 'service/tag.resource'
+  import ArticleEditor from 'components/common/ArticleEditor.vue'
+  import PostList from 'components/common/PostList.vue'
+  import { mapGetters, mapActions } from 'vuex'
+  import tagsApi from 'service/tag.resource'
 
-export default{
-  data () {
-    return {
-      tagActive: null,
-      tags: []
-    }
-  },
-  computed: {
-    ...mapGetters([
-      'currentDraftId'
-    ])
-  },
-  components: {
-    ArticleEditor,
-    PostList
-  },
-  beforeRouteEnter (to, from, next) {
-    tagsApi.getAllTags().then(res => {
-      if (res.success) {
-        for (let item of res.data) {
-          item.newName = ''
-          item.editing = false
-        }
-        next(vm => {
-          vm.tags = res.data
-          vm.getAllDraft()
-        })
-      }
-    }, res => {
-      next(vm => {
-        vm.showMsg({content: res.error_message || '获取tags失败'})
-      })
-    })
-  },
-  methods: {
-    ...mapActions([
-      'getAllDraft',
-      'showMsg'
-    ]),
-    searchTag (tag) {
-      this.tagActive = tag
-      this.getAllDraft(tag.id)
-    },
-    blurTag (tagId) {
-      this.tagActive = null
-      this.getAllDraft(tagId)
-    },
-    modifyTag (tag) {
-      tag.newName = tag.name
-      tag.editing = true
-    },
-    saveTag (tag) {
-      if (!tag.newName || tag.newName === tag.name) {
-        tag.editing = false
-      } else {
-        tagsApi.modifyTag(tag.id, tag.newName).then(res => {
-          if (res.success) {
-            tag.name = tag.newName
-            tag.editing = false
-          } else {
-            this.showMsg({content: res.error_message || '存在同名tag'})
-          }
-        }, res => {
-          this.showMsg({content: res.error_message || '网络错误，修改tag失败'})
-        })
+  export default{
+    data () {
+      return {
+        tagActive: null,
+        tags: []
       }
     },
-    deleteTag (tag) {
-      tagsApi.deleteTag(tag.id).then(res => {
+    computed: {
+      ...mapGetters([
+        'currentDraftId'
+      ])
+    },
+    components: {
+      ArticleEditor,
+      PostList
+    },
+    beforeRouteEnter (to, from, next) {
+      tagsApi.getAllTags().then(res => {
         if (res.success) {
-          let content = '删除成功'
-          let type = 'success'
-          this.showMsg({content, type})
+          for (let item of res.data) {
+            item.newName = ''
+            item.editing = false
+          }
+          next(vm => {
+            vm.tags = res.data
+            vm.getAllDraft()
+          })
         }
       }, res => {
-        this.showMsg({content: res.error_message || '网络错误，修改标签失败'})
+        next(vm => {
+          vm.showMsg({content: res.error_message || '获取tags失败'})
+        })
       })
+    },
+    methods: {
+      ...mapActions([
+        'getAllDraft',
+        'showMsg'
+      ]),
+      searchTag (tag) {
+        this.tagActive = tag
+        this.getAllDraft(tag.id)
+      },
+      blurTag (tagId) {
+        this.tagActive = null
+        this.getAllDraft(tagId)
+      },
+      modifyTag (tag) {
+        tag.newName = tag.name
+        tag.editing = true
+      },
+      saveTag (tag) {
+        if (!tag.newName || tag.newName === tag.name) {
+          tag.editing = false
+        } else {
+          tagsApi.modifyTag(tag.id, tag.newName).then(res => {
+            if (res.success) {
+              tag.name = tag.newName
+              tag.editing = false
+            } else {
+              this.showMsg({content: res.error_message || '存在同名tag'})
+            }
+          }, res => {
+            this.showMsg({content: res.error_message || '网络错误，修改tag失败'})
+          })
+        }
+      },
+      deleteTag (tag) {
+        tagsApi.deleteTag(tag.id).then(res => {
+          if (res.success) {
+            let content = '删除成功'
+            let type = 'success'
+            this.showMsg({content, type})
+          }
+        }, res => {
+          this.showMsg({content: res.error_message || '网络错误，修改标签失败'})
+        })
+      }
     }
   }
-}
 </script>
 
 <style lang="stylus">

@@ -1,5 +1,7 @@
+<!--
 <template>
-    <ul class="post-list reset-list">
+  <div class="post-list">
+    <ul class="reset-list">
       <li class="post-list-item" v-for="(draft, index) in draftList" v-show="getShowByStatus(draft['draftPublished'])" @click="focus(index)">
         <article class="post-thumb" :class="[draft['draftPublished']?'published':draft['article']?'updated':'',
       {'active':draft['id'] === currentDraftId}]">
@@ -10,6 +12,7 @@
         </article>
       </li>
     </ul>
+  </div>
 </template>
 
 <script>
@@ -62,10 +65,12 @@
   }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
   @import '../../stylus/_settings.styl'
   .post-list
-    border-top 1px solid $border
+    overflow auto
+    ul
+      border-top 1px solid $border
   .post-list-item
     cursor pointer
     margin 0 25px
@@ -105,3 +110,4 @@
       color $light
       margin 0 0 6px
 </style>
+-->

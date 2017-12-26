@@ -1,73 +1,32 @@
 <template>
-  <div class="main">
-    <div class="post-list-column">
-      <div class="list-header">
-        <h3 class="page-title">
-          <i class="fa fa-linode title-color" aria-hidden="true"></i>文章列表
-          <i @click="createDraft" class="fa fa-plus fa-1 post-add" aria-hidden="true"></i>
-        </h3>
-        <div class="show-by-status">
-          <select v-model="selected">
-            <option v-for="option in options" v-bind:value="option.value">
-              {{ option.text }}
-            </option>
-          </select>
-        </div>
-      </div>
-      <div class="post-list-container">
-        <post-list :showByStatus="selected"></post-list>
-      </div>
-    </div>
-    <article-editor v-if="null !== currentDraftId"></article-editor>
+  <div class="posts-edit">
+    <post-list></post-list>
+    <post-editor></post-editor>
   </div>
 </template>
 
 <script>
-  import ArticleEditor from 'components/common/ArticleEditor.vue'
-  import PostList from 'components/common/PostList.vue'
+  import PostEditor from './common/PostEditor.vue'
+  import PostList from './common/PostList.vue'
   import { mapGetters, mapActions } from 'vuex'
 
   export default{
     data () {
       return {
-        selected: 'all',
-        options: [
-          { text: 'all', value: 'all' },
-          { text: 'published', value: 'published' },
-          { text: 'draft', value: 'draft' }
-        ]
       }
     },
     components: {
       PostList,
-      ArticleEditor
+      PostEditor
     },
     computed: {
       ...mapGetters([
-        'draftSaved',
-        'currentDraftId',
-        'draftTitleSaved'
       ])
-    },
-    beforeRouteEnter (to, from, next) {
-      next(vm => {
-        vm.getAllDraft()
-      })
     },
     methods: {
       ...mapActions([
-        'createDraft',
         'getAllDraft'
-      ]),
-      showPublished () {
-        this.showByStatus = 'published'
-      },
-      showDraft () {
-        this.showByStatus = 'draft'
-      },
-      showAll () {
-        this.showByStatus = 'all'
-      }
+      ])
     }
   }
 </script>
@@ -75,12 +34,6 @@
 <style lang="stylus">
   @import '../../../stylus/simplemde.styl'
   @import '../../../stylus/_settings.styl'
-  .main
-    box-sizing border-box
-    height 100%
-    width 100%
-    display flex
-    flex 0 1 auto
   .post-list-column
     margin 0
     padding 0
@@ -93,8 +46,6 @@
     .list-header
       display inline-block
       height 90px
-    .post-list-container
-      overflow auto
   .show-by-status
     box-sizing border-box
     display flex
@@ -117,5 +68,12 @@
     .iconfont
       font-size 22px
       display inline
+
+  .posts-edit
+    box-sizing border-box
+    height 100%
+    width 100%
+    display flex
+    flex 0 1 auto
 
 </style>

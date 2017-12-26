@@ -1,14 +1,14 @@
-<!--
 <template>
-  <section :class="{ 'editor-active': !draftSaved}" >
-    <div :class="{ 'title-active': !draftTitleSaved}">
-      <input type="text" class="form-control big only-border-bottom" :value="draftTitle" @input="updateTitle">
+  <section :class="{ 'editor-active': !postSaved}" >
+    <div :class="{ 'title-active': !postTitleSaved}">
+      <input type="text" class="form-control big only-border-bottom" :value="postTitle" @input="updateTitle">
     </div>
-    <div class="clearfix">
+    <div>
       <div class="half-container">
         <i class="fa fa-tags fa-2" aria-hidden="true" style="margin-right:5px"></i>
         <span class="tag" v-for="tag in tags">{{tag['name']}}
-          <i class="fa fa-times fa-1 iconfont delete-tag" @click="deleteTag(tag.id)"></i></span>
+          <i class="fa fa-times fa-1 iconfont delete-tag" @click="deletePostTag(tag.id)"></i>
+        </span>
         <div class="tag active">
           <span v-show="!tagInput" @click="addTag" ><i class="fa fa-plus fa-1" aria-hidden="true"></i></span>
           <input type="text" class="tag-input" v-show="tagInput" v-model="tagNew" placeholder="回车键提交" @keyup.13="submitTag">
@@ -28,19 +28,18 @@
 
 <script>
   import SimpleMDE from 'simplemde'
-  import {marked} from '../../filters/md2Text'
+  import {marked} from '../../../../filters/md2Text'
   import { mapGetters, mapActions } from 'vuex'
   import debounce from 'lodash/debounce'
   import trim from 'lodash/trim'
-  import postsApi from '../../service/posts.resource'
-  import tagApi from '../../service/tag.resource'
+  import tagsApi from 'service/tag.resource'
 
-  const debounceTitle = debounce(function (draftTitle) {
-    this.submitDraftTitle(draftTitle)
+  const debounceTitleEdit = debounce(function (draftTitle) {
+    this.submitPostTitle(draftTitle)
   }, 1000)
 
-  const debounceDraft = debounce(function (content) {
-    this.updateDraft(content)
+  const debouncePostEdit = debounce(function (content) {
+    this.submitPostContent(content)
   }, 1000)
 
   let smde
@@ -48,94 +47,75 @@
   export default{
     data () {
       return {
-        // 用以标识 是切换文章导致的codemirror的change事件还是 手工输入引起的change事件
-        // 切换文章引起的change事件则没必要对内容和title进行保存
-        change: true,
+        articleId: null,
         draftPublished: '',
-        tags: [],
         tagsToAdd: [],
         tagNew: '',
-        tagInput: false
+        tagInput: false,
+        postLoaded: false
       }
     },
     computed: {
       ...mapGetters([
-        'draftSaved',
-        'draftTitleSaved',
-        'draftTitle',
-        'currentDraftId',
-        'articleId'
+        'post',
+        'postSaved',
+        'postTitleSaved',
+        'postId',
+        'postTitle',
+        'tags'
       ])
     },
     mounted () {
-      smde = new SimpleMDE({
-        autoDownloadFontAwesome: false,
-        element: document.getElementById('editor'),
-        previewRender: function (plainText) {
-          return marked(plainText) // Returns HTML from a custom parser
-        },
-        spellChecker: false
-      })
-      smde.codemirror.on('change', () => {
-        if (this.change) {
-          this.change = false
-        } else {
-          this.editDraft()
-          debounceDraft.call(this, smde.value())
-        }
-      })
-      if (this.currentDraftId) {
-        postsApi.getDraft(this.currentDraftId).then(res => {
-          if (res.success) {
-            this.tagNew = ''
-            this.tagInput = false
-            this.tags = res.data.tags
-            smde.value(res.data.content)
-          }
-        }, res => {
-          this.showMsg({content: res.error_message || '网络错误,获取文章失败'})
+      this.$nextTick(function () {
+        smde = new SimpleMDE({
+          autoDownloadFontAwesome: false,
+          element: document.getElementById('editor'),
+          previewRender: function (plainText) {
+            return marked(plainText) // Returns HTML from a custom parser
+          },
+          spellChecker: false
         })
-      }
+        smde.codemirror.on('change', () => {
+          if (!this.postLoaded) {
+            this.postLoaded = true
+          } else {
+            if (this.postSaved) {
+              this.editPost()
+            }
+            debouncePostEdit.call(this, smde.value())
+          }
+        })
+      })
     },
     watch: {
       tagNew (val) {
         this.searchTags(val)
       },
-      currentDraftId (val) {
-        this.change = true
-        if (val) {
-          postsApi.getDraft(val).then(res => {
-            if (res.success) {
-              this.tagNew = ''
-              this.tagInput = false
-              this.tags = res.data.tags
-              this.$nextTick(() => {
-                smde.value(res.data.content)
-              })
-            }
-          }).catch(err => {
-            console.log(err)
-            alert('网络错误,获取文章失败')
-          })
-        }
+      postId () {
+        this.postLoaded = false
+        this.articleId = this.post.article
+        this.$nextTick(function () {
+          smde.value(this.post.content)
+        })
       }
     },
     methods: {
       ...mapActions([
-        'editDraftTitle',
-        'submitDraftTitle',
-        'draftTagsModify',
-        'publishDraft',
-        'updateDraft',
-        'editDraft',
-        'submitDraftExcerpt',
+        'getPost',
+        'editPostTitle',
+        'submitPostTitle',
+        'addPostTag',
+        'deletePostTag',
+        'publish',
+        'editPost',
+        'submitPostContent',
         'deletePost',
         'showMsg'
       ]),
       updateTitle (e) {
         let title = e.target.value
-        this.editDraftTitle(title)
-        debounceTitle.call(this, title)
+        this.editPostTitle(title)
+        debounceTitleEdit.call(this, title)
       },
       addTag () {
         this.tagInput = true
@@ -143,7 +123,7 @@
         this.searchTags('')
       },
       searchTags (val) {
-        tagApi.searchTagsByWord(val).then(res => {
+        tagsApi.searchTagsByWord(val).then(res => {
           if (res.success) {
             this.tagsToAdd = res.data
           }
@@ -155,57 +135,13 @@
         this.tagInput = false
         if (tag) {
           this.tagNew = ''
-          tagApi.createTags(tag).then(res => {
+          tagsApi.createTag(tag).then(res => {
             if (res.success) {
-              let id = res.data.id
-              if (!this.tags.some(item => item.id === id)) {
-                let tags = this.tags.map(item => item.id)
-                tags.push(id)
-                this.draftTagsModify(res.data.lastEditTime)
-                postsApi.modifyDraftTags(this.currentDraftId, tags).then(res => {
-                  if (res.success) {
-                    this.tags = res.data.tags
-                    this.draftTagsModify(res.data.lastEditTime)
-                  }
-                })
-              }
+              let tagId = res.data.id
+              this.addPostTag(tagId)
             }
           }, res => {
             this.showMsg({content: res.error_message || '网络错误,增加标签失败'})
-          })
-        }
-      },
-      deleteTag (id) {
-        let tags = []
-        for (let i of this.tags) {
-          if (i.id !== id) {
-            tags.push(i.id)
-          }
-        }
-        postsApi.modifyDraftTags(this.currentDraftId, tags).then(res => {
-          if (res.success) {
-            this.tags = res.data.tags
-            this.draftTagsModify(res.data.lastEditTime)
-          }
-        }, res => {
-          this.showMsg({content: res.error_message || '网络错误,修改标签失败'})
-        })
-      },
-      publish () {
-        if (this.draftSaved && this.draftTitleSaved) {
-          this.publishDraft().then(() => {
-            let msg = {
-              content: '发布成功',
-              type: 'success'
-            }
-            this.showMsg(msg)
-          }, res => {
-            this.showMsg({content: res.error_message || '发布失败'})
-          })
-        } else {
-          this.showMsg({
-            content: '当前文章正在保存中，稍后再试',
-            type: 'info'
           })
         }
       }
@@ -218,7 +154,7 @@
 </script>
 
 <style lang="stylus">
-  @import '../../stylus/_settings.styl'
+  @import '../../../../stylus/_settings.styl'
   section
     height 100%
     width 100%
@@ -451,4 +387,3 @@
         &.lang-java:after
           content 'Java'
 </style>
--->
