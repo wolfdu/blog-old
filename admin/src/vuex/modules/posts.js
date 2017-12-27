@@ -31,7 +31,7 @@ const state = {
   postId: null,
   postTitle: '',
   currentPostIndex: null,
-  tags: [],
+  postTags: [],
   readyEditPost: false
 }
 
@@ -54,8 +54,8 @@ const getters = {
   postTitle: state => {
     return state.postTitle
   },
-  tags: state => {
-    return state.tags
+  postTags: state => {
+    return state.postTags
   }
 }
 
@@ -109,9 +109,9 @@ const actions = {
     })
   },
   addPostTag ({commit, state}, addTagId) {
-    let tags = state.tags
-    if (!tags.some(item => item.id === addTagId)) {
-      let tagIds = tags.map(item => item.id)
+    let postTags = state.postTags
+    if (!postTags.some(item => item.id === addTagId)) {
+      let tagIds = postTags.map(item => item.id)
       tagIds.push(addTagId)
       postsApi.modifyPostTags(state.postId, tagIds).then(res => {
         if (res.success) {
@@ -122,7 +122,7 @@ const actions = {
     }
   },
   deletePostTag ({commit, state}, deleteTagId) {
-    let tagIds = state.tags.map(i => i.id)
+    let tagIds = state.postTags.map(i => i.id)
     tagIds.splice(tagIds.findIndex(function (id) {
       return id === deleteTagId
     }), 1)
@@ -200,7 +200,7 @@ const mutations = {
     state.postId = post.id
     state.postTitle = post.title
     state.currentPostIndex = index
-    state.tags = post.tags
+    state.postTags = post.tags
   },
   [EDIT_POST_TITLE] (state, title) {
     state.postTitle = title
@@ -211,7 +211,7 @@ const mutations = {
     state.postTitleSaved = true
   },
   [MODIFY_POST_TAG] (state, post) {
-    state.tags = post.tags
+    state.postTags = post.tags
     state.post = post
   },
   [EDIT_POST] (state) {

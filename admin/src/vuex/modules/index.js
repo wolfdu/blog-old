@@ -1,11 +1,12 @@
 import token from './token'
-// import posts from './posts'
 import msg from './toaster-msg'
 import posts from './posts'
+import tags from './tag'
 
 const moduleMap = {
   token,
   msg,
-  posts
+  posts,
+  tags
 }
 export default moduleMap

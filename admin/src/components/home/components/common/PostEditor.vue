@@ -6,7 +6,7 @@
     <div>
       <div class="half-container">
         <i class="fa fa-tags fa-2" aria-hidden="true" style="margin-right:5px"></i>
-        <span class="tag" v-for="tag in tags">{{tag['name']}}
+        <span class="tag" v-for="tag in postTags">{{tag['name']}}
           <i class="fa fa-times fa-1 iconfont delete-tag" @click="deletePostTag(tag.id)"></i>
         </span>
         <div class="tag active">
@@ -62,7 +62,7 @@
         'postTitleSaved',
         'postId',
         'postTitle',
-        'tags'
+        'postTags'
       ])
     },
     mounted () {

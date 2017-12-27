@@ -33,6 +33,10 @@ export const SAVE_POST = 'SAVE_POST'
 export const FOCUS_ON_FIRST_POST = 'FOCUS_ON_FIRST_POST'
 export const PUBLISH_POST = 'PUBLISH_POST'
 
+export const GET_TAGS = 'GET_TAGS'
+export const MODIFY_TAG = 'MODIFY_TAG'
+export const REFRESH_TAGS = 'REFRESH_TAGS'
+
 const msgTypes = {
   SHOW_MSG: 'SHOW_MSG',
   HIDE_MSG: 'HIDE_MSG'

@@ -1,6 +1,9 @@
 <template>
   <div class="posts-edit">
-    <post-list></post-list>
+    <div class="post-list-column">
+      <post-list-header></post-list-header>
+      <post-list></post-list>
+    </div>
     <post-editor></post-editor>
   </div>
 </template>
@@ -8,25 +11,13 @@
 <script>
   import PostEditor from './common/PostEditor.vue'
   import PostList from './common/PostList.vue'
-  import { mapGetters, mapActions } from 'vuex'
+  import PostListHeader from './common/PostListHeader.vue'
 
   export default{
-    data () {
-      return {
-      }
-    },
     components: {
+      PostListHeader,
       PostList,
       PostEditor
-    },
-    computed: {
-      ...mapGetters([
-      ])
-    },
-    methods: {
-      ...mapActions([
-        'getAllDraft'
-      ])
     }
   }
 </script>
@@ -40,12 +31,11 @@
     border-right 1px solid $border
     height 100%
     min-width 300px
+    width 300px
     display grid
     grid-template-rows 90px
     box-sizing: border-box
-    .list-header
-      display inline-block
-      height 90px
+
   .show-by-status
     box-sizing border-box
     display flex

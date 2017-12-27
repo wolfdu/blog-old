@@ -47,15 +47,9 @@ function getDraftStatus (postType) {
 }
 
 function getDraftListQueryOpt (param) {
-  let queryOpt = {
-    draftPublished: false
-  }
-  if (param.postType) {
-    if (param.postType === 'all') {
-      delete queryOpt.draftPublished
-    } else {
-      queryOpt.draftPublished = getDraftStatus(param.postType)
-    }
+  let queryOpt = {}
+  if (param.postType && param.postType !== 'all') {
+    queryOpt.draftPublished = getDraftStatus(param.postType)
   }
   if (param.tag !== undefined) {
     queryOpt.tags = {'$all': [param.tag]}
