@@ -87,6 +87,9 @@
         })
       })
     },
+    destroyed () {
+      this.resetPostId()
+    },
     watch: {
       tagNew (val) {
         this.searchTags(val)
@@ -110,6 +113,7 @@
         'editPost',
         'submitPostContent',
         'deletePost',
+        'resetPostId',
         'showMsg'
       ]),
       updateTitle (e) {

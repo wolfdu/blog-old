@@ -14,6 +14,7 @@ import {
   MODIFY_POST_TAG,
   PUBLISH_POST,
   REFRESH_POSTS,
+  RESET_POST_ID,
   SAVE_POST,
   SAVE_POST_TITLE
 } from '../mutation_types'
@@ -180,6 +181,9 @@ const actions = {
     } else {
       showMsg(store, {content: '文章还未保存，稍后再试', type: 'info'})
     }
+  },
+  resetPostId ({commit}) {
+    commit(RESET_POST_ID)
   }
 }
 
@@ -227,6 +231,9 @@ const mutations = {
   [PUBLISH_POST] (state, articleId) {
     state.post.article = articleId
     state.post.draftPublished = true
+  },
+  [RESET_POST_ID] (state) {
+    state.postId = null
   }
 }
 

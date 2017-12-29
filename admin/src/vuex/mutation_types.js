@@ -32,6 +32,7 @@ export const EDIT_POST = 'EDIT_POST'
 export const SAVE_POST = 'SAVE_POST'
 export const FOCUS_ON_FIRST_POST = 'FOCUS_ON_FIRST_POST'
 export const PUBLISH_POST = 'PUBLISH_POST'
+export const RESET_POST_ID = 'RESET_POST_ID'
 
 export const GET_TAGS = 'GET_TAGS'
 export const MODIFY_TAG = 'MODIFY_TAG'
