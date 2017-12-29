@@ -87,7 +87,7 @@
         })
       })
     },
-    destroyed () {
+    destroyed () { // 切换router时reset postId 重新渲染editor内容
       this.resetPostId()
     },
     watch: {
