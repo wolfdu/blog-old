@@ -2,10 +2,7 @@
   <aside class="sidebar">
     <icon id="sidebar-logo" name="chameleon" class="sidebar-logo" scale="20"></icon>
     <nav class="aside-nav">
-      <ul class="aside-nav-list">
-        <li class="aside-nav-item"><router-link to="/dashboard" class="aside-nav-button">
-          <i name="posts" class="fa fa-tachometer fa-2x" aria-hidden="true"></i>
-        </router-link></li>
+      <ul class="aside-nav-list operate">
         <li class="aside-nav-item"><router-link to="/posts" class="aside-nav-button">
           <i name="posts" class="fa fa-linode fa-2x" aria-hidden="true"></i>
         </router-link></li>
@@ -15,8 +12,10 @@
         <li class="aside-nav-item"><router-link to="/about" class="aside-nav-button">
           <i name="about" class="fa fa-user-secret fa-2x" aria-hidden="true"></i>
         </router-link></li>
+      </ul>
+      <ul class="aside-nav-list">
         <li class="aside-nav-item"><a class="aside-nav-button" @click="signOut">
-          <i name="signOut" class="fa fa-sign-out fa-2x fa-flip-horizontal" aria-hidden="true"></i>
+          <i name="sign-out" class="fa fa-sign-out fa-2x fa-flip-horizontal" aria-hidden="true"></i>
         </a></li>
       </ul>
     </nav>
@@ -48,8 +47,12 @@
     height 100%
     width 70px
     padding 12px 12px 24px 12px
-    .aside-nav
-      margin-top 30px
+    display grid
+    grid-template-rows 80px
+  .aside-nav
+    height 100%
+    display grid
+    grid-template-rows 6fr 1fr
   .sidebar-logo
     margin-top 5px
     width 36px
@@ -58,6 +61,7 @@
   .aside-nav-list
     list-style none
     padding 0
+  .operate
   .aside-nav-item
     padding 20px 0
   .aside-nav-button
