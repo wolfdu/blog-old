@@ -6,8 +6,25 @@
 import marked from 'marked'
 import hljs from 'highlight.js/lib/highlight'
 
-const languages = ['cpp', 'xml', 'bash', 'css', 'md', 'http',
-  'java', 'js', 'json', 'less', 'makefile', 'nginx', 'php', 'python', 'scss', 'sql', 'stylus']
+const languages = [
+  'cpp',
+  'xml',
+  'bash',
+  'css',
+  'md',
+  'http',
+  'java',
+  'js',
+  'json',
+  'less',
+  'makefile',
+  'nginx',
+  'php',
+  'python',
+  'scss',
+  'sql',
+  'stylus'
+]
 hljs.registerLanguage('cpp', require('highlight.js/lib/languages/cpp'))
 hljs.registerLanguage('xml', require('highlight.js/lib/languages/xml'))
 hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash'))
@@ -18,7 +35,10 @@ hljs.registerLanguage('java', require('highlight.js/lib/languages/java'))
 hljs.registerLanguage('js', require('highlight.js/lib/languages/javascript'))
 hljs.registerLanguage('json', require('highlight.js/lib/languages/json'))
 hljs.registerLanguage('less', require('highlight.js/lib/languages/less'))
-hljs.registerLanguage('makefile', require('highlight.js/lib/languages/makefile'))
+hljs.registerLanguage(
+  'makefile',
+  require('highlight.js/lib/languages/makefile')
+)
 hljs.registerLanguage('nginx', require('highlight.js/lib/languages/nginx'))
 hljs.registerLanguage('php', require('highlight.js/lib/languages/php'))
 hljs.registerLanguage('python', require('highlight.js/lib/languages/python'))
@@ -31,7 +51,7 @@ hljs.configure({
 hljs.initHighlighting()
 let renderer = new marked.Renderer()
 
-function generateId (len) {
+function generateId(len) {
   const chars = `ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz`
   len = len | 8
   let id = ``
@@ -41,7 +61,7 @@ function generateId (len) {
   return id
 }
 
-renderer.heading = function (text, level) {
+renderer.heading = function(text, level) {
   let id = generateId()
   return `<h${level} id="${id}">${text}</h${level}>`
 }
@@ -55,7 +75,7 @@ marked.setOptions({
   breaks: true,
   smartLists: true,
   smartypants: true,
-  highlight: function (code, lang) {
+  highlight: function(code, lang) {
     if (!~languages.indexOf(lang)) {
       return hljs.highlightAuto(code).value
     }
@@ -63,9 +83,8 @@ marked.setOptions({
   }
 })
 
-function markdown (str) {
+function markdown(str) {
   return str ? marked(str) : ''
 }
 
-export {markdown}
-
+export { markdown }

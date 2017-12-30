@@ -36,14 +36,14 @@ const getters = {
 }
 
 const mutations = {
-  [draftTypes.DRAFT_CREATE]: function (state, draft) {
+  [draftTypes.DRAFT_CREATE]: function(state, draft) {
     state.all.unshift(draft)
     state.currentDraftIndex = 0
     state.currentDraftId = state.all[0].id
     state.title = state.all[0].title
     state.articleId = state.all[0].article
   },
-  [draftTypes.RECEIVE_ALL_DRAFTS]: function (state, draftList) {
+  [draftTypes.RECEIVE_ALL_DRAFTS]: function(state, draftList) {
     if (state.draftSaved && state.draftTitleSaved) {
       state.all = draftList
       if (draftList.length === 0) {
@@ -52,7 +52,7 @@ const mutations = {
       }
     }
   },
-  [draftTypes.DRAFT_FOCUS] (state, index) {
+  [draftTypes.DRAFT_FOCUS](state, index) {
     // 当前草稿还没保存的话不允许切换
     if (state.draftSaved && state.draftTitleSaved) {
       state.currentDraftIndex = index
@@ -62,48 +62,48 @@ const mutations = {
       state.title = state.all[index].title
     }
   },
-  [draftTypes.DRAFT_TITLE_EDIT] (state, title) {
+  [draftTypes.DRAFT_TITLE_EDIT](state, title) {
     if (state.draftTitleSaved) {
       state.all[state.currentDraftIndex].draftPublished = false
       state.draftTitleSaved = false
       state.title = title
     }
   },
-  [draftTypes.DRAFT_TITLE_MODIFY] (state, title) {
+  [draftTypes.DRAFT_TITLE_MODIFY](state, title) {
     state.title = title
     state.all[state.currentDraftIndex].title = title
   },
-  [draftTypes.DRAFT_LAST_EDIT_TIME] (state, lastEditTime) {
+  [draftTypes.DRAFT_LAST_EDIT_TIME](state, lastEditTime) {
     state.all[state.currentDraftIndex].lastEditTime = lastEditTime
   },
-  [draftTypes.DRAFT_TITLE_SAVE] (state) {
+  [draftTypes.DRAFT_TITLE_SAVE](state) {
     if (!state.draftTitleSaved) {
       state.draftTitleSaved = true
     }
   },
-  [draftTypes.DRAFT_TAG_MODIFY] (state) {
+  [draftTypes.DRAFT_TAG_MODIFY](state) {
     state.all[state.currentDraftIndex].draftPublished = false
   },
-  [draftTypes.DRAFT_PUBLISH] (state, articleId) {
+  [draftTypes.DRAFT_PUBLISH](state, articleId) {
     state.articleId = articleId
     state.all[state.currentDraftIndex].article = articleId
     state.all[state.currentDraftIndex].draftPublished = true
   },
-  [draftTypes.DRAFT_EXCERPT_MODIFY] (state, excerpt) {
+  [draftTypes.DRAFT_EXCERPT_MODIFY](state, excerpt) {
     state.all[state.currentDraftIndex].excerpt = excerpt
   },
-  [draftTypes.DRAFT_EDIT] (state) {
+  [draftTypes.DRAFT_EDIT](state) {
     if (state.draftSaved) {
       state.all[state.currentDraftIndex].draftPublished = false
       state.draftSaved = false
     }
   },
-  [draftTypes.DRAFT_SAVE] (state) {
+  [draftTypes.DRAFT_SAVE](state) {
     if (!state.draftSaved) {
       state.draftSaved = true
     }
   },
-  [draftTypes.DRAFT_DELETE] (state) {
+  [draftTypes.DRAFT_DELETE](state) {
     if (state.draftSaved && state.draftTitleSaved) {
       state.all.splice(state.currentDraftIndex, 1)
       if (state.all.length) {

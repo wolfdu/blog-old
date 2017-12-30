@@ -5,7 +5,7 @@
 
 const About = require('../../models/about')
 
-function initAbout () {
+function initAbout() {
   return new About({
     content: 'about wolf du'
   })
@@ -52,7 +52,7 @@ let getAbout = async (ctx, next) => {
 let modify = async (ctx, next) => {
   const content = ctx.request.body.content
   try {
-    let about = await About.findOneAndUpdate({}, {content}).exec()
+    let about = await About.findOneAndUpdate({}, { content }).exec()
     ctx.status = 200
     ctx.body = {
       success: true,
@@ -63,4 +63,4 @@ let modify = async (ctx, next) => {
   }
 }
 
-module.exports = {seed, getAbout, modify}
+module.exports = { seed, getAbout, modify }

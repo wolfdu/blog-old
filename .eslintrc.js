@@ -10,7 +10,7 @@ module.exports = {
     browser: true,
   },
   // https://github.com/standard/standard/blob/master/docs/RULES-en.md
-  extends: 'standard',
+  extends: ['standard'],
   // required to lint *.vue files
   plugins: [
     'html',
@@ -24,5 +24,6 @@ module.exports = {
     'generator-star-spacing': 0,
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    'space-before-function-paren': 0
   }
 }

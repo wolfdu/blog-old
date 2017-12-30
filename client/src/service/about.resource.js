@@ -4,8 +4,8 @@
 'use strict'
 import api from './API'
 
-function getAbout () {
+function getAbout() {
   return api.get('about')
 }
 
-export default {getAbout}
+export default { getAbout }

@@ -1,7 +1,7 @@
 'use strict'
 
-function isLogin () {
+function isLogin() {
   return !!sessionStorage.getItem('token')
 }
 
-export {isLogin}
+export { isLogin }

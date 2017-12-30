@@ -23,36 +23,44 @@ const getters = {
 }
 
 const actions = {
-  getAllTags ({commit}) {
-    tagsApi.getAllTags().then(res => {
-      if (res.success) {
-        commit(GET_TAGS, res.data)
+  getAllTags({ commit }) {
+    tagsApi.getAllTags().then(
+      res => {
+        if (res.success) {
+          commit(GET_TAGS, res.data)
+        }
+      },
+      res => {
+        showMsg(store, { content: res.error_message || '获取tags失败' })
       }
-    }, res => {
-      showMsg(store, {content: res.error_message || '获取tags失败'})
-    })
+    )
   },
-  modifyTag ({commit}, param) {
-    tagsApi.modifyTag(param.tagId, param.newName).then(res => {
-      if (res.success) {
-        commit(REFRESH_TAGS, {index: param.index, tagName: param.newName})
-      } else {
-        showMsg(store, {content: res.error_message || '存在同名tag'})
+  modifyTag({ commit }, param) {
+    tagsApi.modifyTag(param.tagId, param.newName).then(
+      res => {
+        if (res.success) {
+          commit(REFRESH_TAGS, { index: param.index, tagName: param.newName })
+        } else {
+          showMsg(store, { content: res.error_message || '存在同名tag' })
+        }
+      },
+      res => {
+        showMsg(store, {
+          content: res.error_message || '网络错误，修改tag失败'
+        })
       }
-    }, res => {
-      showMsg(store, {content: res.error_message || '网络错误，修改tag失败'})
-    })
+    )
   }
 }
 
 const mutations = {
-  [GET_TAGS] (state, tags) {
+  [GET_TAGS](state, tags) {
     state.tags = tags
   },
-  [MODIFY_TAG] (state, tagInfo) {
+  [MODIFY_TAG](state, tagInfo) {
     state.tags[tagInfo.index] = tagInfo.tag
   },
-  [REFRESH_TAGS] (state, {index, tagName}) {
+  [REFRESH_TAGS](state, { index, tagName }) {
     let tag = null
     if (index !== null) {
       tag = state.tags.splice(index, 1)[0]

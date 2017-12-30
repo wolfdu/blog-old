@@ -12,16 +12,32 @@ const Archive = () => import('views/Archive.vue')
 Vue.use(Router)
 
 const routes = [
-  {path: '/',
+  {
+    path: '/',
     component: Index,
     children: [
-    {path: '/', component: PostsList, meta: {changeTitle: true}},
-    {path: '/post', component: Post, name: 'post', meta: {goTop: true}},
-    {path: '/tag', component: Tag, name: 'tag', meta: {goTop: true, changeTitle: true}},
-    {path: '/archive', component: Archive, meta: {goTop: true, changeTitle: true}}
-    ]},
-  {path: '/about', component: About, name: 'about', meta: {goTop: true, changeTitle: true}},
-  {path: '*', redirect: '/'}
+      { path: '/', component: PostsList, meta: { changeTitle: true } },
+      { path: '/post', component: Post, name: 'post', meta: { goTop: true } },
+      {
+        path: '/tag',
+        component: Tag,
+        name: 'tag',
+        meta: { goTop: true, changeTitle: true }
+      },
+      {
+        path: '/archive',
+        component: Archive,
+        meta: { goTop: true, changeTitle: true }
+      }
+    ]
+  },
+  {
+    path: '/about',
+    component: About,
+    name: 'about',
+    meta: { goTop: true, changeTitle: true }
+  },
+  { path: '*', redirect: '/' }
 ]
 
 const router = new Router({

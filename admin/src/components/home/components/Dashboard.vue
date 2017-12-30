@@ -39,10 +39,10 @@
   }
 </script>
 
-<style lang="stylus" scoped="">
+<style lang="stylus" scoped>
   .dashboard-contain
     box-sizing border-box
-    margin 10px
+    width 100%
     .main
       height 100%
       width 100%

@@ -14,7 +14,8 @@ const logger = bunyan.createLogger({
     {
       level: 'info',
       stream: process.stdout
-    }, {
+    },
+    {
       level: 'trace',
       stream: process.stdout
     },
@@ -26,8 +27,8 @@ const logger = bunyan.createLogger({
       type: 'rotating-file',
       level: 'error',
       path: config.dir.log + '\\' + config.env + '-error.log',
-      period: '1d',   // daily rotation
-      count: 3        // keep 3 back copies
+      period: '1d', // daily rotation
+      count: 3 // keep 3 back copies
     }
   ]
 })

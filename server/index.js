@@ -21,8 +21,8 @@ app.use(async (ctx, next) => {
 })
 app.use(errorHandle())
 
-jwt.co_verify = function (jwtString, secretOrPublicKey, options) {
-  return function (cb) {
+jwt.co_verify = function(jwtString, secretOrPublicKey, options) {
+  return function(cb) {
     jwt.verify(jwtString, secretOrPublicKey, options, cb)
   }
 }
@@ -30,12 +30,14 @@ mongoose.Promise = global.Promise
 
 mongoose.connect(config.mongoConfig.url, config.mongoConfig.opts)
 
-app.use(cors({
-  maxAge: 7 * 24 * 60 * 60,
-  credentials: true,
-  allowMethods: ['GET', 'HEAD', 'OPTIONS', 'PUT', 'POST', 'PATCH', 'DELETE'],
-  allowHeaders: ['Content-Type', 'Accept', 'Authorization']
-}))
+app.use(
+  cors({
+    maxAge: 7 * 24 * 60 * 60,
+    credentials: true,
+    allowMethods: ['GET', 'HEAD', 'OPTIONS', 'PUT', 'POST', 'PATCH', 'DELETE'],
+    allowHeaders: ['Content-Type', 'Accept', 'Authorization']
+  })
+)
 
 app.use(bodyParser())
 app.use(router.routes()).use(router.allowedMethods())

@@ -10,9 +10,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
-const env = process.env.NODE_ENV === 'testing'
-  ? require('../config/test.env')
-  : config.build.env
+const env =
+  process.env.NODE_ENV === 'testing'
+    ? require('../config/test.env')
+    : config.build.env
 
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -54,9 +55,8 @@ const webpackConfig = merge(baseWebpackConfig, {
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: process.env.NODE_ENV === 'testing'
-        ? 'index.html'
-        : config.build.index,
+      filename:
+        process.env.NODE_ENV === 'testing' ? 'index.html' : config.build.index,
       favicon: './admin/src/assets/img/favicon.ico', // favicon路径
       template: './admin/index.html',
       inject: true,
@@ -75,7 +75,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: function (module) {
+      minChunks: function(module) {
         // any required modules inside node_modules are extracted to vendor
         return (
           module.resource &&
@@ -111,9 +111,7 @@ if (config.build.productionGzip) {
       asset: '[path].gz[query]',
       algorithm: 'gzip',
       test: new RegExp(
-        '\\.(' +
-        config.build.productionGzipExtensions.join('|') +
-        ')$'
+        '\\.(' + config.build.productionGzipExtensions.join('|') + ')$'
       ),
       threshold: 10240,
       minRatio: 0.8
@@ -122,7 +120,8 @@ if (config.build.productionGzip) {
 }
 
 if (config.build.bundleAnalyzerReport) {
-  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+    .BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }
 

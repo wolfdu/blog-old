@@ -4,10 +4,10 @@
 'use strict'
 const Article = require('../../models/article')
 
-let getArticleArr = function (result) {
+let getArticleArr = function(result) {
   let resultArr = []
   if (result.length) {
-    result.forEach((article) => {
+    result.forEach(article => {
       article = article.toObject()
       resultArr.push(article)
     })
@@ -15,23 +15,23 @@ let getArticleArr = function (result) {
   return resultArr
 }
 
-function getQueryOpt (query) {
-  let result = {hidden: false}
+function getQueryOpt(query) {
+  let result = { hidden: false }
   const tag = query.tagId
   if (tag) {
-    result.tags = {$all: [tag]}
+    result.tags = { $all: [tag] }
   }
   return result
 }
 
-function getSortParam (page) {
-  return page ? {createTime: -1} : {visits: -1}
+function getSortParam(page) {
+  return page ? { createTime: -1 } : { visits: -1 }
 }
 
 let articleList = async (ctx, next) => {
   const limit = ~~ctx.query.limit || 10
   const page = ~~ctx.query.page
-  let skip = page ? (limit * (page - 1)) : 0
+  let skip = page ? limit * (page - 1) : 0
   let queryOpt = getQueryOpt(ctx.query)
   let sortParam = getSortParam(page)
   try {
@@ -64,7 +64,7 @@ let articlesCount = async (ctx, next) => {
         count
       }
     }
-  }catch (err){
+  } catch (err) {
     ctx.throw(err)
   }
 }
@@ -72,7 +72,9 @@ let articlesCount = async (ctx, next) => {
 let articleDetail = async (ctx, next) => {
   const id = ctx.params.id
   try {
-    const article = await Article.findOne({_id: id}).populate('tags').exec()
+    const article = await Article.findOne({ _id: id })
+      .populate('tags')
+      .exec()
     ctx.status = 200
     ctx.body = {
       success: true,
@@ -87,7 +89,11 @@ let modify = async (ctx, next) => {
   const id = ctx.params.id
   const modifyOptions = ctx.request.body
   try {
-    let result = await Article.findByIdAndUpdate(id, {$set: modifyOptions}, {new: true}).exec()
+    let result = await Article.findByIdAndUpdate(
+      id,
+      { $set: modifyOptions },
+      { new: true }
+    ).exec()
     result = result.toObject()
     ctx.status = 200
     ctx.body = {
@@ -99,4 +105,4 @@ let modify = async (ctx, next) => {
   }
 }
 
-module.exports = {articleList, articleDetail, modify, articlesCount}
+module.exports = { articleList, articleDetail, modify, articlesCount }

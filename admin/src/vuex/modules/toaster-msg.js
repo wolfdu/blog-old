@@ -1,8 +1,8 @@
 'use strict'
 
-import {msgTypes} from '../mutation_types'
+import { msgTypes } from '../mutation_types'
 
-function getInitMsgState () {
+function getInitMsgState() {
   return {
     type: '',
     content: '',
@@ -19,20 +19,20 @@ const state = {
 }
 
 const actions = {
-  showMsg ({commit}, msg) {
+  showMsg({ commit }, msg) {
     msg.type = msg.type || 'error'
     commit(msgTypes.SHOW_MSG, msg)
   },
-  hideMsg ({commit}) {
+  hideMsg({ commit }) {
     commit(msgTypes.HIDE_MSG)
   }
 }
 
 const mutations = {
-  [msgTypes.SHOW_MSG] (state, msg) {
-    state.message = {...msg}
+  [msgTypes.SHOW_MSG](state, msg) {
+    state.message = { ...msg }
   },
-  [msgTypes.HIDE_MSG] (state) {
+  [msgTypes.HIDE_MSG](state) {
     state.message = getInitMsgState()
   }
 }

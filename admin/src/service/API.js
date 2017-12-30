@@ -1,10 +1,10 @@
 import store from '../vuex/store'
 
-function parseResponse (response) {
+function parseResponse(response) {
   return Promise.all([response.status, response.statusText, response.json()])
 }
 
-function checkStatus ([status, statusText, data]) {
+function checkStatus([status, statusText, data]) {
   if (status >= 200 && status < 300) {
     return data
   } else {
@@ -20,7 +20,7 @@ function checkStatus ([status, statusText, data]) {
   }
 }
 
-function getReqHeaders (method, headers = {}) {
+function getReqHeaders(method, headers = {}) {
   let reqHeaders = new Headers(headers)
   if (method !== 'GET') {
     reqHeaders.append('Content-Type', 'application/json')
@@ -32,7 +32,7 @@ function getReqHeaders (method, headers = {}) {
   return reqHeaders
 }
 
-function post (url, param = {}, host = process.env.api) {
+function post(url, param = {}, host = process.env.api) {
   url = host + url
   let init = {
     method: 'POST',
@@ -42,19 +42,19 @@ function post (url, param = {}, host = process.env.api) {
     body: JSON.stringify(param)
   }
   return fetch(url, init)
-      .then(parseResponse)
-      .then(checkStatus)
+    .then(parseResponse)
+    .then(checkStatus)
 }
 
-function getParamStr (param) {
+function getParamStr(param) {
   let query = []
-  Object.keys(param).forEach((item) => {
+  Object.keys(param).forEach(item => {
     query.push(`${item}=${encodeURIComponent(param[item])}`)
   })
   return query.length ? '?' + query.join('&') : ''
 }
 
-function get (url, param = {}, host = process.env.api) {
+function get(url, param = {}, host = process.env.api) {
   let params = getParamStr(param)
   url = host + url + params
   let init = {
@@ -69,7 +69,7 @@ function get (url, param = {}, host = process.env.api) {
     .then(checkStatus)
 }
 
-function patch (url, param = {}, host = process.env.api) {
+function patch(url, param = {}, host = process.env.api) {
   url = host + url
   let init = {
     method: 'PATCH',
@@ -83,7 +83,7 @@ function patch (url, param = {}, host = process.env.api) {
     .then(checkStatus)
 }
 
-function deleteApi (url, param = {}, host = process.env.api) {
+function deleteApi(url, param = {}, host = process.env.api) {
   url = host + url
   let init = {
     method: 'DELETE',
@@ -96,4 +96,4 @@ function deleteApi (url, param = {}, host = process.env.api) {
     .then(checkStatus)
 }
 
-export default {post, get, patch, deleteApi}
+export default { post, get, patch, deleteApi }

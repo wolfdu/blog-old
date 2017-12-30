@@ -4,8 +4,8 @@
 'use strict'
 import api from './API'
 
-function getTags () {
+function getTags() {
   return api.get('tags')
 }
 
-export default {getTags}
+export default { getTags }

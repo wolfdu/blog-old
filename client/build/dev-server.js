@@ -11,9 +11,10 @@ const path = require('path')
 const express = require('express')
 const webpack = require('webpack')
 const proxyMiddleware = require('http-proxy-middleware')
-const webpackConfig = (process.env.NODE_ENV === 'testing' || process.env.NODE_ENV === 'production')
-  ? require('./webpack.prod.conf')
-  : require('./webpack.dev.conf')
+const webpackConfig =
+  process.env.NODE_ENV === 'testing' || process.env.NODE_ENV === 'production'
+    ? require('./webpack.prod.conf')
+    : require('./webpack.dev.conf')
 
 // default port where dev server listens for incoming traffic
 const port = process.env.PORT || config.dev.port
@@ -50,7 +51,7 @@ const hotMiddleware = require('webpack-hot-middleware')(compiler, {
 app.use(hotMiddleware)
 
 // proxy api requests
-Object.keys(proxyTable).forEach(function (context) {
+Object.keys(proxyTable).forEach(function(context) {
   let options = proxyTable[context]
   if (typeof options === 'string') {
     options = { target: options }
@@ -65,7 +66,10 @@ app.use(require('connect-history-api-fallback')())
 app.use(devMiddleware)
 
 // serve pure static assets
-const staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
+const staticPath = path.posix.join(
+  config.dev.assetsPublicPath,
+  config.dev.assetsSubDirectory
+)
 app.use(staticPath, express.static('./client/static'))
 
 const uri = 'http://localhost:' + port

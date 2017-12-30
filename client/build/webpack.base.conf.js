@@ -4,7 +4,7 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
@@ -15,20 +15,21 @@ module.exports = {
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    publicPath:
+      process.env.NODE_ENV === 'production'
+        ? config.build.assetsPublicPath
+        : config.dev.assetsPublicPath
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
+      vue$: 'vue/dist/vue.esm.js',
       'vue-router$': 'vue-router/dist/vue-router.esm.js',
-      'src': path.resolve(__dirname, '../src'),
-      'assets': path.resolve(__dirname, '../src/assets'),
-      'views': path.resolve(__dirname, '../src/views'),
-      'components': path.resolve(__dirname, '../src/views/components'),
-      'service': path.resolve(__dirname, '../src/service')
+      src: path.resolve(__dirname, '../src'),
+      assets: path.resolve(__dirname, '../src/assets'),
+      views: path.resolve(__dirname, '../src/views'),
+      components: path.resolve(__dirname, '../src/views/components'),
+      service: path.resolve(__dirname, '../src/service')
     }
   },
   module: {

@@ -3,12 +3,12 @@
  */
 import api from './API'
 
-function getAbout () {
+function getAbout() {
   return api.get('about')
 }
 
-function modify (content) {
-  return api.post('about', {content})
+function modify(content) {
+  return api.post('about', { content })
 }
 
-export default {getAbout, modify}
+export default { getAbout, modify }

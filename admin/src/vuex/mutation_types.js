@@ -43,4 +43,4 @@ const msgTypes = {
   HIDE_MSG: 'HIDE_MSG'
 }
 
-export {tokenTypes, draftTypes, msgTypes}
+export { tokenTypes, draftTypes, msgTypes }

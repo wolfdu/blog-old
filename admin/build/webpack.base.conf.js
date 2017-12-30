@@ -4,7 +4,7 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
@@ -15,26 +15,27 @@ module.exports = {
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    publicPath:
+      process.env.NODE_ENV === 'production'
+        ? config.build.assetsPublicPath
+        : config.dev.assetsPublicPath
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
-      'vuex$': 'vuex/dist/vuex.esm.js',
+      vue$: 'vue/dist/vue.esm.js',
+      vuex$: 'vuex/dist/vuex.esm.js',
       'vue-router$': 'vue-router/dist/vue-router.esm.js',
-      'simplemde$': 'simplemde/dist/simplemde.min.js',
-      'src': path.resolve(__dirname, '../src'),
-      'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components'),
-      'service': path.resolve(__dirname, '../src/service'),
-      'filters': path.resolve(__dirname, '../src/filters')
+      simplemde$: 'simplemde/dist/simplemde.min.js',
+      src: path.resolve(__dirname, '../src'),
+      assets: path.resolve(__dirname, '../src/assets'),
+      components: path.resolve(__dirname, '../src/components'),
+      service: path.resolve(__dirname, '../src/service'),
+      filters: path.resolve(__dirname, '../src/filters')
     }
   },
   externals: {
-    'simplemde': 'SimpleMDE'
+    simplemde: 'SimpleMDE'
   },
   module: {
     rules: [

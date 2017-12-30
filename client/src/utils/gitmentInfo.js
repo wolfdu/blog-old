@@ -3,9 +3,9 @@
  */
 'use strict'
 
-export function getGitmentInfo () {
+export function getGitmentInfo() {
   const myTheme = {
-    render (state, instance) {
+    render(state, instance) {
       const container = document.createElement('div')
       container.lang = 'en-US'
       container.className = 'gitment-container gitment-root-container'
@@ -17,7 +17,7 @@ export function getGitmentInfo () {
       container.appendChild(instance.renderComments(state, instance))
       return container
     },
-    renderSomething (state, instance) {
+    renderSomething(state, instance) {
       const container = document.createElement('div')
       container.lang = 'en-US'
       if (state.user.login) {

@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 const config = require('../../config/index')
 const logger = require('../../utils/logger')
 
-let getAdminUser = function () {
+let getAdminUser = function() {
   return new User({
     name: 'admin',
     username: 'admin',
@@ -33,12 +33,15 @@ let seed = async (ctx, next) => {
   }
 }
 
-function getToken (user) {
-  return jwt.sign({
-    uid: user._id,
-    name: user.name,
-    exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60// 1 hours
-  }, config.jwt.cert)
+function getToken(user) {
+  return jwt.sign(
+    {
+      uid: user._id,
+      name: user.name,
+      exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60 // 1 hours
+    },
+    config.jwt.cert
+  )
 }
 
 /**
@@ -51,17 +54,17 @@ let create = async (ctx, next) => {
   const username = ctx.request.body.username
   const password = ctx.request.body.password
   try {
-    let user = await User.findOne({username}).exec()
+    let user = await User.findOne({ username }).exec()
     ctx.status = 200
     if (user && user.password === password) {
       const token = getToken(user)
       ctx.body = {
         success: true,
-        data: {uid: user._id, name: user.name, token}
+        data: { uid: user._id, name: user.name, token }
       }
     } else {
-      logger.error('用户名或密码错误', {username: username})
-      ctx.body = {error_message: '用户名或密码错误'}
+      logger.error('用户名或密码错误', { username: username })
+      ctx.body = { error_message: '用户名或密码错误' }
     }
   } catch (err) {
     logger.debug('token error')
@@ -77,4 +80,4 @@ let check = async (ctx, next) => {
   }
 }
 
-module.exports = {create, seed, check}
+module.exports = { create, seed, check }

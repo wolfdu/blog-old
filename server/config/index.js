@@ -4,7 +4,7 @@ const _ = require('lodash')
 const fs = require('fs')
 const dev = require('./dev')
 
-function getRootPath () {
+function getRootPath() {
   return path.dirname(__dirname)
 }
 
@@ -16,7 +16,8 @@ let config = {
   },
   debug: false,
   env: 'production',
-  mongoConfig: {// 数据库配置
+  mongoConfig: {
+    // 数据库配置
     url: 'mongodb://localhost:27017/blog',
     opts: {
       useMongoClient: true,

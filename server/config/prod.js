@@ -9,7 +9,7 @@ module.exports = {
   app: {
     port: 3001
   },
-  'jwt': {
-    'cert': 'blog-product'
+  jwt: {
+    cert: 'blog-product'
   }
 }

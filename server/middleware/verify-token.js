@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 module.exports = async (ctx, next) => {
   const authorization = ctx.get('Authorization')
   if (authorization === '') {
-    this.throw(401, 'no token detected in http header \'Authorization\'')
+    this.throw(401, "no token detected in http header 'Authorization'")
   }
   const token = authorization.split(' ')[1]
   let tokenContent

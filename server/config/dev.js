@@ -8,7 +8,7 @@ module.exports = {
       pass: ''
     }
   },
-  'jwt': {
-    'cert': 'blog-dev'
+  jwt: {
+    cert: 'blog-dev'
   }
 }
