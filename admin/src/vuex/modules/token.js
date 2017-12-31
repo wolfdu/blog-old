@@ -1,4 +1,4 @@
-import { tokenTypes } from '../mutation_types'
+import { TOKEN_CREATE, TOKEN_DELETE } from '../mutation_types'
 import tokenApi from '../../service/token.resource'
 import router from '../../router'
 import store from '../store'
@@ -15,7 +15,7 @@ const actions = {
     tokenApi.createToken(user).then(
       res => {
         if (res.success) {
-          commit(tokenTypes.TOKEN_CREATE, res.data.token)
+          commit(TOKEN_CREATE, res.data.token)
           router.replace({ path: '/dashboard' })
           let msg = { content: 'Welcome Wolf Du !!!', type: 'success' }
           showMsg(store, msg)
@@ -30,17 +30,17 @@ const actions = {
     )
   },
   deleteToken({ commit }) {
-    commit(tokenTypes.TOKEN_DELETE)
+    commit(TOKEN_DELETE)
     router.replace({ path: '/login' })
   }
 }
 
 const mutations = {
-  [tokenTypes.TOKEN_CREATE](state, token) {
+  [TOKEN_CREATE](state, token) {
     state.token = token
     sessionStorage.setItem('token', token)
   },
-  [tokenTypes.TOKEN_DELETE](state) {
+  [TOKEN_DELETE](state) {
     sessionStorage.removeItem('token')
     state.token = null
   }
