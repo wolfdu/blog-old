@@ -7,7 +7,6 @@
 'use strict'
 import marked from 'marked'
 import hljs from 'highlight.js/lib/highlight'
-import trim from 'lodash/trim'
 
 const languages = [
   'cpp',
@@ -68,12 +67,6 @@ marked.setOptions({
     return hljs.highlight(lang, code).value
   }
 })
-
-export function md2Text(md) {
-  let div = document.createElement('div')
-  div.innerHTML = marked(md)
-  return trim(div.innerText)
-}
 
 export function getSimpleMDConfig(elId) {
   return {
