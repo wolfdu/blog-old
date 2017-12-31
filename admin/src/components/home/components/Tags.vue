@@ -39,7 +39,7 @@ export default{
     min-width 300px
     width 300px
     display grid
-    grid-template-rows 150px
+    grid-template-rows 1fr 4fr
     box-sizing: border-box
 
 </style>
