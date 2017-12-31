@@ -33,7 +33,7 @@ blog前端展示也就，功能相对admin就比较简单。
 ## server
 
 server 为admin和blog提供接口，采用[restful](http://www.ruanyifeng.com/blog/2014/05/restful_api.html)风格。
-admin的建权使用了[jwt](https://github.com/auth0/node-jsonwebtoken)实现了token建权。
+admin使用了[jwt](https://github.com/auth0/node-jsonwebtoken)实现了token鉴权。
 
 ## 开发
 
