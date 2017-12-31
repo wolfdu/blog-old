@@ -62,6 +62,7 @@
       ]),
       searchTag (tag, index) {
         this.tagActive = tag
+        this.editing = false
         this.index = index
         this.getAllPost({tag: tag.id})
       },
