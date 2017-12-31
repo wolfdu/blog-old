@@ -78,11 +78,13 @@ const actions = {
       res => {
         if (res.success) {
           commit(GET_POSTS, res.data)
-          postsApi.getPost(res.data[0].id).then(res => {
-            if (res.success) {
-              commit(GET_POST, { index: 0, post: res.data })
-            }
-          })
+          if (res.data.length) {
+            postsApi.getPost(res.data[0].id).then(res => {
+              if (res.success) {
+                commit(GET_POST, { index: 0, post: res.data })
+              }
+            })
+          }
         }
       },
       res => {
@@ -235,6 +237,7 @@ const mutations = {
     if (post) {
       state.postList.unshift(post)
     }
+    state.currentPostIndex = 0
   },
   [GET_POST](state, { index, post }) {
     state.post = post
