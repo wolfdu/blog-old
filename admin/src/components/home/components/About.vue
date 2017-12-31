@@ -11,7 +11,7 @@
 </template>
 <script>
   import SimpleMDE from 'simplemde'
-  import {marked} from '../../../filters/md2Text'
+  import {getSimpleMDConfig} from '../../../utils/mdUtil'
   import aboutService from '../../../service/about.resource'
   import {mapActions} from 'vuex'
 
@@ -26,13 +26,8 @@
     mounted () {
       this.$nextTick(function () {
         smde = new SimpleMDE({
-          initialValue: this.content,
-          autoDownloadFontAwesome: false,
-          element: document.getElementById('about-editor'),
-          previewRender (plainText) {
-            return marked(plainText) // Returns HTML from a custom parser
-          },
-          spellChecker: false
+          ...getSimpleMDConfig('about-editor'),
+          initialValue: this.content
         })
         smde.codemirror.on('change', () => {
           let value = smde.value()

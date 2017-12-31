@@ -189,7 +189,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 .CodeMirror-vscrollbar {
 	right:0;
 	top:0;
-	overflow-x:hidden;
+	overflow-x:hidden!important;
 	overflow-y:scroll
 }
 .CodeMirror-hscrollbar {
@@ -516,6 +516,9 @@ span.CodeMirror-selectedtext {
 	overflow:auto;
 	display:none;
 	box-sizing:border-box
+}
+.editor-preview pre, .editor-preview-side pre{
+  background-color: $codebg;
 }
 .editor-statusbar .lines:before {
 	content:'lines:'

@@ -28,7 +28,7 @@
 
 <script>
   import SimpleMDE from 'simplemde'
-  import {marked} from '../../../../filters/md2Text'
+  import {getSimpleMDConfig} from '../../../../utils/mdUtil'
   import { mapGetters, mapActions } from 'vuex'
   import debounce from 'lodash/debounce'
   import trim from 'lodash/trim'
@@ -67,14 +67,7 @@
     },
     mounted () {
       this.$nextTick(function () {
-        smde = new SimpleMDE({
-          autoDownloadFontAwesome: false,
-          element: document.getElementById('editor'),
-          previewRender: function (plainText) {
-            return marked(plainText) // Returns HTML from a custom parser
-          },
-          spellChecker: false
-        })
+        smde = new SimpleMDE(getSimpleMDConfig('editor'))
         smde.codemirror.on('change', () => {
           if (!this.postLoaded) {
             this.postLoaded = true
@@ -233,6 +226,7 @@
     color $green
     font-size 14px
     outline 0
+
   .editor-toolbar
     border-left 0
   .editor-active
@@ -244,8 +238,7 @@
     overflow-x hidden
   .CodeMirror-sided
     box-sizing border-box
-  .editor-preview,
-  .editor-preview-side
+  .editor-preview, .editor-preview-side
     background white
     padding: 0.2em 1.4em 0;
     font-family $body-font
@@ -355,7 +348,6 @@
       color #cb7832
     pre
       position relative
-      background-color $codebg
       padding .8em .8em .4em
       line-height 1.1em
       border-radius $radius
@@ -390,4 +382,5 @@
           content 'CSS'
         &.lang-java:after
           content 'Java'
+
 </style>

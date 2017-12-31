@@ -1,8 +1,10 @@
 /**
- * Created by wolfdu on 17-10-14.
+ * Created by wolfdu on 17-12-31 上午9:55.
+ * @author wolfdu
+ * @version 2.0
  */
-'use strict'
 
+'use strict'
 import marked from 'marked'
 import hljs from 'highlight.js/lib/highlight'
 import trim from 'lodash/trim'
@@ -67,10 +69,28 @@ marked.setOptions({
   }
 })
 
-function md2Text(md) {
+export function md2Text(md) {
   let div = document.createElement('div')
   div.innerHTML = marked(md)
   return trim(div.innerText)
 }
 
-export { md2Text, marked }
+export function getSimpleMDConfig(elId) {
+  return {
+    autoDownloadFontAwesome: false,
+    element: document.getElementById(elId),
+    previewRender: function(plainText) {
+      return marked(plainText) // Returns HTML from a custom parser
+    },
+    spellChecker: false,
+    insertTexts: {
+      image: ['![](', ')'],
+      link: ['[', ']()'],
+      table: [
+        '',
+        '\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text      | Text     |\n\n'
+      ]
+    },
+    showIcons: ['table']
+  }
+}

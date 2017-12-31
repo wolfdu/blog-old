@@ -23,6 +23,7 @@ export default{
 </script>
 
 <style lang="stylus">
+  @import '../../../stylus/_settings.styl'
   .tags-edit
     box-sizing border-box
     height 100%
@@ -40,4 +41,5 @@ export default{
     display grid
     grid-template-rows 150px
     box-sizing: border-box
+
 </style>

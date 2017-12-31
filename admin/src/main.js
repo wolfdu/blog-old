@@ -1,19 +1,15 @@
 // The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import router from './router'
 import App from './App.vue'
 import store from './vuex/store'
 import Icon from 'vue-svg-icon/Icon.vue'
-import { md2Text } from './filters/md2Text'
 import './stylus/index.styl'
 import 'font-awesome/css/font-awesome.min.css'
 import 'vue-toast/dist/vue-toast.min.css'
 import 'highlight.js/styles/darcula.css'
 
 Vue.config.productionTip = false
-
-Vue.filter('md2Text', md2Text)
 
 Vue.component('icon', Icon)
 

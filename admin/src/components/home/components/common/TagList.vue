@@ -1,7 +1,7 @@
 <template>
     <div class="tags">
         <h3 class="page-title" style="margin-bottom:0" v-if="null === tagActive">
-          <i class="fa fa-tags fa-2" aria-hidden="true"></i>根据标签搜索文章
+          <i class="fa fa-tags fa-2 title-color" aria-hidden="true"></i>根据标签搜索文章
         </h3>
         <ul class="clearfix reset-list tag-list" v-if="null !== tagActive">
           <li class="tag active">
