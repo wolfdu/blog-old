@@ -3,12 +3,13 @@
     <div class="container">
       <div class="date">
         <div class="detail">
-          <span class="date-detail">{{dateDetail.date}}</span>
+          <span class="date-detail day">{{dateDetail.date}}</span>
           <span class="date-detail">{{dateDetail.month}}</span>
           <span class="date-detail">{{dateDetail.year}}</span>
         </div>
         <div class="author">
-          <span class="author-brand"><i class="fa fa-meh-o fa-1" aria-hidden="true"></i>WolfDu</span>
+          <a class="author-brand" href="https://github.com/wolfdu" target="_blank">
+            <img src="https://avatars1.githubusercontent.com/u/22972582?s=30&v=4" >WolfDU</a>
         </div>
       </div>
       <div class="card-content">
@@ -153,8 +154,8 @@
         flex 0 0 70px
         .author
           border-right 1px solid #ebebeb
-          margin-top 1rem
-          padding-top 2rem
+          margin-top 10px
+          text-align center
           i
             margin-right 5px
           .author-brand
@@ -166,4 +167,6 @@
           border-right 1px solid #ebebeb
           .date-detail
             display block
+          .day
+            font-size 20px
 </style>
