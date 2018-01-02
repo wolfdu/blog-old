@@ -4,7 +4,7 @@
       <header id="header">
         <h1>{{article.title}}</h1>
         <h4>
-          {{article.createTime}}
+          Posted by: <a class="author-brand" href="https://github.com/wolfdu" target="_blank">WolfDu</a> {{article.lastEditTime}}
         </h4>
       </header>
       <p v-html="content"></p>
@@ -122,7 +122,10 @@
       border  1px solid $border
       background-color hsla(0,0%,100%,.6)
       padding .5rem 2rem 2rem 2rem
-
+      .author-brand
+        color $dark
+        font-family $logo-font
+        font-weight 500
   table td,th
     border 1px solid #ddd
     padding 5px
