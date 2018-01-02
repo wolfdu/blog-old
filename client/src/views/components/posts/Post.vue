@@ -11,8 +11,8 @@
       <div class="fix tag-list">
         <router-link
           v-for="tag in article.tags"
-          :to="{name: 'tag', query: {tagId: tag._id, tagName: tag.name}}"
-          :key="tag._id"
+          :to="{name: 'tag', query: {tagId: tag.id, tagName: tag.name}}"
+          :key="tag.id"
           class="tag">{{tag.name}}</router-link>
       </div>
       <div class="fix like">

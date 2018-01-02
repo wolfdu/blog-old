@@ -16,8 +16,9 @@
         <p>{{article.excerpt}}</p>
         <div class="info">
           <div class="left">
-                <span class="tags" v-for="tag in article.tags">
-                  <router-link :to="{name: 'tag', params: {tagId: tag._id, tagName: tag.name}}" class="tag">{{tag.name}}</router-link></span>
+                <span class="tags" v-for="tag in article.tags" :key="tag.id">
+                  <router-link :to="{name: 'tag', query: {tagId: tag.id, tagName: tag.name}}" class="tag">{{tag.name}}</router-link>
+                </span>
           </div>
           <div class="right">
                 <span class="article-tag">

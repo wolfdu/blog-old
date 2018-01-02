@@ -29,7 +29,7 @@
 <style lang="stylus">
   @import "./stylus/_settings.styl"
   .slide-fade-enter-active {
-    transition: all 2s ease
+    transition: all .8s ease
   }
   .slide-fade-leave-active {
     transition: all .6s cubic-bezier(1.0, 0.5, 0.8, 1.0)
