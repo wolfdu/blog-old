@@ -35,6 +35,14 @@
   }
 </script>
 <style lang="stylus">
+  .post
+    padding 1em 0 2em
+    border-bottom  1px solid $border
+    .article
+      border  1px solid $border
+      background-color hsla(0,0%,100%,.6)
+      padding .5rem 2rem 2rem 2rem
+
   pre
     position relative
     background-color $codebg
