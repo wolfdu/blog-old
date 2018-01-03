@@ -26,7 +26,7 @@
     },
     mounted: function () {
       this.$nextTick(function () {
-        this.getAllPost()
+        this.getAllPost({postType: 'draft'})
       })
     },
     methods: {

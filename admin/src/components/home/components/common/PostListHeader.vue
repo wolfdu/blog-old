@@ -23,11 +23,11 @@
     data () {
       return {
         postType: {
-          selected: 'all',
+          selected: 'draft',
           items: [
-            { text: 'all', value: 'all' },
+            { text: 'draft', value: 'draft' },
             { text: 'published', value: 'published' },
-            { text: 'draft', value: 'draft' }
+            { text: 'all', value: 'all' }
           ]
         }
       }
