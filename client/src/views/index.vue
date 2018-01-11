@@ -55,7 +55,7 @@
         margin 2em 0 0.8em;
         padding-bottom 0.7em
         border-bottom 1px solid #ddd
-    figure, p, ul, ol
+    figure, p, ul
       margin 1.2em 0
     p
       word-spacing 0.05em

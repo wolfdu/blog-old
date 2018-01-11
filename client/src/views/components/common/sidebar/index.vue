@@ -20,7 +20,7 @@
 </script>
 
 <style lang="stylus">
-  @import "../../../../stylus/_settings.styl"
+  @import "~src/stylus/_settings.styl"
   .sidebar
     padding 1em 0 2em
     border-bottom 1px solid $border

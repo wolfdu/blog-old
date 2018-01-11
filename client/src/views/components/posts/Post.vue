@@ -3,9 +3,9 @@
     <article class="article">
       <header id="header">
         <h1>{{article.title}}</h1>
-        <h4>
+        <p>
           Posted by: <a class="author-brand" href="https://github.com/wolfdu" target="_blank">WolfDu</a> {{article.lastEditTime}}
-        </h4>
+        </p>
       </header>
       <p v-html="content"></p>
       <div class="fix tag-list">
@@ -23,15 +23,19 @@
       </div>
       <div id="gitment"></div>
     </article>
+    <div v-show="top" class="post-toc toc-right absolute position-fixed"></div>
   </div>
 </template>
 
 <script>
   import articleService from 'service/article.resource'
-  import {markdown} from '../../../filters/markdown'
+  import {markdown} from 'src/filters/markdown'
   import 'gitment/style/default.css'
   import Gitment from 'gitment'
-  import {getGitmentInfo} from '../../../utils/gitmentInfo'
+  import {getGitmentInfo} from 'src/utils/gitmentInfo'
+  import {getTocOption} from 'src/utils/tocUtil'
+  import tocbot from 'tocbot'
+  import 'tocbot/dist/tocbot.css'
 
   let gitment = null
   export default {
@@ -41,13 +45,24 @@
       return {
         article: {},
         liked: false,
-        likedHistory: []
+        likedHistory: [],
+        top: false
       }
     },
     computed: {
       content: function () {
         return markdown(this.article.content)
       }
+    },
+    created () {
+      window.addEventListener('scroll', () => {
+        if (!this.top && document.querySelector('.post-toc')) {
+          this.top = this.tocVisible()
+          if (this.top) {
+            this.initToc()
+          }
+        }
+      })
     },
     beforeRouteEnter (to, from, next) {
       articleService.getPost(to.query.postId).then(res => {
@@ -61,15 +76,25 @@
         alert('网络错误,请刷新重试')
       })
     },
+    beforeRouteLeave (to, from, next) {
+      this.initTop()
+      next()
+    },
     beforeRouteUpdate (to, from, next) {
       articleService.getPost(to.query.postId).then(res => {
         if (res.success) {
+          this.initTop()
           this.article = res.data
           next()
         }
       }).catch(err => {
         console.log(err)
         alert('网络错误,请刷新重试')
+      })
+    },
+    mounted: function () {
+      this.$nextTick(function () {
+        this.initToc()
       })
     },
     activated () {
@@ -108,13 +133,22 @@
             console.log(err)
           })
         }
+      },
+      tocVisible () {
+        return window.scrollY > 380
+      },
+      initTop () {
+        this.top = false
+      },
+      initToc () {
+        tocbot.init(getTocOption())
       }
     }
   }
 </script>
 
 <style lang="stylus">
-  @import "../../../stylus/_settings.styl"
+  @import "~src/stylus/_settings.styl"
   .post
     padding 1em 0 2em
     border-bottom  1px solid $border
@@ -129,6 +163,48 @@
   table td,th
     border 1px solid #ddd
     padding 5px
+
+  .post-toc
+    height: 100%;
+    width: 280px;
+    @media screen and (max-width: 1500px)
+      transform: translateX(0);
+      display none
+    a
+      color #2b2b2b
+      text-decoration none
+    .is-active-link
+      font-weight 700
+      color #42b983
+
+  .post-toc>.toc-list
+    position relative
+    overflow hidden
+  .toc-right
+    transform: translateX(100%);
+    left: -180px;
+    @media screen and (max-width: 1700px)
+      transform: translateX(0);
+      left: 60px;
+    @media screen and (max-width: 1600px)
+      transform: translateX(0);
+      left: 18px;
+  .position-fixed
+    position: fixed !important;
+    top: 100px;
+  .absolute
+    position: absolute;
+  .toc-list li
+    list-style none
+
+  h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
+    display: block;
+    content: " ";
+    height: 60px;
+    margin-top: -60px;
+    visibility: hidden;
+  }
+
 
   .gitment-comment-header
     background-color #f7f7f8
