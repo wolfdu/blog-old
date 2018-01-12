@@ -51,22 +51,6 @@
         return markdown(this.article.content)
       }
     },
-    created () {
-      window.addEventListener('scroll', () => {
-        if (this.tocVisible) {
-          let toc = document.querySelector('.fixed-toc')
-          let topHeight = toc.offsetTop - document.documentElement.scrollTop
-          if (this.tocFixed && topHeight >= 80) {
-            this.fixedToc()
-          } else if (!this.tocFixed && topHeight < 80) {
-            this.fixedToc()
-          }
-          if (!this.isInited) {
-            this.initToc()
-          }
-        }
-      })
-    },
     beforeRouteEnter (to, from, next) {
       articleService.getPost(to.query.postId).then(res => {
         if (res.success) {
@@ -81,6 +65,7 @@
     },
     beforeRouteLeave (to, from, next) {
       this.resetToc()
+      window.removeEventListener('scroll', this.tocScroll)
       next()
     },
     beforeRouteUpdate (to, from, next) {
@@ -100,13 +85,14 @@
       gitment = new Gitment(getGitmentInfo())
       gitment.render(document.getElementById('gitment'))
       this.$nextTick(function () {
-        this.showToc()
+        window.addEventListener('scroll', this.tocScroll)
         document.title = `${this.article.title} | WolfDu后山`
         this.initLikedHistory()
-        articleService.visit(this.article.id, this.article.visits).catch(err => {
-          console.log('visits error')
-          console.log(err)
-        })
+        articleService.visit(this.article.id, this.article.visits)
+          .catch(err => {
+            console.log('visits error')
+            console.log(err)
+          })
       })
     },
     methods: {
@@ -133,6 +119,21 @@
             console.log('like error')
             console.log(err)
           })
+        }
+      },
+      tocScroll () {
+        let toc = document.querySelector('.fixed-toc')
+        let topHeight = toc.offsetTop - document.documentElement.scrollTop
+        if (!this.tocVisible) {
+          this.showToc()
+        }
+        if (this.tocFixed && topHeight > 80) {
+          this.fixedToc()
+        } else if (!this.tocFixed && topHeight < 80) {
+          this.fixedToc()
+        }
+        if (!this.isInited) {
+          this.initToc()
         }
       }
     }

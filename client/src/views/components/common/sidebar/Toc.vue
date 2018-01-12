@@ -1,7 +1,5 @@
 <template>
-  <div class="fixed-toc">
-    <div :class="['post-toc', 'absolute', {'position-fixed': tocFixed}]"></div>
-  </div>
+  <div :class="['post-toc', 'absolute', {'position-fixed': tocFixed}]"></div>
 </template>
 
 <script>

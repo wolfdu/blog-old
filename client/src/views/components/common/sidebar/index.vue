@@ -3,6 +3,7 @@
     <div class="sidebar-contain">
       <hot-posts></hot-posts>
       <tags></tags>
+      <div class="fixed-toc"></div>
       <toc v-show="tocVisible"></toc>
     </div>
   </div>
