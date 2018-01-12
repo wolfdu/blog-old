@@ -1,6 +1,6 @@
 <template>
   <footer class="copyright">
-    Wolfdu.fun © 2017
+    wolfdu.fun © 2017
     <span>|</span>
     Powered By <a href="https://vuefe.cn/" target="_blank">Vue</a>
     & <a href="http://koajs.com/" target="_blank">koa</a>
