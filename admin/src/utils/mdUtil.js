@@ -51,8 +51,14 @@ hljs.configure({
   classPrefix: 'hljs-' // don't append class prefix
 })
 
+let renderer = new marked.Renderer()
+
+renderer.link = function (href, title, text) {
+  return `<a href="${href}" target="_blank">${text}</a>`
+}
+
 marked.setOptions({
-  renderer: new marked.Renderer(),
+  renderer: renderer,
   gfm: true,
   pedantic: false,
   sanitize: false,

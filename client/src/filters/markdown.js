@@ -66,6 +66,10 @@ renderer.heading = function(text, level) {
   return `<h${level} id="${id}">${text}</h${level}>`
 }
 
+renderer.link = function (href, title, text) {
+  return `<a href="${href}" target="_blank">${text}</a>`
+}
+
 marked.setOptions({
   renderer: renderer,
   gfm: true,
