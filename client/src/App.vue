@@ -17,7 +17,10 @@
   import HeaderNav from 'components/common/HeaderNav.vue'
   import FooterInfo from 'components/common/Footer.vue'
   import Background from 'components/common/Background.vue'
+  import store from './vuex/store'
+
   export default {
+    store,
     components: {
       HeaderNav,
       FooterInfo,

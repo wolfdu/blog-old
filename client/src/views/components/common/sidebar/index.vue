@@ -3,6 +3,7 @@
     <div class="sidebar-contain">
       <hot-posts></hot-posts>
       <tags></tags>
+      <toc v-show="tocVisible"></toc>
     </div>
   </div>
 </template>
@@ -10,11 +11,17 @@
 <script>
   import Tags from './Tags.vue'
   import HotPosts from './HotArticle.vue'
+  import Toc from './Toc.vue'
+  import { mapGetters } from 'vuex'
 
   export default {
     components: {
       Tags,
-      HotPosts
+      HotPosts,
+      Toc
+    },
+    computed: {
+      ...mapGetters(['tocVisible'])
     }
   }
 </script>

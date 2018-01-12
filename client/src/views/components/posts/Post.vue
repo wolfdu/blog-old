@@ -23,7 +23,6 @@
       </div>
       <div id="gitment"></div>
     </article>
-    <div v-show="top" class="post-toc toc-right absolute position-fixed"></div>
   </div>
 </template>
 
@@ -33,9 +32,7 @@
   import 'gitment/style/default.css'
   import Gitment from 'gitment'
   import {getGitmentInfo} from 'src/utils/gitmentInfo'
-  import {getTocOption} from 'src/utils/tocUtils'
-  import tocbot from 'tocbot'
-  import 'tocbot/dist/tocbot.css'
+  import { mapGetters, mapActions } from 'vuex'
 
   let gitment = null
   export default {
@@ -45,20 +42,26 @@
       return {
         article: {},
         liked: false,
-        likedHistory: [],
-        top: false
+        likedHistory: []
       }
     },
     computed: {
+      ...mapGetters(['tocVisible', 'isInited', 'tocFixed']),
       content: function () {
         return markdown(this.article.content)
       }
     },
     created () {
       window.addEventListener('scroll', () => {
-        if (!this.top && document.querySelector('.post-toc')) {
-          this.top = this.tocVisible()
-          if (this.top) {
+        if (this.tocVisible) {
+          let toc = document.querySelector('.fixed-toc')
+          let topHeight = toc.offsetTop - document.documentElement.scrollTop
+          if (this.tocFixed && topHeight >= 80) {
+            this.fixedToc()
+          } else if (!this.tocFixed && topHeight < 80) {
+            this.fixedToc()
+          }
+          if (!this.isInited) {
             this.initToc()
           }
         }
@@ -77,30 +80,27 @@
       })
     },
     beforeRouteLeave (to, from, next) {
-      this.initTop()
+      this.resetToc()
       next()
     },
     beforeRouteUpdate (to, from, next) {
       articleService.getPost(to.query.postId).then(res => {
         if (res.success) {
-          this.initTop()
           this.article = res.data
-          next()
         }
+      }).then(() => {
+        this.refreshToc()
+        next()
       }).catch(err => {
         console.log(err)
         alert('网络错误,请刷新重试')
-      })
-    },
-    mounted: function () {
-      this.$nextTick(function () {
-        this.initToc()
       })
     },
     activated () {
       gitment = new Gitment(getGitmentInfo())
       gitment.render(document.getElementById('gitment'))
       this.$nextTick(function () {
+        this.showToc()
         document.title = `${this.article.title} | WolfDu后山`
         this.initLikedHistory()
         articleService.visit(this.article.id, this.article.visits).catch(err => {
@@ -110,6 +110,7 @@
       })
     },
     methods: {
+      ...mapActions(['showToc', 'initToc', 'fixedToc', 'resetToc', 'refreshToc']),
       initLikedHistory () {
         if (localStorage && !localStorage.getItem('likedHistory')) {
           localStorage.setItem('likedHistory', JSON.stringify([]))
@@ -133,15 +134,6 @@
             console.log(err)
           })
         }
-      },
-      tocVisible () {
-        return window.scrollY > 380
-      },
-      initTop () {
-        this.top = false
-      },
-      initToc () {
-        tocbot.init(getTocOption())
       }
     }
   }
@@ -163,39 +155,6 @@
   table td,th
     border 1px solid #ddd
     padding 5px
-
-  .post-toc
-    height: 100%;
-    width: 280px;
-    @media screen and (max-width: 1500px)
-      transform: translateX(0);
-      display none
-    a
-      color #2b2b2b
-      text-decoration none
-    .is-active-link
-      font-weight 700
-      color #42b983
-
-  .post-toc>.toc-list
-    position relative
-    overflow hidden
-  .toc-right
-    transform: translateX(100%);
-    left: -180px;
-    @media screen and (max-width: 1700px)
-      transform: translateX(0);
-      left: 60px;
-    @media screen and (max-width: 1600px)
-      transform: translateX(0);
-      left: 18px;
-  .position-fixed
-    position: fixed !important;
-    top: 100px;
-  .absolute
-    position: absolute;
-  .toc-list li
-    list-style none
 
   h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
     display: block;
