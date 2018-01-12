@@ -1,6 +1,9 @@
 /**
- * Created by wolfdu on 17-10-23.
+ * Created by wolfdu on 18-1-12 上午10:38.
+ * @author wolfdu
+ * @version 2.0
  */
+
 'use strict'
 
 import marked from 'marked'
@@ -87,8 +90,6 @@ marked.setOptions({
   }
 })
 
-function markdown(str) {
+export function markdown(str) {
   return str ? marked(str) : ''
 }
-
-export { markdown }

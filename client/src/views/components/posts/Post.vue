@@ -29,11 +29,11 @@
 
 <script>
   import articleService from 'service/article.resource'
-  import {markdown} from 'src/filters/markdown'
+  import {markdown} from 'src/utils/mdUtils'
   import 'gitment/style/default.css'
   import Gitment from 'gitment'
   import {getGitmentInfo} from 'src/utils/gitmentInfo'
-  import {getTocOption} from 'src/utils/tocUtil'
+  import {getTocOption} from 'src/utils/tocUtils'
   import tocbot from 'tocbot'
   import 'tocbot/dist/tocbot.css'
 

@@ -5,11 +5,8 @@ import Vue from 'vue'
 import router from './router'
 import App from './App.vue'
 import Icon from 'vue-svg-icon/Icon.vue'
-import { markdown } from './filters/markdown'
 import 'font-awesome/css/font-awesome.min.css'
 import 'highlight.js/styles/darcula.css'
-
-Vue.filter('markdown', markdown)
 
 Vue.component('icon', Icon)
 

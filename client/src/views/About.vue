@@ -7,7 +7,7 @@
 </template>
 <script>
   import aboutService from 'service/about.resource'
-  import {markdown} from '../filters/markdown'
+  import {markdown} from 'src/utils/mdUtils'
 
   export default{
     data () {
