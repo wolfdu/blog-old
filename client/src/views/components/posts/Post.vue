@@ -4,7 +4,8 @@
       <header id="header">
         <h1>{{article.title}}</h1>
         <p>
-          Posted by: <a class="author-brand" href="https://github.com/wolfdu" target="_blank">WolfDu</a> {{article.lastEditTime}}
+          Posted by: <a class="author-brand" href="https://github.com/wolfdu" target="_blank">WolfDu</a> {{article.createTime}}<br/>
+          Last Updated: {{article.lastEditTime}}
         </p>
       </header>
       <p v-html="content"></p>
