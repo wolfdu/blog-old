@@ -6,14 +6,14 @@
     <div>
       <div class="half-container">
         <i class="fa fa-tags fa-2" aria-hidden="true" style="margin-right:5px"></i>
-        <span class="tag" v-for="tag in postTags">{{tag['name']}}
+        <span class="tag" v-for="tag in postTags" :key="tag.id">{{tag['name']}}
           <i class="fa fa-times fa-1 iconfont delete-tag" @click="deletePostTag(tag.id)"></i>
         </span>
         <div class="tag active">
           <span v-show="!tagInput" @click="addTag" ><i class="fa fa-plus fa-1" aria-hidden="true"></i></span>
           <input type="text" class="tag-input" v-show="tagInput" v-model="tagNew" placeholder="回车键提交" @keyup.13="submitTag">
           <ul class="search-list reset-list" v-if="tagInput" v-show="tagsToAdd.length">
-            <li class="search-item" v-for="tag in tagsToAdd" v-bind="tag" @click="submitTag">{{tag['name']}}</li>
+            <li class="search-item" v-for="tag in tagsToAdd" v-bind="tag" :key="tag.id" @click="submitTag">{{tag['name']}}</li>
           </ul>
         </div>
       </div>
@@ -299,7 +299,6 @@
         font-size 1.2em
         font-weight bold
     h4
-      color $light
       margin 1.2em 0
     figure, p, ul, ol
       margin 1.2em 0

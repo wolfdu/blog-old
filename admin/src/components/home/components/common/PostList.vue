@@ -1,7 +1,7 @@
 <template>
   <div class="post-list">
     <ul class="reset-list">
-      <li class="post-list-item" v-for="(post, index) in postList" @click="focusOnPost(post.id, index)">
+      <li class="post-list-item" v-for="(post, index) in postList" :key="post.id" @click="focusOnPost(post.id, index)">
           <article class="post-thumb"
                    :class="[post['draftPublished'] ? 'published': post['article'] ? 'updated' : '',
                    {'active':post['id'] === postId}]">

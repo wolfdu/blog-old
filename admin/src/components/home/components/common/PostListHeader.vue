@@ -7,7 +7,7 @@
       </h3>
       <div class="show-by-status">
         <select v-model="postType.selected" @change="changePostType(postType.selected)">
-          <option v-for="option in postType.items" v-bind:value="option.value">
+          <option v-for="(option, index) in postType.items" :key="index" v-bind:value="option.value">
             {{ option.text }}
           </option>
         </select>

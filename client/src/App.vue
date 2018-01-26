@@ -90,6 +90,5 @@
         font-size 1.2em
         font-weight bold
     h4
-      color $light
       margin 1.2em 0
 </style>
