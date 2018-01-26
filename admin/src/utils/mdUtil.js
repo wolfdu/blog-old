@@ -57,6 +57,20 @@ renderer.link = function (href, title, text) {
   return `<a href="${href}" target="_blank">${text}</a>`
 }
 
+renderer.image = function(href, title, text) {
+  function getImgWithUrlHtml(textArr) {
+    return `<img src=${href} alt=${textArr[2]}><br>
+            ${textArr[1]}<a href="${textArr[3]}" target="_blank">${textArr[2]}</a>`
+  }
+  let reg = /([^]*)\[([^]*)\]\(([^]*)\)/
+  let isContainUrl = reg.test(text)
+  let imgHtml = `<img src=${href} alt=${text}><br>
+                ${text}`
+  return `<p style="text-align: center;">
+            ${isContainUrl ? getImgWithUrlHtml(text.match(reg)) : imgHtml}
+          </p>`
+}
+
 marked.setOptions({
   renderer: renderer,
   gfm: true,
